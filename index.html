@@ -5,25 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Pinnacle Minds — Built for the Top 1%</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..500;9..600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --gold: #c9a84c;
       --gold-light: #e8c97a;
       --gold-dim: #8a6f2e;
+      --gold-glow: rgba(201,168,76,0.15);
       --cream: #f5ede0;
-      --ink: #0a0906;
-      --ink-mid: #1a1710;
-      --ink-soft: #2a2520;
+      --ink: #07060a;
+      --ink-mid: #0f0e13;
+      --ink-soft: #171520;
+      --ink-card: #121019;
       --text-muted: #7a6e60;
-      --text-body: #c8bfb0;
-      --border: rgba(201,168,76,0.18);
-      --border-soft: rgba(201,168,76,0.08);
+      --text-body: #b8b0a0;
+      --border: rgba(201,168,76,0.15);
+      --border-soft: rgba(201,168,76,0.07);
+      --border-hover: rgba(201,168,76,0.35);
+      --radius: 0px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -34,676 +37,593 @@
       cursor: none;
     }
 
-    /* ─── CUSTOM CURSOR ─────────────────────────────────────────────── */
-    #cursor {
-      position: fixed; top: 0; left: 0; z-index: 9999;
-      pointer-events: none;
-      mix-blend-mode: difference;
-    }
+    /* ── CURSOR ────────────────────────────────── */
+    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
     #cursor-dot {
-      position: absolute; width: 8px; height: 8px;
-      background: var(--gold-light);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: transform 0.08s ease;
+      position: absolute; width: 6px; height: 6px;
+      background: var(--gold-light); border-radius: 50%;
+      transform: translate(-50%,-50%);
     }
     #cursor-ring {
-      position: absolute; width: 36px; height: 36px;
-      border: 1.5px solid var(--gold);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.25s ease, height 0.25s ease, transform 0.12s ease, opacity 0.2s ease;
-      opacity: 0.6;
+      position: absolute; width: 32px; height: 32px;
+      border: 1px solid var(--gold); border-radius: 50%;
+      transform: translate(-50%,-50%);
+      transition: width .3s ease, height .3s ease, opacity .2s ease, border-color .2s ease;
+      opacity: .55; mix-blend-mode: normal;
     }
-    body.hovering #cursor-ring {
-      width: 60px; height: 60px; opacity: 1;
-    }
+    body.hovering #cursor-ring { width: 54px; height: 54px; opacity: 1; border-color: var(--gold-light); }
 
-    /* ─── GRAIN OVERLAY ─────────────────────────────────────────────── */
+    /* ── GRAIN ─────────────────────────────────── */
     body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 1;
-      pointer-events: none;
-      opacity: 0.032;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 128px;
     }
 
-    /* ─── NAVBAR ─────────────────────────────────────────────────────── */
+    /* ── AMBIENT GLOW ──────────────────────────── */
+    .ambient {
+      position: fixed; pointer-events: none; z-index: 0; border-radius: 50%; filter: blur(120px); opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .ambient-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,168,76,0.06), transparent 70%); top: -200px; right: -100px; opacity: 1; }
+    .ambient-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,168,76,0.04), transparent 70%); bottom: 10%; left: -150px; opacity: 1; }
+
+    /* ── NAVBAR ────────────────────────────────── */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 28px 60px;
+      padding: 26px 64px;
       display: flex; align-items: center; justify-content: space-between;
-      transition: padding 0.4s ease, background 0.4s ease;
+      transition: padding .4s ease, background .4s ease, border-color .4s ease;
+      border-bottom: 1px solid transparent;
     }
     #navbar.scrolled {
-      padding: 16px 60px;
-      background: rgba(10,9,6,0.92);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-soft);
+      padding: 14px 64px;
+      background: rgba(7,6,10,0.94);
+      backdrop-filter: blur(24px) saturate(1.4);
+      border-bottom-color: var(--border-soft);
     }
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--cream);
-      text-decoration: none;
+      font-size: 1.1rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--cream); text-decoration: none; display: flex; align-items: center; gap: 10px;
     }
+    .nav-logo-mark {
+      width: 28px; height: 28px; position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-mark svg { width: 28px; height: 28px; }
     .nav-logo span { color: var(--gold); }
-    .nav-links {
-      display: flex; gap: 40px; list-style: none;
-    }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a {
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: color 0.25s ease;
-      cursor: none;
+      font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-muted); text-decoration: none; transition: color .25s ease; cursor: none;
     }
     .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
     .nav-cta {
-      font-size: 0.75rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--ink);
-      background: var(--gold);
-      padding: 10px 24px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background 0.25s ease, transform 0.2s ease;
-      cursor: none;
+      font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); background: var(--gold); padding: 10px 26px;
+      text-decoration: none; font-weight: 600;
+      transition: background .25s ease, transform .2s ease; cursor: none;
+      position: relative; overflow: hidden;
+    }
+    .nav-cta::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
     }
     .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .nav-mobile-toggle {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: none; padding: 4px;
+    }
+    .nav-mobile-toggle span { display: block; width: 22px; height: 1px; background: var(--text-muted); transition: all .3s; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 90;
+      background: var(--ink); flex-direction: column; justify-content: center; align-items: center; gap: 32px;
+    }
+    .mobile-menu.open { display: flex; animation: fadeIn .3s ease; }
+    .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--cream); text-decoration: none; font-weight: 300; cursor: none; letter-spacing: -0.01em; }
+    .mobile-close { position: absolute; top: 28px; right: 28px; background: none; border: none; font-size: 1.4rem; color: var(--text-muted); cursor: none; }
 
-    /* ─── PAGES ──────────────────────────────────────────────────────── */
-    .page { display: none; min-height: 100vh; }
-    .page.active { display: block; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    /* ── PAGES ─────────────────────────────────── */
+    .page { display: none; min-height: 100vh; position: relative; z-index: 2; }
+    .page.active { display: block; animation: fadeIn .5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes revealUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 
-    /* ─── HOME ───────────────────────────────────────────────────────── */
-    #home { position: relative; overflow: hidden; }
+    /* ── REVEAL ────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .12s; }
+    .reveal-delay-2 { transition-delay: .24s; }
+    .reveal-delay-3 { transition-delay: .36s; }
+    .reveal-delay-4 { transition-delay: .48s; }
 
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
-      text-align: center;
-      padding: 140px 40px 80px;
-      position: relative;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--gold-dim);
-      margin-bottom: 36px;
-      opacity: 0; animation: revealUp 0.8s 0.2s ease forwards;
-    }
-    .hero-eyebrow::before, .hero-eyebrow::after {
-      content: ''; display: block; width: 40px; height: 1px; background: var(--gold-dim);
-    }
-
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.8rem, 9vw, 9rem);
-      font-weight: 300;
-      line-height: 0.95;
-      letter-spacing: -0.01em;
-      color: var(--cream);
-      opacity: 0; animation: revealUp 0.9s 0.35s ease forwards;
-    }
-    .hero-title em {
-      font-style: italic;
-      color: var(--gold);
-      display: block;
-    }
-    .hero-title strong {
-      font-weight: 700;
-      display: block;
-    }
-
-    .hero-sub {
-      font-size: 0.95rem; font-weight: 300;
-      color: var(--text-muted); line-height: 1.8;
-      max-width: 480px; margin: 32px auto 0;
-      opacity: 0; animation: revealUp 0.9s 0.5s ease forwards;
-    }
-
-    .hero-actions {
-      margin-top: 52px; display: flex; gap: 16px; justify-content: center;
-      opacity: 0; animation: revealUp 0.9s 0.65s ease forwards;
-    }
-    .btn-primary {
-      background: var(--gold);
-      color: var(--ink);
-      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-      font-weight: 600; padding: 16px 40px;
-      text-decoration: none; display: inline-block;
-      transition: background 0.25s, transform 0.2s;
-      cursor: none;
-    }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-    .btn-ghost {
-      color: var(--text-muted);
-      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-      font-weight: 500; padding: 16px 40px;
-      text-decoration: none; display: inline-block;
-      border: 1px solid var(--border);
-      transition: color 0.25s, border-color 0.25s, transform 0.2s;
-      cursor: none;
-    }
-    .btn-ghost:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
-
-    @keyframes revealUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Decorative lines */
-    .hero-decor {
-      position: absolute; top: 50%; right: 60px;
-      transform: translateY(-50%);
-      display: flex; flex-direction: column; gap: 8px; align-items: flex-end;
-      opacity: 0.3;
-    }
-    .hero-decor span {
-      display: block; height: 1px; background: var(--gold);
-    }
-
-    /* Scroll indicator */
-
-
-
-
-
-    /* Stats band */
-    .stats-band {
-      border-top: 1px solid var(--border-soft);
-      border-bottom: 1px solid var(--border-soft);
-      padding: 60px 40px;
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      max-width: 1100px; margin: 0 auto;
-      gap: 0;
-    }
-    .stat-item {
-      text-align: center; padding: 0 20px;
-      position: relative;
-    }
-    .stat-item + .stat-item::before {
-      content: ''; position: absolute; left: 0; top: 50%;
-      transform: translateY(-50%); width: 1px; height: 50px;
-      background: var(--border);
-    }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.2rem; font-weight: 300; line-height: 1;
-      color: var(--gold);
-    }
-    .stat-label {
-      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--text-muted); margin-top: 8px;
-    }
-
-    /* Quote section */
-    .quote-section {
-      padding: 120px 40px;
-      max-width: 900px; margin: 0 auto; text-align: center;
-    }
-    .quote-mark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 6rem; line-height: 0.5;
-      color: var(--gold); opacity: 0.25;
-    }
-    .quote-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 3vw, 2.6rem);
-      font-weight: 300; font-style: italic;
-      line-height: 1.5; color: var(--cream);
-      margin-top: 24px;
-    }
-    .quote-author {
-      margin-top: 32px; font-size: 0.72rem;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim);
-    }
-
-    /* ─── SECTION COMMONS ────────────────────────────────────────────── */
-    .section { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
-    .section-full { padding: 120px 60px; }
+    /* ── SHARED SECTION STYLES ─────────────────── */
+    .section { padding: 120px 64px; max-width: 1220px; margin: 0 auto; }
     .section-eyebrow {
-      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold-dim); margin-bottom: 20px;
-      display: flex; align-items: center; gap: 16px;
+      font-size: 0.66rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold-dim); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 14px;
     }
-    .section-eyebrow::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--gold-dim); }
+    .section-eyebrow::after { content: ''; flex: none; width: 48px; height: 1px; background: var(--gold-dim); }
     .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.4rem, 5vw, 4.5rem);
-      font-weight: 300; line-height: 1.1;
+      font-size: clamp(2.6rem, 5vw, 4.8rem); font-weight: 300; line-height: 1.05;
       color: var(--cream);
     }
     .section-title em { font-style: italic; color: var(--gold); }
 
-    /* ─── PROGRAM PAGE ───────────────────────────────────────────────── */
-    .program-hero {
-      min-height: 50vh; padding: 180px 60px 80px;
-      display: flex; align-items: flex-end;
-      position: relative; overflow: hidden;
+    /* ── BUTTONS ───────────────────────────────── */
+    .btn-primary {
+      background: var(--gold); color: var(--ink);
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 600; padding: 16px 44px; text-decoration: none; display: inline-block;
+      transition: background .25s, transform .2s; cursor: none; position: relative; overflow: hidden;
     }
-    .program-hero-bg {
+    .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%); }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-ghost {
+      color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 500; padding: 16px 44px; text-decoration: none; display: inline-block;
+      border: 1px solid var(--border); transition: color .25s, border-color .25s, transform .2s; cursor: none;
+    }
+    .btn-ghost:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
+
+    /* ════════════ HOME PAGE ════════════ */
+
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 160px 48px 100px; position: relative; overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0; opacity: 0.025;
+      background-image: linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 14px;
+      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold-dim); margin-bottom: 40px;
+      opacity: 0; animation: revealUp .8s .15s ease forwards;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold-dim); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 11vw, 11rem); font-weight: 300;
+      line-height: 0.92; letter-spacing: -0.02em; color: var(--cream);
+      opacity: 0; animation: revealUp .9s .3s ease forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); display: block; }
+    .hero-title strong { font-weight: 700; display: block; }
+    .hero-sub {
+      font-size: 1rem; font-weight: 300; color: var(--text-muted); line-height: 1.85;
+      max-width: 460px; margin: 36px auto 0;
+      opacity: 0; animation: revealUp .9s .48s ease forwards;
+    }
+    .hero-actions {
+      margin-top: 56px; display: flex; gap: 14px; justify-content: center;
+      opacity: 0; animation: revealUp .9s .62s ease forwards;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      opacity: 0; animation: revealUp .9s .8s ease forwards;
+    }
+    .hero-scroll span { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dim); }
+    .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold-dim), transparent); animation: scrollPulse 2.2s ease-in-out infinite; }
+    @keyframes scrollPulse { 0%, 100% { opacity: .4; transform: scaleY(.7) translateY(0); } 50% { opacity: 1; transform: scaleY(1) translateY(4px); } }
+
+    /* Stats band */
+    .stats-band {
+      border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);
+      padding: 72px 48px; display: grid; grid-template-columns: repeat(4, 1fr);
+      max-width: 1220px; margin: 0 auto;
+    }
+    .stat-item { text-align: center; padding: 0 24px; position: relative; }
+    .stat-item + .stat-item::before {
+      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+      width: 1px; height: 44px; background: var(--border);
+    }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; font-weight: 300; line-height: 1; color: var(--gold); }
+    .stat-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-top: 10px; }
+
+    /* Quote */
+    .quote-section { padding: 130px 48px; max-width: 860px; margin: 0 auto; text-align: center; }
+    .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 7rem; line-height: .4; color: var(--gold); opacity: .2; }
+    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.7rem, 3.2vw, 2.7rem); font-weight: 300; font-style: italic; line-height: 1.55; color: var(--cream); margin-top: 28px; }
+    .quote-author { margin-top: 32px; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-dim); }
+
+    /* Home teasers */
+    .teaser-grid {
+      padding: 0 64px 140px; max-width: 1220px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; background: var(--border-soft);
+    }
+    .teaser-card {
+      background: var(--ink-card); padding: 56px 48px; position: relative; overflow: hidden;
+      cursor: none; transition: background .3s ease;
+    }
+    .teaser-card:hover { background: var(--ink-soft); }
+    .teaser-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--gold-glow) 0%, transparent 60%);
+      opacity: 0; transition: opacity .4s ease;
+    }
+    .teaser-card:hover::before { opacity: 1; }
+    .teaser-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 28px; }
+    .teaser-title { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 400; color: var(--cream); margin-bottom: 14px; line-height: 1.2; }
+    .teaser-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.8; }
+    .teaser-arrow { margin-top: 28px; font-size: 0.68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); transition: letter-spacing .3s ease; }
+    .teaser-card:hover .teaser-arrow { letter-spacing: .25em; }
+    .teaser-corner { position: absolute; bottom: 0; right: 0; width: 100px; height: 100px; border-top: 1px solid var(--border); border-left: 1px solid var(--border); opacity: .4; }
+
+    /* ════════════ FOUNDER PAGE ════════════ */
+    .founder-layout {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+    .founder-visual {
+      height: 100vh; position: relative; overflow: hidden;
+      background: var(--ink-soft);
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .founder-visual-bg {
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 80% 40%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%);
     }
-    .levels-grid {
-      display: grid; grid-template-columns: 1fr;
-      gap: 0;
+    .founder-placeholder {
+      position: relative; z-index: 1; text-align: center; padding: 60px 40px;
     }
+    .founder-img-frame {
+      width: 280px; height: 380px; border: 1px solid var(--border);
+      position: relative; margin: 0 auto 0;
+      background: linear-gradient(160deg, rgba(201,168,76,0.04) 0%, transparent 60%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; color: var(--text-muted);
+      font-size: 0.8rem; letter-spacing: 0.15em;
+    }
+    .founder-img-frame::before {
+      content: ''; position: absolute; top: -8px; left: -8px;
+      right: -8px; bottom: -8px; border: 1px solid var(--border-soft);
+    }
+    .founder-img-tag {
+      position: absolute; bottom: -1px; left: -1px; right: -1px;
+      background: var(--ink); border-top: 1px solid var(--border);
+      padding: 14px 20px; text-align: left;
+    }
+    .founder-img-tag .name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--cream); }
+    .founder-img-tag .role { font-size: 0.65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dim); margin-top: 4px; }
+    .founder-content { padding: 120px 72px 80px 64px; }
+    .founder-quote-large {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 300; font-style: italic;
+      line-height: 1.6; color: var(--cream); margin-bottom: 36px;
+    }
+    .founder-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.9; }
+    .founder-body + .founder-body { margin-top: 20px; }
+    .founder-sig {
+      margin-top: 48px; display: flex; align-items: center; gap: 20px;
+      padding-top: 32px; border-top: 1px solid var(--border-soft);
+    }
+    .founder-sig-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--cream); }
+    .founder-sig-role { font-size: 0.65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dim); margin-top: 4px; }
+    .founder-sig-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* ════════════ PROGRAM PAGE ════════════ */
+    .page-hero {
+      min-height: 52vh; padding: 180px 64px 90px;
+      display: flex; align-items: flex-end; position: relative; overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 80% at 85% 40%, rgba(201,168,76,0.055) 0%, transparent 65%);
+    }
+    .page-hero-grid {
+      position: absolute; inset: 0; opacity: 0.018;
+      background-image: linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
+    }
+
+    /* Level rows */
+    .levels-grid { display: grid; grid-template-columns: 1fr; }
     .level-row {
-      display: grid; grid-template-columns: 120px 1fr auto;
-      align-items: start; gap: 40px; padding: 48px 0;
-      border-bottom: 1px solid var(--border-soft);
-      transition: background 0.3s ease;
-      position: relative;
+      display: grid; grid-template-columns: 100px 1fr auto;
+      align-items: start; gap: 48px; padding: 56px 0;
+      border-bottom: 1px solid var(--border-soft); position: relative;
+      transition: background .3s ease;
     }
     .level-row::after {
       content: ''; position: absolute; left: 0; bottom: -1px;
-      width: 0; height: 1px; background: var(--gold);
-      transition: width 0.4s ease;
+      width: 0; height: 1px; background: var(--gold-dim); transition: width .5s ease;
     }
     .level-row:hover::after { width: 100%; }
     .level-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem; font-weight: 300; line-height: 1;
-      color: var(--border); letter-spacing: -0.03em;
-      transition: color 0.3s;
+      font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1;
+      color: rgba(201,168,76,.1); letter-spacing: -0.04em; transition: color .3s;
     }
-    .level-row:hover .level-num { color: var(--gold-dim); }
-    .level-body {}
+    .level-row:hover .level-num { color: rgba(201,168,76,.25); }
     .level-tag {
-      display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold);
-      border: 1px solid var(--border);
-      padding: 4px 12px; margin-bottom: 14px;
+      display: inline-block; font-size: 0.62rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border); padding: 4px 12px; margin-bottom: 16px;
     }
-    .level-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem; font-weight: 400; color: var(--cream);
-    }
-    .level-desc { font-size: 0.88rem; color: var(--text-muted); margin-top: 10px; line-height: 1.7; max-width: 560px; }
-    .level-topics {
-      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px;
-    }
+    .level-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--cream); line-height: 1.15; }
+    .level-desc { font-size: 0.87rem; color: var(--text-muted); margin-top: 12px; line-height: 1.8; max-width: 540px; }
+    .level-topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
     .topic-pill {
-      font-size: 0.7rem; letter-spacing: 0.08em;
-      color: var(--text-muted); background: var(--ink-soft);
-      border: 1px solid var(--border-soft);
-      padding: 6px 14px;
+      font-size: 0.68rem; letter-spacing: .07em; color: var(--text-muted);
+      background: var(--ink-soft); border: 1px solid var(--border-soft); padding: 6px 14px;
+      transition: border-color .25s, color .25s;
     }
-    .level-duration {
-      text-align: right; white-space: nowrap;
-    }
-    .level-duration-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem; color: var(--gold); display: block;
-    }
-    .level-duration-label {
-      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
-    }
+    .level-row:hover .topic-pill { border-color: rgba(201,168,76,0.15); color: var(--text-body); }
+    .level-duration { text-align: right; white-space: nowrap; padding-top: 6px; }
+    .level-duration-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); display: block; }
+    .level-duration-label { font-size: 0.62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); }
+    .level-row:last-child { border-bottom: none; }
 
-    /* ─── METHOD PAGE ────────────────────────────────────────────────── */
+    /* Program summary bar */
+    .program-summary {
+      margin-top: 80px; padding: 48px 56px;
+      background: var(--ink-card); border: 1px solid var(--border-soft);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 28px;
+    }
+    .program-summary-stat { text-align: center; }
+    .program-summary-stat .val { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); font-weight: 300; }
+    .program-summary-stat .lbl { font-size: 0.66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+    .program-summary-divider { width: 1px; height: 48px; background: var(--border); }
+
+    /* ════════════ METHOD PAGE ════════════ */
     .method-steps {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2px; margin-top: 60px;
-      background: var(--border-soft);
+      gap: 2px; margin-top: 64px; background: var(--border-soft);
     }
     .method-card {
-      background: var(--ink); padding: 60px 50px;
-      position: relative; overflow: hidden;
-      transition: background 0.3s;
+      background: var(--ink-card); padding: 60px 52px;
+      position: relative; overflow: hidden; transition: background .3s;
     }
     .method-card:hover { background: var(--ink-soft); }
-    .method-card-full { grid-column: span 2; }
-    .method-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem; color: var(--gold-dim);
-      letter-spacing: 0.1em; margin-bottom: 24px;
-    }
-    .method-icon {
-      width: 48px; height: 48px;
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 28px;
-      font-size: 1.2rem;
-    }
-    .method-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 400; color: var(--cream);
-      margin-bottom: 16px;
-    }
-    .method-desc {
-      font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; max-width: 400px;
-    }
-    .method-card-accent {
-      position: absolute; bottom: 0; right: 0;
-      width: 120px; height: 120px;
-      border-top: 1px solid var(--border);
-      border-left: 1px solid var(--border);
-      opacity: 0.4;
-    }
+    .method-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--gold-glow) 0%, transparent 55%); opacity: 0; transition: opacity .4s; }
+    .method-card:hover::after { opacity: 1; }
+    .method-num { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 28px; }
+    .method-icon { width: 44px; height: 44px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 1.1rem; color: var(--gold-dim); }
+    .method-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--cream); margin-bottom: 16px; }
+    .method-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.85; max-width: 380px; }
+    .method-corner { position: absolute; bottom: 0; right: 0; width: 100px; height: 100px; border-top: 1px solid var(--border); border-left: 1px solid var(--border); opacity: .35; }
 
-    /* Comparison table */
-    .compare-table {
-      width: 100%; margin-top: 80px;
-      border-collapse: collapse;
+    /* Teaching ideology */
+    .ideology-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 64px; background: var(--border-soft);
     }
+    .ideology-card { background: var(--ink-card); padding: 52px 44px; position: relative; overflow: hidden; }
+    .ideology-num { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 20px; }
+    .ideology-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: 14px; }
+    .ideology-sub { font-size: 0.8rem; letter-spacing: .04em; color: var(--gold); margin-bottom: 20px; font-style: italic; }
+    .ideology-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* Compare table */
+    .compare-table { width: 100%; margin-top: 80px; border-collapse: collapse; }
     .compare-table th {
-      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-size: 0.66rem; letter-spacing: .22em; text-transform: uppercase;
       color: var(--text-muted); font-weight: 400;
-      padding: 16px 24px; border-bottom: 1px solid var(--border);
-      text-align: left;
+      padding: 16px 24px; border-bottom: 1px solid var(--border); text-align: left;
     }
     .compare-table th:last-child { color: var(--gold); }
-    .compare-table td {
-      padding: 18px 24px; border-bottom: 1px solid var(--border-soft);
-      font-size: 0.85rem; color: var(--text-muted);
-    }
+    .compare-table td { padding: 18px 24px; border-bottom: 1px solid var(--border-soft); font-size: 0.85rem; color: var(--text-muted); }
     .compare-table td:first-child { color: var(--text-body); }
     .compare-table td:last-child { color: var(--gold-light); font-weight: 500; }
-    .compare-table tr:hover td { background: rgba(201,168,76,0.02); }
-    .check { color: var(--gold); }
-    .cross { color: #444; }
+    .compare-table tr:hover td { background: rgba(201,168,76,.018); }
+    .check { color: var(--gold); } .cross { color: #3a3530; }
 
-    /* ─── VALUES PAGE ────────────────────────────────────────────────── */
-    .values-intro {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 80px; align-items: center; margin-bottom: 100px;
-    }
+    /* ════════════ VALUES PAGE ════════════ */
+    .values-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 90px; }
     .values-big-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18rem; font-weight: 300; line-height: 0.8;
-      color: var(--border-soft); letter-spacing: -0.05em;
-      pointer-events: none;
+      font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300;
+      line-height: .85; color: transparent; text-align: right; overflow: hidden;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.1);
     }
-    .value-cards {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 0; border: 1px solid var(--border-soft);
-    }
+    .value-cards { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-soft); }
     .value-card {
-      padding: 50px 40px;
-      border-right: 1px solid var(--border-soft);
-      position: relative; overflow: hidden;
-      transition: background 0.3s;
+      padding: 52px 42px; border-right: 1px solid var(--border-soft);
+      position: relative; transition: background .3s;
     }
     .value-card:last-child { border-right: none; }
-    .value-card:hover { background: rgba(201,168,76,0.02); }
-    .value-icon-line {
-      width: 32px; height: 2px; background: var(--gold);
-      margin-bottom: 28px;
-    }
-    .value-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 400; color: var(--cream);
-      margin-bottom: 16px;
-    }
-    .value-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
+    .value-card:hover { background: rgba(201,168,76,.018); }
+    .value-line { width: 28px; height: 2px; background: var(--gold); margin-bottom: 28px; }
+    .value-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 400; color: var(--cream); margin-bottom: 14px; }
+    .value-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.85; }
 
     /* Manifesto */
     .manifesto {
-      margin-top: 100px; padding: 80px 60px;
-      background: var(--ink-soft);
-      border: 1px solid var(--border-soft);
-      position: relative; overflow: hidden;
+      margin-top: 80px; padding: 80px 64px;
+      background: var(--ink-soft); border: 1px solid var(--border-soft); position: relative; overflow: hidden;
     }
     .manifesto::before {
-      content: '"';
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20rem; font-weight: 300; line-height: 0.7;
-      color: var(--gold); opacity: 0.04;
-      position: absolute; top: -20px; left: 20px;
+      content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 22rem; font-weight: 300; line-height: .65;
+      color: var(--gold); opacity: .04; position: absolute; top: -30px; left: 12px; pointer-events: none;
     }
-    .manifesto-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--gold-dim); margin-bottom: 32px;
-    }
+    .manifesto-label { font-size: 0.66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 36px; }
     .manifesto p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem; font-weight: 300; font-style: italic;
-      line-height: 1.7; color: var(--cream); max-width: 800px;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-weight: 300; font-style: italic;
+      line-height: 1.7; color: var(--cream); max-width: 820px;
     }
     .manifesto p + p { margin-top: 24px; }
 
-    /* ─── APPLY PAGE ─────────────────────────────────────────────────── */
-    .apply-layout {
-      display: grid; grid-template-columns: 1fr 1.2fr;
-      gap: 100px; align-items: start;
-      padding-top: 140px; padding-bottom: 100px;
-    }
-    .apply-left {}
-    .apply-requirements {
-      margin-top: 60px; display: flex; flex-direction: column; gap: 20px;
-    }
-    .req-item {
-      display: flex; align-items: flex-start; gap: 16px;
-      padding: 20px 0; border-bottom: 1px solid var(--border-soft);
-    }
-    .req-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.65rem; color: var(--gold); min-width: 24px; margin-top: 2px;
-    }
-    .req-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
-    .req-text strong { color: var(--cream); display: block; margin-bottom: 4px; font-size: 0.9rem; }
+    /* Not for everyone */
+    .selective-section { margin-top: 80px; text-align: center; padding: 90px 48px; background: var(--ink-card); border: 1px solid var(--border-soft); position: relative; overflow: hidden; }
+    .selective-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,168,76,0.04), transparent); }
 
-    /* Form */
-    .apply-form {
+    /* ════════════ FEES PAGE ════════════ */
+    .fees-layout { padding: 0 64px 120px; max-width: 1220px; margin: 0 auto; }
+    .fees-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-soft); margin-top: 64px; }
+    .fee-card {
+      background: var(--ink-card); padding: 52px 48px; position: relative; overflow: hidden;
+    }
+    .fee-card.highlight {
       background: var(--ink-soft);
-      border: 1px solid var(--border-soft);
-      padding: 60px 50px;
+      border: 1px solid var(--border);
     }
-    .form-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem; font-weight: 400; color: var(--cream);
-      margin-bottom: 40px;
+    .fee-card.highlight::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.06), transparent); }
+    .fee-level-tag { font-size: 0.62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; }
+    .fee-level-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--cream); margin-bottom: 8px; }
+    .fee-duration { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 28px; }
+    .fee-amount { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; line-height: 1; }
+    .fee-amount-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; letter-spacing: .06em; }
+    .fee-total-box {
+      margin-top: 56px; padding: 48px 56px;
+      border: 1px solid var(--border); background: var(--ink-soft);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
     }
-    .form-group {
-      margin-bottom: 28px;
+    .fee-total-label { font-size: 0.7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 8px; }
+    .fee-total-val { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; color: var(--cream); font-weight: 300; }
+    .fee-total-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
+    .fee-note { margin-top: 28px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; padding-left: 16px; border-left: 2px solid var(--gold-dim); }
+
+    /* ════════════ APPLY PAGE ════════════ */
+    .apply-layout {
+      display: grid; grid-template-columns: 1fr 1.15fr;
+      gap: 100px; align-items: start;
+      padding-top: 150px; padding-bottom: 100px;
+      padding-left: 64px; padding-right: 64px;
+      max-width: 1220px; margin: 0 auto;
     }
-    .form-label {
-      display: block; font-size: 0.68rem; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px;
-    }
+    .apply-requirements { margin-top: 56px; display: flex; flex-direction: column; gap: 0; }
+    .req-item { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--border-soft); }
+    .req-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--gold); min-width: 24px; margin-top: 3px; }
+    .req-text { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
+    .req-text strong { color: var(--cream); display: block; margin-bottom: 4px; font-size: 0.9rem; font-weight: 500; }
+    .apply-form { background: var(--ink-soft); border: 1px solid var(--border-soft); padding: 56px 52px; position: relative; overflow: hidden; }
+    .apply-form::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); }
+    .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 400; color: var(--cream); margin-bottom: 44px; }
+    .form-group { margin-bottom: 28px; }
+    .form-label { display: block; font-size: 0.65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
     .form-input {
-      width: 100%; background: transparent;
-      border: none; border-bottom: 1px solid var(--border);
-      padding: 12px 0; font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem; color: var(--cream);
-      outline: none; transition: border-color 0.3s;
-      cursor: none;
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border);
+      padding: 12px 0; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--cream);
+      outline: none; transition: border-color .3s; cursor: none;
     }
     .form-input:focus { border-bottom-color: var(--gold); }
     .form-input::placeholder { color: var(--text-muted); }
     .form-select {
-      width: 100%; background: transparent;
-      border: none; border-bottom: 1px solid var(--border);
-      padding: 12px 0; font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem; color: var(--cream);
-      outline: none; transition: border-color 0.3s;
-      appearance: none; cursor: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a6f2e' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border);
+      padding: 12px 0; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--cream);
+      outline: none; transition: border-color .3s; appearance: none; cursor: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a6f2e' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
       background-repeat: no-repeat; background-position: right 8px center;
     }
     .form-select option { background: var(--ink-mid); }
     .form-select:focus { border-bottom-color: var(--gold); }
     .form-textarea {
-      width: 100%; background: transparent;
-      border: 1px solid var(--border); padding: 14px 16px;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
-      color: var(--cream); outline: none;
-      transition: border-color 0.3s; resize: none; min-height: 110px;
-      cursor: none; margin-top: 4px;
+      width: 100%; background: transparent; border: 1px solid var(--border);
+      padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--cream);
+      outline: none; transition: border-color .3s; resize: none; min-height: 110px; cursor: none; margin-top: 4px;
     }
     .form-textarea:focus { border-color: var(--gold); }
     .form-textarea::placeholder { color: var(--text-muted); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
     .btn-submit {
       width: 100%; background: var(--gold); color: var(--ink);
-      font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
-      letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600;
-      padding: 18px; border: none; cursor: none;
-      transition: background 0.25s, transform 0.2s; margin-top: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: .2em; text-transform: uppercase;
+      font-weight: 600; padding: 18px; border: none; cursor: none;
+      transition: background .25s, transform .2s; margin-top: 8px; position: relative; overflow: hidden;
     }
+    .btn-submit::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%); }
     .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .form-success { display: none; text-align: center; padding: 48px 0; }
+    .form-success.show { display: block; animation: fadeIn .5s ease; }
+    .success-icon { width: 52px; height: 52px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 1.1rem; color: var(--gold); }
+    .success-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--cream); margin-bottom: 12px; }
+    .success-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
 
-    /* Success message */
-    .form-success {
-      display: none; text-align: center; padding: 40px 0;
-    }
-    .form-success.show { display: block; animation: fadeIn 0.5s ease; }
-    .success-icon {
-      width: 56px; height: 56px; border: 1px solid var(--gold);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px; font-size: 1.2rem;
-    }
-    .success-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem; color: var(--cream); margin-bottom: 12px;
-    }
-    .success-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
-
-    /* ─── FOOTER ─────────────────────────────────────────────────────── */
-    footer {
-      border-top: 1px solid var(--border-soft);
-      padding: 60px 60px 40px;
-    }
-    .footer-grid {
-      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 60px; margin-bottom: 60px;
-    }
-    .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; color: var(--cream); margin-bottom: 16px;
-    }
+    /* ════════════ FOOTER ════════════ */
+    footer { border-top: 1px solid var(--border-soft); padding: 72px 64px 44px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 60px; margin-bottom: 64px; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 16px; }
     .footer-brand span { color: var(--gold); }
-    .footer-tagline { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; max-width: 260px; }
-    .footer-heading {
-      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--gold-dim); margin-bottom: 20px;
-    }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .footer-links a {
-      font-size: 0.84rem; color: var(--text-muted); text-decoration: none;
-      transition: color 0.2s; cursor: none;
-    }
+    .footer-tagline { font-size: 0.83rem; color: var(--text-muted); line-height: 1.8; max-width: 270px; }
+    .footer-heading { font-size: 0.63rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 22px; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .footer-links a { font-size: 0.84rem; color: var(--text-muted); text-decoration: none; transition: color .2s; cursor: none; }
     .footer-links a:hover { color: var(--gold-light); }
     .footer-bottom {
       display: flex; justify-content: space-between; align-items: center;
       padding-top: 32px; border-top: 1px solid var(--border-soft);
-      font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.05em;
+      font-size: 0.7rem; color: var(--text-muted); letter-spacing: .05em;
     }
     .footer-bottom a { color: var(--gold-dim); text-decoration: none; }
 
-    /* ─── SCROLL REVEAL ───────────────────────────────────────────────── */
-    .reveal {
-      opacity: 0; transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* ─── MOBILE NAV TOGGLE ──────────────────────────────────────────── */
-    .nav-mobile-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: none; padding: 4px;
-    }
-    .nav-mobile-toggle span {
-      display: block; width: 24px; height: 1.5px; background: var(--text-muted);
-      transition: all 0.3s;
-    }
-    .mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 90;
-      background: var(--ink); flex-direction: column;
-      justify-content: center; align-items: center; gap: 36px;
-    }
-    .mobile-menu.open { display: flex; animation: fadeIn 0.3s ease; }
-    .mobile-menu a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; color: var(--cream); text-decoration: none;
-      font-weight: 300; cursor: none;
-    }
-    .mobile-close {
-      position: absolute; top: 28px; right: 28px;
-      background: none; border: none; font-size: 1.5rem;
-      color: var(--text-muted); cursor: none;
-    }
-
-    /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
-    @media (max-width: 900px) {
+    /* ════════════ RESPONSIVE ════════════ */
+    @media (max-width: 960px) {
       #navbar { padding: 20px 28px; }
       #navbar.scrolled { padding: 14px 28px; }
-      .nav-links { display: none; }
-      .nav-cta { display: none; }
+      .nav-links, .nav-cta { display: none; }
       .nav-mobile-toggle { display: flex; }
-
-      .stats-band { grid-template-columns: repeat(2, 1fr); gap: 0; }
+      .hero-title { font-size: clamp(3.6rem, 14vw, 5.5rem); }
+      .stats-band { grid-template-columns: repeat(2, 1fr); }
       .stat-item:nth-child(3)::before { display: none; }
-      .stat-item:nth-child(odd) { border-bottom: 1px solid var(--border-soft); }
-
-      .section, .section-full { padding: 80px 28px; }
-      .level-row { grid-template-columns: 80px 1fr; }
+      .stat-item { padding: 28px 0; }
+      .section { padding: 80px 28px; }
+      .teaser-grid, .fees-grid { grid-template-columns: 1fr; padding: 0 28px 80px; }
+      .level-row { grid-template-columns: 64px 1fr; }
       .level-duration { display: none; }
-
-      .method-steps { grid-template-columns: 1fr; }
-      .method-card-full { grid-column: span 1; }
-
-      .values-intro { grid-template-columns: 1fr; gap: 20px; }
+      .method-steps, .ideology-grid { grid-template-columns: 1fr; }
+      .values-intro { grid-template-columns: 1fr; gap: 24px; }
       .values-big-num { font-size: 8rem; }
       .value-cards { grid-template-columns: 1fr; }
       .value-card { border-right: none; border-bottom: 1px solid var(--border-soft); }
-
-      .apply-layout { grid-template-columns: 1fr; gap: 60px; padding-top: 120px; }
+      .apply-layout { grid-template-columns: 1fr; gap: 56px; padding: 120px 28px 80px; }
       .form-row { grid-template-columns: 1fr; gap: 0; }
-
-      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-      .hero-decor { display: none; }
-      .program-hero { padding: 140px 28px 60px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .page-hero { padding: 140px 28px 60px; }
+      .founder-layout { grid-template-columns: 1fr; }
+      .founder-visual { height: 50vh; }
+      .founder-content { padding: 64px 28px 64px; }
+      .fees-layout { padding: 0 28px 80px; }
+      .program-summary { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .program-summary-divider { width: 60px; height: 1px; }
     }
   </style>
 </head>
 
 <body>
+<div class="ambient ambient-1"></div>
+<div class="ambient ambient-2"></div>
 
 <!-- CURSOR -->
-<div id="cursor">
-  <div id="cursor-dot"></div>
-  <div id="cursor-ring"></div>
-</div>
+<div id="cursor"><div id="cursor-dot"></div><div id="cursor-ring"></div></div>
 
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
   <a href="#" onclick="navigate('home'); closeMobileMenu()">Home</a>
+  <a href="#" onclick="navigate('founder'); closeMobileMenu()">Founder</a>
   <a href="#" onclick="navigate('program'); closeMobileMenu()">Program</a>
   <a href="#" onclick="navigate('method'); closeMobileMenu()">Method</a>
   <a href="#" onclick="navigate('values'); closeMobileMenu()">Values</a>
+  <a href="#" onclick="navigate('fees'); closeMobileMenu()">Fees</a>
   <a href="#" onclick="navigate('apply'); closeMobileMenu()">Apply</a>
 </div>
 
 <!-- NAVBAR -->
 <header id="navbar">
   <a class="nav-logo" href="#" onclick="navigate('home'); return false;">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 3L28 26H4L16 3Z" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
+        <path d="M16 3L22 18H10L16 3Z" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.5"/>
+      </svg>
+    </div>
     The Pinnacle <span>Minds</span>
   </a>
   <nav>
     <ul class="nav-links">
       <li><a href="#" onclick="navigate('home'); return false;" data-page="home">Home</a></li>
+      <li><a href="#" onclick="navigate('founder'); return false;" data-page="founder">Founder</a></li>
       <li><a href="#" onclick="navigate('program'); return false;" data-page="program">Program</a></li>
       <li><a href="#" onclick="navigate('method'); return false;" data-page="method">Method</a></li>
       <li><a href="#" onclick="navigate('values'); return false;" data-page="values">Values</a></li>
+      <li><a href="#" onclick="navigate('fees'); return false;" data-page="fees">Fees</a></li>
     </ul>
   </nav>
   <a class="nav-cta" href="#" onclick="navigate('apply'); return false;">Apply Now</a>
@@ -712,49 +632,42 @@
   </button>
 </header>
 
-<!-- ═══════════════════════ PAGE: HOME ═══════════════════════ -->
+<!-- ══════════════════ HOME ══════════════════ -->
 <div class="page active" id="page-home">
-
   <section id="home">
     <div class="hero">
-      <div class="hero-eyebrow">Selective Admission · Limited Seats</div>
+      <div class="hero-grid-bg"></div>
+      <div class="hero-eyebrow">Selective Admission · Grade 8–12 · Limited to 30</div>
       <h1 class="hero-title">
-        The<br>
-        <em>Pinnacle</em>
-        <strong>Minds</strong>
+        The<br><em>Pinnacle</em><strong>Minds</strong>
       </h1>
-      <p class="hero-sub">Not a tuition class. Not a coaching center. A structured system to build thinking, execution, and real-world capability in students.</p>
+      <p class="hero-sub">Not a tuition class. A structured 18-month system to build thinking, execution, and real-world capability — for the students who are serious about becoming the top 1%.</p>
       <div class="hero-actions">
         <a href="#" class="btn-primary" onclick="navigate('program'); return false;">View Program</a>
         <a href="#" class="btn-ghost" onclick="navigate('apply'); return false;">Apply Now</a>
       </div>
-
-      <div class="hero-decor">
-        <span style="width:80px"></span>
-        <span style="width:40px"></span>
-        <span style="width:60px"></span>
-        <span style="width:20px"></span>
+      <div class="hero-scroll">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
       </div>
-
-
     </div>
 
     <div class="stats-band reveal">
       <div class="stat-item">
-        <div class="stat-num counter" data-target="97">0</div>
-        <div class="stat-label">% Student Satisfaction</div>
+        <div class="stat-num counter" data-target="97" data-suffix="%">0</div>
+        <div class="stat-label">Student Satisfaction</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num counter" data-target="5">0</div>
+        <div class="stat-num">5</div>
         <div class="stat-label">Structured Levels</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num counter" data-target="30">0</div>
-        <div class="stat-label">Students Per Cohort</div>
+        <div class="stat-num">18</div>
+        <div class="stat-label">Months Duration</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">∞</div>
-        <div class="stat-label">Possibilities Unlocked</div>
+        <div class="stat-num">6:1</div>
+        <div class="stat-label">Mentor Ratio</div>
       </div>
     </div>
 
@@ -764,34 +677,27 @@
       <p class="quote-author">— Our founding philosophy</p>
     </div>
 
-    <!-- Teaser cards -->
-    <div style="padding: 0 60px 120px; max-width: 1200px; margin: 0 auto;">
-      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border-soft);">
-
-        <div class="method-card reveal" style="cursor: none;" onclick="navigate('program')">
-          <div class="method-num">01</div>
-          <div class="method-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cream);">The Program</div>
-          <p class="method-desc">Five structured levels from foundational thinking to real-world portfolio creation.</p>
-          <div style="margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);">Explore →</div>
-          <div class="method-card-accent"></div>
-        </div>
-
-        <div class="method-card reveal reveal-delay-1" style="cursor: none;" onclick="navigate('method')">
-          <div class="method-num">02</div>
-          <div class="method-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cream);">The Method</div>
-          <p class="method-desc">Learn, apply, build. Every concept is immediately put into practice.</p>
-          <div style="margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);">Explore →</div>
-          <div class="method-card-accent"></div>
-        </div>
-
-        <div class="method-card reveal reveal-delay-2" style="cursor: none;" onclick="navigate('values')">
-          <div class="method-num">03</div>
-          <div class="method-title" style="font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cream);">The Values</div>
-          <p class="method-desc">Clarity, execution, and discipline. The pillars of everything we do.</p>
-          <div style="margin-top: 24px; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);">Explore →</div>
-          <div class="method-card-accent"></div>
-        </div>
-
+    <div class="teaser-grid reveal">
+      <div class="teaser-card" onclick="navigate('program')">
+        <div class="teaser-num">01</div>
+        <div class="teaser-title">The Program</div>
+        <p class="teaser-desc">Five structured levels: Cognitive Foundations, Self Mastery, Communication, Future Strategy, and an Elite Capstone.</p>
+        <div class="teaser-arrow">Explore →</div>
+        <div class="teaser-corner"></div>
+      </div>
+      <div class="teaser-card" onclick="navigate('method')">
+        <div class="teaser-num">02</div>
+        <div class="teaser-title">The Method</div>
+        <p class="teaser-desc">Learn by doing. Reflect & apply. Prove it. Every concept tested in the session, not at home, not on paper.</p>
+        <div class="teaser-arrow">Explore →</div>
+        <div class="teaser-corner"></div>
+      </div>
+      <div class="teaser-card" onclick="navigate('values')">
+        <div class="teaser-num">03</div>
+        <div class="teaser-title">The Values</div>
+        <p class="teaser-desc">Clarity of thought. Execution over ideation. Rise through discipline. The three pillars of everything we do.</p>
+        <div class="teaser-arrow">Explore →</div>
+        <div class="teaser-corner"></div>
       </div>
     </div>
   </section>
@@ -800,15 +706,17 @@
     <div class="footer-grid">
       <div>
         <div class="footer-brand">The Pinnacle <span>Minds</span></div>
-        <p class="footer-tagline">A structured system to build thinking, execution, and real-world capability in the next generation.</p>
+        <p class="footer-tagline">An 18-month structured program to build thinking, execution, and real-world capability in the next generation of leaders.</p>
       </div>
       <div>
         <div class="footer-heading">Navigate</div>
         <ul class="footer-links">
           <li><a href="#" onclick="navigate('home'); return false;">Home</a></li>
+          <li><a href="#" onclick="navigate('founder'); return false;">Founder</a></li>
           <li><a href="#" onclick="navigate('program'); return false;">Program</a></li>
           <li><a href="#" onclick="navigate('method'); return false;">Method</a></li>
           <li><a href="#" onclick="navigate('values'); return false;">Values</a></li>
+          <li><a href="#" onclick="navigate('fees'); return false;">Fees</a></li>
           <li><a href="#" onclick="navigate('apply'); return false;">Apply</a></li>
         </ul>
       </div>
@@ -828,364 +736,506 @@
   </footer>
 </div>
 
-<!-- ═══════════════════════ PAGE: PROGRAM ═══════════════════════ -->
-<div class="page" id="page-program">
+<!-- ══════════════════ FOUNDER ══════════════════ -->
+<div class="page" id="page-founder">
+  <div class="founder-layout">
+    <div class="founder-visual">
+      <div class="founder-visual-bg"></div>
+      <div class="founder-placeholder">
+        <div class="founder-img-frame">
+          <!-- Replace src with actual photo -->
+          <span style="font-size:0.72rem;letter-spacing:.1em;color:var(--text-muted);">[ Founder Photo ]</span>
+          <div class="founder-img-tag">
+            <div class="name">Sneh Shah</div>
+            <div class="role">Founder, The Pinnacle Minds</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="founder-content">
+      <div class="section-eyebrow">The Founder</div>
+      <p class="founder-quote-large">
+        "Most institutions teach students <em style="color:var(--gold);">what</em> to think. I built TPM to teach students <em style="color:var(--gold);">how</em> to think."
+      </p>
+      <p class="founder-body">
+        The Pinnacle Minds was built on a simple but uncomfortable observation: the education system hasn't changed in decades, but the world has changed completely. In 2026, 65% of the children entering school today will work in jobs that don't yet exist — yet we're still preparing them for jobs that do.
+      </p>
+      <p class="founder-body">
+        TPM exists to correct that gap. Not by teaching more subjects, but by building the foundational capabilities that remain constant: the ability to think clearly, execute consistently, communicate precisely, and adapt faster than the environment changes.
+      </p>
+      <p class="founder-body">
+        This is not a coaching centre. This is a structured development system — designed for the students who are ready to be challenged, pushed, and built into something exceptional.
+      </p>
+      <div class="founder-sig">
+        <div>
+          <div class="founder-sig-name">Sneh Shah</div>
+          <div class="founder-sig-role">Founder · The Pinnacle Minds</div>
+        </div>
+        <div class="founder-sig-line"></div>
+        <a href="#" onclick="navigate('apply'); return false;" class="btn-primary" style="white-space:nowrap;">Apply Now</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="program-hero">
-    <div class="program-hero-bg"></div>
+<!-- ══════════════════ PROGRAM ══════════════════ -->
+<div class="page" id="page-program">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
     <div>
       <div class="section-eyebrow">Curriculum Structure</div>
-      <h1 class="section-title" style="font-size: clamp(2.8rem, 6vw, 6rem);">Five Levels.<br><em>One Transformation.</em></h1>
+      <h1 class="section-title" style="font-size: clamp(3rem, 7vw, 6.5rem);">Five Levels.<br><em>One Transformation.</em></h1>
     </div>
   </div>
 
-  <div class="section" style="padding-top: 60px;">
-
+  <div class="section" style="padding-top: 72px;">
     <div class="levels-grid">
 
       <div class="level-row reveal">
         <div class="level-num">01</div>
         <div class="level-body">
-          <div class="level-tag">Foundation</div>
-          <div class="level-name">Thinking Foundations</div>
-          <div class="level-desc">Students learn to break problems into first principles, reason from the ground up, and develop independent thinking. The most fundamental skill of all.</div>
+          <div class="level-tag">L1 · Cognitive Foundations</div>
+          <div class="level-name">How to Think</div>
+          <div class="level-desc">Students learn to reason from first principles, build mental models, understand cognitive biases, and develop independent thinking — the meta-skill that amplifies every other capability.</div>
           <div class="level-topics">
             <span class="topic-pill">Mental Models</span>
+            <span class="topic-pill">First Principles Thinking</span>
             <span class="topic-pill">Systems Thinking</span>
-            <span class="topic-pill">First Principles</span>
-            <span class="topic-pill">Decision Making</span>
+            <span class="topic-pill">Decision Science</span>
             <span class="topic-pill">Cognitive Biases</span>
+            <span class="topic-pill">Strategy Basics</span>
+            <span class="topic-pill">Self Awareness</span>
           </div>
         </div>
         <div class="level-duration">
-          <span class="level-duration-num">4</span>
-          <span class="level-duration-label">Weeks</span>
+          <span class="level-duration-num">3</span>
+          <span class="level-duration-label">Months</span>
         </div>
       </div>
 
       <div class="level-row reveal">
         <div class="level-num">02</div>
         <div class="level-body">
-          <div class="level-tag">Systems</div>
-          <div class="level-name">Execution Systems</div>
-          <div class="level-desc">Ideas without execution are worthless. Students build personal systems for goal-setting, tracking, and consistent output — the infrastructure of high performance.</div>
+          <div class="level-tag">L2 · Self Mastery</div>
+          <div class="level-name">How to Perform</div>
+          <div class="level-desc">Talent is common. Consistency is rare. Students build the internal infrastructure for high performance — habit systems, deep work protocols, emotional intelligence, and execution frameworks that work regardless of motivation.</div>
           <div class="level-topics">
-            <span class="topic-pill">Goal Architecture</span>
-            <span class="topic-pill">Habit Engineering</span>
-            <span class="topic-pill">Time Leverage</span>
-            <span class="topic-pill">Accountability</span>
+            <span class="topic-pill">Habit Systems</span>
+            <span class="topic-pill">Deep Work & Productivity</span>
+            <span class="topic-pill">Emotional Intelligence</span>
+            <span class="topic-pill">Execution Systems</span>
+            <span class="topic-pill">OKRs & 90-Day Planning</span>
+            <span class="topic-pill">Stress Handling</span>
           </div>
         </div>
         <div class="level-duration">
-          <span class="level-duration-num">4</span>
-          <span class="level-duration-label">Weeks</span>
+          <span class="level-duration-num">3</span>
+          <span class="level-duration-label">Months</span>
         </div>
       </div>
 
       <div class="level-row reveal">
         <div class="level-num">03</div>
         <div class="level-body">
-          <div class="level-tag">Communication</div>
-          <div class="level-name">Communication & Influence</div>
-          <div class="level-desc">The ability to communicate clearly — in writing, speaking, and presentation — is the multiplier of all other skills. Students develop their voice and build persuasive ability.</div>
+          <div class="level-tag">L3 · Communication & Influence</div>
+          <div class="level-name">How to Lead Rooms</div>
+          <div class="level-desc">The ability to communicate clearly — in writing, speaking, and persuasion — is the multiplier of all other skills. Students develop structured communication, negotiation, and leadership capabilities.</div>
           <div class="level-topics">
-            <span class="topic-pill">Structured Writing</span>
-            <span class="topic-pill">Public Speaking</span>
-            <span class="topic-pill">Persuasion</span>
+            <span class="topic-pill">Structured Speaking</span>
             <span class="topic-pill">Storytelling</span>
+            <span class="topic-pill">Persuasive Communication</span>
+            <span class="topic-pill">Negotiation</span>
+            <span class="topic-pill">Networking</span>
+            <span class="topic-pill">Leadership Styles</span>
           </div>
         </div>
         <div class="level-duration">
-          <span class="level-duration-num">5</span>
-          <span class="level-duration-label">Weeks</span>
+          <span class="level-duration-num">3</span>
+          <span class="level-duration-label">Months</span>
         </div>
       </div>
 
       <div class="level-row reveal">
         <div class="level-num">04</div>
         <div class="level-body">
-          <div class="level-tag">Real World</div>
-          <div class="level-name">Domain Exploration</div>
-          <div class="level-desc">Students choose a track — Technology, Business, Science, or Arts — and dive deep into real-world problems in that domain with the tools they've built.</div>
+          <div class="level-tag">L4 · Future Strategy</div>
+          <div class="level-name">How to Navigate Tomorrow</div>
+          <div class="level-desc">Students gain financial intelligence, understand business models, master AI and automation tools, and build a personal roadmap for navigating a rapidly changing world — before most adults even understand it.</div>
           <div class="level-topics">
-            <span class="topic-pill">Tech Track</span>
-            <span class="topic-pill">Business Track</span>
-            <span class="topic-pill">Science Track</span>
-            <span class="topic-pill">Arts Track</span>
+            <span class="topic-pill">Financial Intelligence</span>
+            <span class="topic-pill">Business Models</span>
+            <span class="topic-pill">AI & Automation</span>
+            <span class="topic-pill">Industry Mapping</span>
+            <span class="topic-pill">Trend Forecasting</span>
+            <span class="topic-pill">Personal Roadmap</span>
+          </div>
+        </div>
+        <div class="level-duration">
+          <span class="level-duration-num">3</span>
+          <span class="level-duration-label">Months</span>
+        </div>
+      </div>
+
+      <div class="level-row reveal">
+        <div class="level-num">05</div>
+        <div class="level-body">
+          <div class="level-tag">L5 · Elite Capstone</div>
+          <div class="level-name">Build Something Real</div>
+          <div class="level-desc">The final level is pure creation. Students select a real problem, design a solution, build it, validate it, and present it to a jury panel of practising professionals. What they leave with isn't a certificate — it's a demonstrated capability.</div>
+          <div class="level-topics">
+            <span class="topic-pill">Problem Selection</span>
+            <span class="topic-pill">Solution Design</span>
+            <span class="topic-pill">User Insight</span>
+            <span class="topic-pill">Building Phase</span>
+            <span class="topic-pill">Feedback Loops</span>
+            <span class="topic-pill">Final Showcase</span>
           </div>
         </div>
         <div class="level-duration">
           <span class="level-duration-num">6</span>
-          <span class="level-duration-label">Weeks</span>
-        </div>
-      </div>
-
-      <div class="level-row reveal" style="border-bottom: none;">
-        <div class="level-num">05</div>
-        <div class="level-body">
-          <div class="level-tag">Capstone</div>
-          <div class="level-name">Portfolio Creation</div>
-          <div class="level-desc">The final level is pure creation. Students execute a real project in their chosen domain, building something that exists in the world and demonstrates their capability to anyone who looks.</div>
-          <div class="level-topics">
-            <span class="topic-pill">Real-World Projects</span>
-            <span class="topic-pill">Track-Based Execution</span>
-            <span class="topic-pill">Outcome-Focused</span>
-            <span class="topic-pill">Portfolio Review</span>
-          </div>
-        </div>
-        <div class="level-duration">
-          <span class="level-duration-num">8</span>
-          <span class="level-duration-label">Weeks</span>
+          <span class="level-duration-label">Months</span>
         </div>
       </div>
 
     </div>
 
-    <div style="margin-top: 80px; padding: 50px; background: var(--ink-soft); border: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;" class="reveal">
-      <div>
-        <div style="font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 8px;">Total Duration</div>
-        <div style="font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--cream); font-weight: 300;">27 Weeks <span style="color: var(--gold-dim); font-size: 1.4rem;">of structured growth</span></div>
+    <div class="program-summary reveal">
+      <div class="program-summary-stat">
+        <div class="val">18</div>
+        <div class="lbl">Months Total</div>
       </div>
-      <a class="btn-primary" href="#" onclick="navigate('apply'); return false;">Apply for Next Cohort</a>
+      <div class="program-summary-divider"></div>
+      <div class="program-summary-stat">
+        <div class="val">16+</div>
+        <div class="lbl">Chapters</div>
+      </div>
+      <div class="program-summary-divider"></div>
+      <div class="program-summary-stat">
+        <div class="val">5</div>
+        <div class="lbl">Levels</div>
+      </div>
+      <div class="program-summary-divider"></div>
+      <div class="program-summary-stat">
+        <div class="val">6:1</div>
+        <div class="lbl">Mentor Ratio</div>
+      </div>
+      <a class="btn-primary" href="#" onclick="navigate('apply'); return false;" style="white-space:nowrap;">Apply for Next Cohort</a>
     </div>
 
   </div>
 
   <footer>
-    <div class="footer-bottom" style="border-top: 1px solid var(--border-soft); padding-top: 32px;">
+    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;">
       <span>© 2026 The Pinnacle Minds</span>
       <span>Built for the Top <a href="#">1%</a></span>
     </div>
   </footer>
 </div>
 
-<!-- ═══════════════════════ PAGE: METHOD ═══════════════════════ -->
+<!-- ══════════════════ METHOD ══════════════════ -->
 <div class="page" id="page-method">
-
-  <div class="program-hero">
-    <div class="program-hero-bg"></div>
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
     <div>
       <div class="section-eyebrow">How It Works</div>
-      <h1 class="section-title" style="font-size: clamp(2.8rem, 6vw, 6rem);">The Method.<br><em>Learn. Apply. Build.</em></h1>
+      <h1 class="section-title" style="font-size: clamp(3rem, 7vw, 6.5rem);">The Method.<br><em>Learn. Apply. Prove.</em></h1>
     </div>
   </div>
 
-  <div class="section" style="padding-top: 60px;">
+  <div class="section" style="padding-top: 72px;">
 
+    <!-- Teaching Ideology -->
+    <div class="section-eyebrow reveal">Teaching Ideology</div>
+    <h2 class="section-title reveal" style="font-size: clamp(2rem, 4vw, 3.2rem);">Every session <em>proves</em> capability.</h2>
+    <div class="ideology-grid reveal">
+      <div class="ideology-card">
+        <div class="ideology-num">01</div>
+        <div class="ideology-title">Learn by Doing</div>
+        <div class="ideology-sub">Activities & live exercises</div>
+        <p class="ideology-desc">Concepts are tested inside the session — not at home, not on paper. Knowledge is stress-tested the moment it's introduced.</p>
+      </div>
+      <div class="ideology-card">
+        <div class="ideology-num">02</div>
+        <div class="ideology-title">Reflect & Apply</div>
+        <div class="ideology-sub">Worksheets, case studies & personal audits</div>
+        <p class="ideology-desc">Students don't study concepts in theory — they map them onto their own real life. Every framework becomes personal.</p>
+      </div>
+      <div class="ideology-card">
+        <div class="ideology-num">03</div>
+        <div class="ideology-title">Prove It</div>
+        <div class="ideology-sub">Real scenarios, group challenges & presentations</div>
+        <p class="ideology-desc">Skills are verified by what a student does when the problem is real and the room is watching. No hiding behind theory.</p>
+      </div>
+    </div>
+
+    <!-- 4-step method -->
+    <div style="margin-top:100px;">
+      <div class="section-eyebrow reveal">Session Structure</div>
+      <h2 class="section-title reveal" style="font-size: clamp(2rem, 4vw, 3.2rem);">Four steps. <em>Every session.</em></h2>
+    </div>
     <div class="method-steps">
       <div class="method-card reveal">
         <div class="method-num">01 — Learn</div>
         <div class="method-icon">◎</div>
         <div class="method-title">Concept-Driven Sessions</div>
         <p class="method-desc">Every session is built around one powerful concept, taught with real-world examples, case studies, and historical evidence. No surface-level information — only depth.</p>
-        <div class="method-card-accent"></div>
+        <div class="method-corner"></div>
       </div>
-
       <div class="method-card reveal reveal-delay-1">
         <div class="method-num">02 — Apply</div>
         <div class="method-icon">◈</div>
         <div class="method-title">Immediate Implementation</div>
         <p class="method-desc">The same session, concepts are applied. Written exercises, decision frameworks, real scenarios. Knowledge that stays in the head is knowledge wasted.</p>
-        <div class="method-card-accent"></div>
+        <div class="method-corner"></div>
       </div>
-
       <div class="method-card reveal reveal-delay-2">
         <div class="method-num">03 — Build</div>
         <div class="method-icon">◇</div>
         <div class="method-title">Portfolio Outcomes</div>
-        <p class="method-desc">Every student leaves with a tangible output — written pieces, project documentation, or a completed real-world project that demonstrates their capability.</p>
-        <div class="method-card-accent"></div>
+        <p class="method-desc">Every student leaves with a tangible output — written pieces, frameworks, project documentation, or a completed real-world project demonstrating their capability.</p>
+        <div class="method-corner"></div>
       </div>
-
       <div class="method-card reveal reveal-delay-1">
         <div class="method-num">04 — Review</div>
         <div class="method-icon">◉</div>
         <div class="method-title">Accountability & Feedback</div>
-        <p class="method-desc">Weekly reviews with mentors. Honest, direct feedback. Progress tracking. Students are held to high standards because that is the only way to actually grow.</p>
-        <div class="method-card-accent"></div>
+        <p class="method-desc">Weekly reviews with mentors. Honest, direct feedback. Progress tracked. Students are held to high standards because that is the only way to actually grow.</p>
+        <div class="method-corner"></div>
       </div>
+    </div>
 
+    <!-- What you leave with -->
+    <div style="margin-top: 100px;" class="reveal">
+      <div class="section-eyebrow">At Completion</div>
+      <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 3.2rem);">What you <em>leave with</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--border-soft);">
+        <div style="background:var(--ink-card);padding:40px 36px;">
+          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:16px;">01</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:10px;">Course Certification</div>
+          <p style="font-size:.84rem;color:var(--text-muted);line-height:1.8;">A formal certificate attesting to specific competencies demonstrably built across all five levels.</p>
+        </div>
+        <div style="background:var(--ink-card);padding:40px 36px;">
+          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:16px;">02</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:10px;">Real Portfolio</div>
+          <p style="font-size:.84rem;color:var(--text-muted);line-height:1.8;">A 5-level portfolio of scored outputs and deliverables — formatted for university applications and scholarships.</p>
+        </div>
+        <div style="background:var(--ink-card);padding:40px 36px;">
+          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:16px;">03</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:10px;">420-Day Habit Record</div>
+          <p style="font-size:.84rem;color:var(--text-muted);line-height:1.8;">A comprehensive record of daily discipline across the full 18-month programme — evidence no exam result can produce.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Comparison table -->
-    <div class="reveal" style="margin-top: 100px;">
+    <div style="margin-top:100px;" class="reveal">
       <div class="section-eyebrow">Differentiation</div>
-      <h2 class="section-title">Why we're <em>different</em></h2>
+      <h2 class="section-title" style="font-size:clamp(2rem,4vw,3.2rem);">Why we're <em>different</em></h2>
     </div>
-
     <table class="compare-table reveal">
       <thead>
         <tr>
           <th>What we measure</th>
-          <th>Typical coaching</th>
+          <th>Typical Coaching</th>
           <th>The Pinnacle Minds</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Primary focus</td>
-          <td>Exam scores</td>
-          <td>Thinking ability</td>
-        </tr>
-        <tr>
-          <td>Delivery</td>
-          <td>Passive lectures</td>
-          <td>Active implementation</td>
-        </tr>
-        <tr>
-          <td>Output</td>
-          <td>Marks on paper</td>
-          <td>Real portfolio work</td>
-        </tr>
-        <tr>
-          <td>Student-to-mentor ratio</td>
-          <td>40:1</td>
-          <td>6:1 maximum</td>
-        </tr>
-        <tr>
-          <td>Accountability</td>
-          <td class="cross">None</td>
-          <td class="check">Weekly reviews</td>
-        </tr>
-        <tr>
-          <td>Admission</td>
-          <td>Anyone who pays</td>
-          <td>Selective process</td>
-        </tr>
-        <tr>
-          <td>What you leave with</td>
-          <td>A certificate</td>
-          <td>A demonstrated capability</td>
-        </tr>
+        <tr><td>Primary focus</td><td>Exam scores</td><td>Thinking ability</td></tr>
+        <tr><td>Teaching style</td><td>Passive lectures</td><td>Active implementation</td></tr>
+        <tr><td>Output</td><td>Marks on paper</td><td>Real portfolio work</td></tr>
+        <tr><td>Student-to-mentor ratio</td><td>40:1</td><td>6:1 maximum</td></tr>
+        <tr><td>Accountability</td><td class="cross">None</td><td class="check">Weekly reviews</td></tr>
+        <tr><td>Admission</td><td>Anyone who pays</td><td>Selective process</td></tr>
+        <tr><td>Duration</td><td>Exam cycle</td><td>18 months structured</td></tr>
+        <tr><td>What you leave with</td><td>A certificate</td><td>A demonstrated capability</td></tr>
       </tbody>
     </table>
-
   </div>
 
   <footer>
-    <div class="footer-bottom" style="border-top: 1px solid var(--border-soft); padding-top: 32px;">
+    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;">
       <span>© 2026 The Pinnacle Minds</span>
       <span>Built for the Top <a href="#">1%</a></span>
     </div>
   </footer>
 </div>
 
-<!-- ═══════════════════════ PAGE: VALUES ═══════════════════════ -->
+<!-- ══════════════════ VALUES ══════════════════ -->
 <div class="page" id="page-values">
-
-  <div class="program-hero">
-    <div class="program-hero-bg"></div>
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
     <div>
       <div class="section-eyebrow">What We Stand For</div>
-      <h1 class="section-title" style="font-size: clamp(2.8rem, 6vw, 6rem);">Our <em>Values.</em><br>Our Foundation.</h1>
+      <h1 class="section-title" style="font-size: clamp(3rem, 7vw, 6.5rem);">Our <em>Values.</em><br>Our Foundation.</h1>
     </div>
   </div>
 
-  <div class="section" style="padding-top: 60px;">
-
+  <div class="section" style="padding-top:72px;">
     <div class="values-intro">
       <div>
-        <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--cream); line-height: 1.7; font-style: italic;">
-          "We don't believe in shortcuts. We believe in building the rare, foundational abilities that compound over a lifetime."
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:var(--cream);line-height:1.7;font-style:italic;">
+          "We don't believe in shortcuts. We believe in building the rare, foundational abilities that compound over a lifetime — and that no exam can measure."
         </p>
-        <p style="margin-top: 24px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
-          The Pinnacle Minds was built on a simple observation: most educational institutions teach students what to think, not how to think. We exist to correct that.
+        <p style="margin-top:26px;font-size:0.89rem;color:var(--text-muted);line-height:1.9;">
+          Most educational institutions teach students what to think. The Pinnacle Minds exists to correct that. We teach students how to think, how to act consistently, and how to build real things in the world.
         </p>
-        <a class="btn-ghost" style="margin-top: 36px; display: inline-block;" href="#" onclick="navigate('apply'); return false;">Join the Program</a>
+        <p style="margin-top:18px;font-size:0.89rem;color:var(--text-muted);line-height:1.9;">
+          The gap between average and exceptional is not intelligence — it is the quality of one's thinking, the consistency of one's execution, and the depth of one's discipline. These are teachable. These are trainable. This is what we do.
+        </p>
+        <a class="btn-ghost" style="margin-top:36px;display:inline-block;" href="#" onclick="navigate('apply'); return false;">Join the Program</a>
       </div>
-      <div style="text-align: right; overflow: hidden;">
+      <div style="display:flex;align-items:center;justify-content:flex-end;overflow:hidden;">
         <div class="values-big-num">1%</div>
       </div>
     </div>
 
     <div class="value-cards reveal">
       <div class="value-card">
-        <div class="value-icon-line"></div>
-        <h3>Clarity in Thought</h3>
-        <p>We teach students to decompose any problem to its first principles — to reason from the ground up rather than from analogy. Clear thinking is the meta-skill that amplifies everything else.</p>
+        <div class="value-line"></div>
+        <h3>Clarity of Thought</h3>
+        <p>Think clearly. Speak precisely. Act with logic. Every concept broken into first principles. Students must articulate ideas clearly — feedback focuses on clarity, not just correctness.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon-line"></div>
+        <div class="value-line"></div>
         <h3>Execution over Ideation</h3>
-        <p>The world is full of people with brilliant ideas and empty portfolios. We train students to execute — to turn thought into output, consistently and reliably, regardless of motivation.</p>
+        <p>Ideas are common. Execution is rare. Every session leads to a tangible output. Students build: projects, presentations, decisions, actions. Less planning, more shipping.</p>
       </div>
       <div class="value-card">
-        <div class="value-icon-line"></div>
-        <h3>Rise with Discipline</h3>
-        <p>Talent is common. Discipline is rare. We build the habits, systems, and accountability structures that allow students to do their best work every single day, not just when they feel inspired.</p>
+        <div class="value-line"></div>
+        <h3>Rise through Discipline</h3>
+        <p>Consistency builds the top 1%. Fixed systems: punctuality, submission discipline. Students track weekly progress. Mentors reinforce standards, not motivation. Habits over short bursts of effort.</p>
       </div>
     </div>
 
-    <div class="manifesto reveal" style="margin-top: 60px;">
-      <div class="manifesto-title">Our Manifesto</div>
+    <div class="manifesto reveal">
+      <div class="manifesto-label">Our Manifesto</div>
       <p>We are not building students who score well. We are building students who think well, act consistently, and create real things in the world.</p>
-      <p>We believe that the gap between average and exceptional is not intelligence — it is the quality of one's thinking, the consistency of one's execution, and the depth of one's discipline.</p>
-      <p>These are teachable. These are trainable. And this is what we do.</p>
+      <p>Mindset matters more than skillset. The ability to think clearly, adapt fast, and execute consistently — these are the capabilities that remain valuable no matter what the world looks like in 10 years.</p>
+      <p>65% of children entering school today will work in jobs that don't yet exist. We are preparing them for that world — not the world that was.</p>
     </div>
 
-    <!-- Not for everyone -->
-    <div style="margin-top: 80px; text-align: center; padding: 80px 40px;" class="reveal">
-      <div class="section-eyebrow" style="justify-content: center;">Selective Admission</div>
-      <h2 class="section-title">This is NOT <em>for everyone</em></h2>
-      <p style="margin-top: 24px; font-size: 0.92rem; color: var(--text-muted); max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.8;">
-        This program is designed only for students who are serious about growth, willing to think deeply, and commit to consistent execution. We don't lower our standards. We raise yours.
-      </p>
-      <div style="margin-top: 20px; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);">
-        Limited to 30 students per cohort
+    <div class="selective-section reveal">
+      <div style="position:relative;z-index:1;">
+        <div class="section-eyebrow" style="justify-content:center;">Selective Admission</div>
+        <h2 class="section-title">This is NOT <em>for everyone</em></h2>
+        <p style="margin:24px auto 0;font-size:.92rem;color:var(--text-muted);max-width:500px;line-height:1.85;">
+          This program is designed only for Grade 8–12 students who are serious about growth, willing to think deeply, and committed to consistent execution. We don't lower our standards. We raise yours.
+        </p>
+        <div style="margin-top:20px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);">Limited to 30 students per cohort</div>
+        <a class="btn-primary" style="margin-top:44px;display:inline-block;" href="#" onclick="navigate('apply'); return false;">Apply for Admission</a>
       </div>
-      <a class="btn-primary" style="margin-top: 40px; display: inline-block;" href="#" onclick="navigate('apply'); return false;">Apply for Admission</a>
     </div>
-
   </div>
 
   <footer>
-    <div class="footer-bottom" style="border-top: 1px solid var(--border-soft); padding-top: 32px;">
+    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;">
       <span>© 2026 The Pinnacle Minds</span>
       <span>Built for the Top <a href="#">1%</a></span>
     </div>
   </footer>
 </div>
 
-<!-- ═══════════════════════ PAGE: APPLY ═══════════════════════ -->
+<!-- ══════════════════ FEES ══════════════════ -->
+<div class="page" id="page-fees">
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-grid"></div>
+    <div>
+      <div class="section-eyebrow">Investment</div>
+      <h1 class="section-title" style="font-size:clamp(3rem,7vw,6.5rem);">Fee <em>Structure.</em></h1>
+    </div>
+  </div>
+
+  <div class="fees-layout">
+    <div class="fees-grid reveal">
+      <div class="fee-card">
+        <div class="fee-level-tag">Level 01 · 3 Months</div>
+        <div class="fee-level-name">Cognitive Foundations</div>
+        <div class="fee-duration">Month 0 → Month 3</div>
+        <div class="fee-amount">₹12,000</div>
+        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
+      </div>
+      <div class="fee-card">
+        <div class="fee-level-tag">Level 02 · 3 Months</div>
+        <div class="fee-level-name">Self Mastery</div>
+        <div class="fee-duration">Month 3 → Month 6</div>
+        <div class="fee-amount">₹12,000</div>
+        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
+      </div>
+      <div class="fee-card">
+        <div class="fee-level-tag">Level 03 · 3 Months</div>
+        <div class="fee-level-name">Communication & Influence</div>
+        <div class="fee-duration">Month 6 → Month 9</div>
+        <div class="fee-amount">₹12,000</div>
+        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
+      </div>
+      <div class="fee-card">
+        <div class="fee-level-tag">Level 04 · 3 Months</div>
+        <div class="fee-level-name">Future Strategy</div>
+        <div class="fee-duration">Month 9 → Month 12</div>
+        <div class="fee-amount">₹12,000</div>
+        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
+      </div>
+      <div class="fee-card highlight" style="grid-column:span 2;">
+        <div class="fee-level-tag">Level 05 · 6 Months</div>
+        <div class="fee-level-name">Elite Capstone · Build Something Real</div>
+        <div class="fee-duration">Month 12 → Month 18 · Includes Demo Day & Jury Evaluation</div>
+        <div class="fee-amount">₹24,000</div>
+        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
+      </div>
+    </div>
+
+    <div class="fee-total-box reveal">
+      <div>
+        <div class="fee-total-label">Total Programme Investment</div>
+        <div class="fee-total-val">₹72,000</div>
+        <div class="fee-total-sub">over 18 months · ₹4,000 per month</div>
+      </div>
+      <a href="#" onclick="navigate('apply'); return false;" class="btn-primary">Apply Now</a>
+    </div>
+
+    <div class="fee-note reveal" style="margin-top:32px;">
+      Fees are structured to be paid in monthly installments of ₹4,000 in advance — making the full 18-month programme accessible without a large upfront commitment. Admission is selective; fee payment follows acceptance.
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;margin:0 64px;">
+      <span>© 2026 The Pinnacle Minds</span>
+      <span>Built for the Top <a href="#">1%</a></span>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════ APPLY ══════════════════ -->
 <div class="page" id="page-apply">
-
-  <div class="apply-layout" style="padding-left: 60px; padding-right: 60px; max-width: 1200px; margin: 0 auto;">
-
+  <div class="apply-layout">
     <div class="apply-left">
       <div class="section-eyebrow">Limited Seats</div>
-      <h1 class="section-title" style="font-size: clamp(2.4rem, 5vw, 4.5rem);">Apply to<br><em>Join</em> the<br>Next Cohort.</h1>
-      <p style="margin-top: 28px; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8; max-width: 400px;">
-        Admission is selective. We review each application carefully and only admit students who demonstrate genuine commitment to growth.
+      <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4.5rem);">Apply to<br><em>Join</em> the<br>Next Cohort.</h1>
+      <p style="margin-top:28px;font-size:0.88rem;color:var(--text-muted);line-height:1.9;max-width:380px;">
+        Admission is selective. Every application is reviewed personally. We admit only students who demonstrate genuine commitment — not just academic capability.
       </p>
-
       <div class="apply-requirements">
         <div class="req-item">
           <div class="req-num">01</div>
-          <div class="req-text">
-            <strong>Genuine Motivation</strong>
-            A clear desire to grow — not because parents said so, but because you want to.
-          </div>
+          <div class="req-text"><strong>Genuine Motivation</strong>A clear desire to grow — not because parents said so, but because you want to become exceptional.</div>
         </div>
         <div class="req-item">
           <div class="req-num">02</div>
-          <div class="req-text">
-            <strong>Willingness to be challenged</strong>
-            Our sessions are not comfortable. You will be pushed to think harder than you've ever had to.
-          </div>
+          <div class="req-text"><strong>Willingness to be Challenged</strong>Our sessions are not comfortable. You will be pushed to think harder than you ever have.</div>
         </div>
         <div class="req-item">
           <div class="req-num">03</div>
-          <div class="req-text">
-            <strong>Commitment to execution</strong>
-            Every session requires output. You must be willing to do the work, not just attend.
-          </div>
+          <div class="req-text"><strong>Commitment to Execution</strong>Every session requires output. You must be willing to do the work, not just attend.</div>
         </div>
         <div class="req-item">
           <div class="req-num">04</div>
-          <div class="req-text">
-            <strong>Grade 8–12</strong>
-            Currently designed for school students at a critical stage of development.
-          </div>
+          <div class="req-text"><strong>Grade 8 – 12</strong>Currently designed for school students at a critical stage of development.</div>
         </div>
       </div>
     </div>
@@ -1193,22 +1243,17 @@
     <div class="apply-right">
       <div class="apply-form" id="applicationForm">
         <div class="form-title">Application Form</div>
-
         <div class="form-group">
           <label class="form-label">Student Name</label>
           <input type="text" class="form-input" placeholder="Full name" id="f-name">
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Grade / Class</label>
             <select class="form-select" id="f-grade">
               <option value="">Select grade</option>
-              <option>Grade 8</option>
-              <option>Grade 9</option>
-              <option>Grade 10</option>
-              <option>Grade 11</option>
-              <option>Grade 12</option>
+              <option>Grade 8</option><option>Grade 9</option><option>Grade 10</option>
+              <option>Grade 11</option><option>Grade 12</option>
             </select>
           </div>
           <div class="form-group">
@@ -1216,167 +1261,120 @@
             <input type="text" class="form-input" placeholder="School name" id="f-school">
           </div>
         </div>
-
         <div class="form-group">
           <label class="form-label">Parent / Guardian Contact</label>
           <input type="text" class="form-input" placeholder="Phone number or email" id="f-parent">
         </div>
-
         <div class="form-group">
           <label class="form-label">Area of Interest</label>
           <select class="form-select" id="f-track">
             <option value="">Select a track</option>
-            <option>Technology</option>
+            <option>Technology & AI</option>
             <option>Business & Entrepreneurship</option>
             <option>Science & Research</option>
             <option>Arts & Communication</option>
             <option>Undecided</option>
           </select>
         </div>
-
         <div class="form-group">
           <label class="form-label">Why do you want to join?</label>
           <textarea class="form-textarea" placeholder="Tell us in your own words — be honest." id="f-why"></textarea>
         </div>
-
         <button class="btn-submit" onclick="submitForm()">Submit Application</button>
       </div>
-
       <div class="form-success" id="formSuccess">
         <div class="success-icon">✓</div>
         <div class="success-title">Application Received</div>
-        <p class="success-text">
-          Thank you for applying. We review every application personally and will reach out within 3–5 business days.
-          <br><br>
-          In the meantime, explore our <a href="#" onclick="navigate('program'); return false;" style="color: var(--gold);">program structure</a>.
-        </p>
+        <p class="success-text">We review every application personally and will reach out within 3–5 business days.<br><br>In the meantime, explore our <a href="#" onclick="navigate('program'); return false;" style="color:var(--gold);">program structure</a>.</p>
       </div>
     </div>
-
   </div>
 
   <footer>
-    <div class="footer-bottom" style="border-top: 1px solid var(--border-soft); padding-top: 32px; margin: 0 60px;">
+    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;margin:0 64px;">
       <span>© 2026 The Pinnacle Minds</span>
       <span>Built for the Top <a href="#">1%</a></span>
     </div>
   </footer>
 </div>
 
-<!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+<!-- ══════════════════ SCRIPTS ══════════════════ -->
 <script>
-  // ─── CURSOR ────────────────────────────────────────────────────────
-  const cursorDot = document.getElementById('cursor-dot');
-  const cursorRing = document.getElementById('cursor-ring');
+  /* CURSOR */
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
   let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursorDot.style.left = mx + 'px';
-    cursorDot.style.top = my + 'px';
-  });
-
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    cursorRing.style.left = rx + 'px';
-    cursorRing.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  document.querySelectorAll('a, button, .method-card, .level-row').forEach(el => {
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
+  (function animRing() { rx += (mx - rx) * .11; ry += (my - ry) * .11; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); })();
+  document.querySelectorAll('a, button, .teaser-card, .level-row, .method-card, .ideology-card, .value-card, .fee-card').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
   });
 
-  // ─── NAVIGATION ────────────────────────────────────────────────────
+  /* NAVIGATION */
   function navigate(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.classList.toggle('active', a.dataset.page === page);
-    });
-    initReveal();
-    if (page === 'home') initCounters();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+    setTimeout(initReveal, 80);
+    if (page === 'home') setTimeout(initCounters, 400);
   }
 
-  // ─── NAVBAR SCROLL ─────────────────────────────────────────────────
-  window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-  });
+  /* NAVBAR */
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40));
 
-  // ─── MOBILE MENU ───────────────────────────────────────────────────
+  /* MOBILE */
   function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
   function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
 
-  // ─── SCROLL REVEAL ─────────────────────────────────────────────────
+  /* SCROLL REVEAL */
   function initReveal() {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.page.active .reveal').forEach(el => {
-      el.classList.remove('visible');
-      observer.observe(el);
-    });
+    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
+    document.querySelectorAll('.page.active .reveal').forEach(el => { el.classList.remove('visible'); io.observe(el); });
   }
   setTimeout(initReveal, 100);
 
-  // ─── COUNTERS ──────────────────────────────────────────────────────
+  /* COUNTERS */
   function initCounters() {
-    document.querySelectorAll('.counter').forEach(el => {
+    document.querySelectorAll('.page.active .counter').forEach(el => {
       const target = +el.dataset.target;
+      const suffix = el.dataset.suffix || '';
       let cur = 0;
-      const step = Math.ceil(target / 60);
+      const step = Math.ceil(target / 55);
       const id = setInterval(() => {
         cur = Math.min(cur + step, target);
-        el.textContent = cur + (el.textContent.includes('%') || true ? '' : '');
-        if (cur >= target) {
-          clearInterval(id);
-          if (el.closest('.stat-item').querySelector('.stat-label').textContent.includes('%')) {
-            el.textContent = target + '%';
-          } else {
-            el.textContent = target;
-          }
-        }
-      }, 25);
+        el.textContent = cur + suffix;
+        if (cur >= target) clearInterval(id);
+      }, 22);
     });
   }
-  setTimeout(initCounters, 400);
+  setTimeout(initCounters, 500);
 
-  // ─── FORM SUBMIT ───────────────────────────────────────────────────
+  /* FORM */
   function submitForm() {
     const name = document.getElementById('f-name').value.trim();
     const parent = document.getElementById('f-parent').value.trim();
     const why = document.getElementById('f-why').value.trim();
-
     if (!name || !parent || !why) {
-      const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
-      inputs.forEach(i => {
-        if (!i.value.trim()) {
-          i.style.borderColor = '#c9a84c';
-          setTimeout(() => i.style.borderColor = '', 1800);
-        }
+      [document.getElementById('f-name'), document.getElementById('f-parent'), document.getElementById('f-why')].forEach(el => {
+        if (!el.value.trim()) { el.style.borderColor = 'var(--gold-dim)'; setTimeout(() => el.style.borderColor = '', 2000); }
       });
       return;
     }
-
     document.getElementById('applicationForm').style.display = 'none';
     document.getElementById('formSuccess').classList.add('show');
   }
 
-  // ─── TILT EFFECT ON LEVEL ROWS ─────────────────────────────────────
-  document.querySelectorAll('.method-card').forEach(card => {
+  /* CARD TILT */
+  document.querySelectorAll('.teaser-card, .method-card').forEach(card => {
     card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width - 0.5) * 6;
-      const y = ((e.clientY - rect.top) / rect.height - 0.5) * -6;
-      card.style.transform = `perspective(600px) rotateX(${y}deg) rotateY(${x}deg)`;
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - .5) * 5;
+      const y = ((e.clientY - r.top) / r.height - .5) * -5;
+      card.style.transform = `perspective(700px) rotateX(${y}deg) rotateY(${x}deg)`;
     });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
+    card.addEventListener('mouseleave', () => card.style.transform = '');
   });
 </script>
 

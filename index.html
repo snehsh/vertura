@@ -1,1382 +1,1031 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Pinnacle Minds — Built for the Top 1%</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..500;9..600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>The Pinnacle Minds — Built for the Top 1%</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#c9a84c;--gold-l:#e8c97a;--gold-d:#8a6f2e;--gold-gl:rgba(201,168,76,.12);
+  --cream:#f5ede0;--ink:#07060a;--ink2:#0d0c11;--ink3:#13111a;--ink4:#1a1826;
+  --muted:#7a6e60;--body:#b0a898;
+  --b:rgba(201,168,76,.13);--bs:rgba(201,168,76,.06);--bh:rgba(201,168,76,.32);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--ink);color:var(--body);overflow-x:hidden;cursor:none}
 
-  <style>
-    :root {
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --gold-dim: #8a6f2e;
-      --gold-glow: rgba(201,168,76,0.15);
-      --cream: #f5ede0;
-      --ink: #07060a;
-      --ink-mid: #0f0e13;
-      --ink-soft: #171520;
-      --ink-card: #121019;
-      --text-muted: #7a6e60;
-      --text-body: #b8b0a0;
-      --border: rgba(201,168,76,0.15);
-      --border-soft: rgba(201,168,76,0.07);
-      --border-hover: rgba(201,168,76,0.35);
-      --radius: 0px;
-    }
+/* ── CURSOR ── */
+#cur{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+#cdot{position:absolute;width:5px;height:5px;background:var(--gold-l);border-radius:50%;transform:translate(-50%,-50%);transition:transform .1s}
+#cring{position:absolute;width:30px;height:30px;border:1px solid rgba(201,168,76,.5);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .25s,border-color .25s;opacity:.5}
+body.h #cring{width:52px;height:52px;opacity:1;border-color:var(--gold-l)}
+body.click #cdot{transform:translate(-50%,-50%) scale(2.5)}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+/* ── GRAIN ── */
+body::before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+background-size:160px}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--ink);
-      color: var(--text-body);
-      overflow-x: hidden;
-      cursor: none;
-    }
+/* ── PROGRESS BAR ── */
+#pgbar{position:fixed;top:0;left:0;height:1px;background:linear-gradient(90deg,var(--gold-d),var(--gold),var(--gold-l));z-index:200;width:0;transition:width .1s linear}
 
-    /* ── CURSOR ────────────────────────────────── */
-    #cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; }
-    #cursor-dot {
-      position: absolute; width: 6px; height: 6px;
-      background: var(--gold-light); border-radius: 50%;
-      transform: translate(-50%,-50%);
-    }
-    #cursor-ring {
-      position: absolute; width: 32px; height: 32px;
-      border: 1px solid var(--gold); border-radius: 50%;
-      transform: translate(-50%,-50%);
-      transition: width .3s ease, height .3s ease, opacity .2s ease, border-color .2s ease;
-      opacity: .55; mix-blend-mode: normal;
-    }
-    body.hovering #cursor-ring { width: 54px; height: 54px; opacity: 1; border-color: var(--gold-light); }
+/* ── AMBIENT ── */
+.amb{position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(100px)}
+.a1{width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.055),transparent 70%);top:-300px;right:-200px}
+.a2{width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.035),transparent 70%);bottom:5%;left:-200px}
 
-    /* ── GRAIN ─────────────────────────────────── */
-    body::before {
-      content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: .028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 128px;
-    }
+/* ── NAVBAR ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:28px 68px;
+display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+#nav.sc{padding:14px 68px;background:rgba(7,6,10,.95);backdrop-filter:blur(28px) saturate(1.5);border-bottom:1px solid var(--bs)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;letter-spacing:.07em;color:var(--cream);text-decoration:none;display:flex;align-items:center;gap:10px;cursor:none}
+.logo-m svg{width:26px;height:26px}
+.logo span{color:var(--gold)}
+.navl{display:flex;gap:34px;list-style:none}
+.navl a{font-size:.71rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .25s;cursor:none;position:relative}
+.navl a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.navl a:hover,.navl a.active{color:var(--gold-l)}
+.navl a:hover::after,.navl a.active::after{width:100%}
+.navcta{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:10px 26px;text-decoration:none;font-weight:600;transition:all .25s;cursor:none;position:relative;overflow:hidden}
+.navcta::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transition:left .4s}
+.navcta:hover::before{left:100%}
+.navcta:hover{background:var(--gold-l);transform:translateY(-1px)}
+.mb-tog{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
+.mb-tog span{display:block;width:22px;height:1px;background:var(--muted);transition:all .3s}
+.mb-menu{display:none;position:fixed;inset:0;z-index:90;background:var(--ink);flex-direction:column;justify-content:center;align-items:center;gap:28px}
+.mb-menu.open{display:flex;animation:fin .3s ease}
+.mb-menu a{font-family:'Cormorant Garamond',serif;font-size:2.6rem;color:var(--cream);text-decoration:none;font-weight:300;letter-spacing:-.01em;cursor:none;transition:color .25s}
+.mb-menu a:hover{color:var(--gold)}
+.mb-close{position:absolute;top:28px;right:32px;background:none;border:none;font-size:1.3rem;color:var(--muted);cursor:none}
 
-    /* ── AMBIENT GLOW ──────────────────────────── */
-    .ambient {
-      position: fixed; pointer-events: none; z-index: 0; border-radius: 50%; filter: blur(120px); opacity: 0;
-      transition: opacity 1s ease;
-    }
-    .ambient-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(201,168,76,0.06), transparent 70%); top: -200px; right: -100px; opacity: 1; }
-    .ambient-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(201,168,76,0.04), transparent 70%); bottom: 10%; left: -150px; opacity: 1; }
+/* ── PAGE SYSTEM ── */
+.page{display:none;min-height:100vh;position:relative;z-index:2}
+.page.active{display:block;animation:fin .5s ease}
+@keyframes fin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes rup{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 
-    /* ── NAVBAR ────────────────────────────────── */
-    #navbar {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 26px 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      transition: padding .4s ease, background .4s ease, border-color .4s ease;
-      border-bottom: 1px solid transparent;
-    }
-    #navbar.scrolled {
-      padding: 14px 64px;
-      background: rgba(7,6,10,0.94);
-      backdrop-filter: blur(24px) saturate(1.4);
-      border-bottom-color: var(--border-soft);
-    }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem; font-weight: 600; letter-spacing: 0.06em;
-      color: var(--cream); text-decoration: none; display: flex; align-items: center; gap: 10px;
-    }
-    .nav-logo-mark {
-      width: 28px; height: 28px; position: relative; display: flex; align-items: center; justify-content: center;
-    }
-    .nav-logo-mark svg { width: 28px; height: 28px; }
-    .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 0.73rem; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--text-muted); text-decoration: none; transition: color .25s ease; cursor: none;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
-    .nav-cta {
-      font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--ink); background: var(--gold); padding: 10px 26px;
-      text-decoration: none; font-weight: 600;
-      transition: background .25s ease, transform .2s ease; cursor: none;
-      position: relative; overflow: hidden;
-    }
-    .nav-cta::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
-    }
-    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .nav-mobile-toggle {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: none; padding: 4px;
-    }
-    .nav-mobile-toggle span { display: block; width: 22px; height: 1px; background: var(--text-muted); transition: all .3s; }
-    .mobile-menu {
-      display: none; position: fixed; inset: 0; z-index: 90;
-      background: var(--ink); flex-direction: column; justify-content: center; align-items: center; gap: 32px;
-    }
-    .mobile-menu.open { display: flex; animation: fadeIn .3s ease; }
-    .mobile-menu a { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--cream); text-decoration: none; font-weight: 300; cursor: none; letter-spacing: -0.01em; }
-    .mobile-close { position: absolute; top: 28px; right: 28px; background: none; border: none; font-size: 1.4rem; color: var(--text-muted); cursor: none; }
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.rv.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.34s}.d4{transition-delay:.46s}
 
-    /* ── PAGES ─────────────────────────────────── */
-    .page { display: none; min-height: 100vh; position: relative; z-index: 2; }
-    .page.active { display: block; animation: fadeIn .5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    @keyframes revealUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+/* ── SHARED ── */
+.sec{padding:120px 68px;max-width:1240px;margin:0 auto}
+.ey{font-size:.64rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-d);margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.ey::after{content:'';flex:none;width:44px;height:1px;background:var(--gold-d)}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.8rem);font-weight:300;line-height:1.05;color:var(--cream)}
+.st em{font-style:italic;color:var(--gold)}
 
-    /* ── REVEAL ────────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-    .reveal-delay-1 { transition-delay: .12s; }
-    .reveal-delay-2 { transition-delay: .24s; }
-    .reveal-delay-3 { transition-delay: .36s; }
-    .reveal-delay-4 { transition-delay: .48s; }
+/* ── BUTTONS ── */
+.bp{background:var(--gold);color:var(--ink);font-size:.71rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;padding:15px 42px;text-decoration:none;display:inline-block;transition:all .25s;cursor:none;position:relative;overflow:hidden}
+.bp::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transition:left .45s}
+.bp:hover::before{left:100%}
+.bp:hover{background:var(--gold-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,168,76,.2)}
+.bg{color:var(--muted);font-size:.71rem;letter-spacing:.18em;text-transform:uppercase;font-weight:500;padding:15px 42px;text-decoration:none;display:inline-block;border:1px solid var(--b);transition:all .25s;cursor:none}
+.bg:hover{color:var(--gold-l);border-color:var(--gold-d);transform:translateY(-2px)}
 
-    /* ── SHARED SECTION STYLES ─────────────────── */
-    .section { padding: 120px 64px; max-width: 1220px; margin: 0 auto; }
-    .section-eyebrow {
-      font-size: 0.66rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--gold-dim); margin-bottom: 18px;
-      display: flex; align-items: center; gap: 14px;
-    }
-    .section-eyebrow::after { content: ''; flex: none; width: 48px; height: 1px; background: var(--gold-dim); }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.6rem, 5vw, 4.8rem); font-weight: 300; line-height: 1.05;
-      color: var(--cream);
-    }
-    .section-title em { font-style: italic; color: var(--gold); }
+/* ══════════ HOME ══════════ */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:160px 48px 100px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;opacity:.018;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:72px 72px;mask-image:radial-gradient(ellipse 65% 65% at 50% 50%,black,transparent)}
+.hero-ey{display:inline-flex;align-items:center;gap:14px;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:36px;opacity:0;animation:rup .8s .1s ease forwards}
+.hero-ey::before,.hero-ey::after{content:'';display:block;width:32px;height:1px;background:var(--gold-d)}
+.ht{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,12vw,11.5rem);font-weight:300;line-height:.9;letter-spacing:-.025em;color:var(--cream);opacity:0;animation:rup .9s .28s ease forwards}
+.ht em{font-style:italic;color:var(--gold);display:block}
+.ht strong{font-weight:700;display:block}
+.hsub{font-size:.98rem;font-weight:300;color:var(--muted);line-height:1.9;max-width:450px;margin:34px auto 0;opacity:0;animation:rup .9s .46s ease forwards}
+.hact{margin-top:52px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:rup .9s .6s ease forwards}
+.hscroll{position:absolute;bottom:42px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:rup .9s .78s ease forwards}
+.hscroll-label{font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d)}
+.hscroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold-d),transparent);animation:spulse 2.4s ease-in-out infinite}
+@keyframes spulse{0%,100%{opacity:.35;transform:scaleY(.65)}50%{opacity:1;transform:scaleY(1)}}
 
-    /* ── BUTTONS ───────────────────────────────── */
-    .btn-primary {
-      background: var(--gold); color: var(--ink);
-      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-      font-weight: 600; padding: 16px 44px; text-decoration: none; display: inline-block;
-      transition: background .25s, transform .2s; cursor: none; position: relative; overflow: hidden;
-    }
-    .btn-primary::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%); }
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-    .btn-ghost {
-      color: var(--text-muted); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
-      font-weight: 500; padding: 16px 44px; text-decoration: none; display: inline-block;
-      border: 1px solid var(--border); transition: color .25s, border-color .25s, transform .2s; cursor: none;
-    }
-    .btn-ghost:hover { color: var(--gold-light); border-color: var(--gold-dim); transform: translateY(-2px); }
+/* Problem statement */
+.problem{padding:100px 68px;max-width:1240px;margin:0 auto}
+.problem-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.problem-stat-row{display:flex;flex-direction:column;gap:0}
+.problem-stat{padding:36px 0;border-bottom:1px solid var(--bs);display:flex;gap:28px;align-items:flex-start}
+.problem-stat:last-child{border-bottom:none}
+.ps-num{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:300;line-height:1;color:var(--gold);min-width:120px}
+.ps-text{padding-top:10px}
+.ps-title{font-size:.95rem;color:var(--cream);margin-bottom:6px;font-weight:500}
+.ps-sub{font-size:.83rem;color:var(--muted);line-height:1.7}
+.problem-right p{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.8vw,2.2rem);font-weight:300;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:28px}
+.problem-right .note{font-size:.86rem;color:var(--muted);line-height:1.85}
 
-    /* ════════════ HOME PAGE ════════════ */
+/* Stats band */
+.sband{border-top:1px solid var(--bs);border-bottom:1px solid var(--bs);padding:72px 48px;display:grid;grid-template-columns:repeat(4,1fr);max-width:1240px;margin:0 auto}
+.si{text-align:center;padding:0 24px;position:relative}
+.si+.si::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:42px;background:var(--b)}
+.sn{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:300;line-height:1;color:var(--gold)}
+.sl{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:10px}
 
-    .hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      justify-content: center; align-items: center; text-align: center;
-      padding: 160px 48px 100px; position: relative; overflow: hidden;
-    }
-    .hero-grid-bg {
-      position: absolute; inset: 0; opacity: 0.025;
-      background-image: linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 14px;
-      font-size: 0.68rem; letter-spacing: 0.28em; text-transform: uppercase;
-      color: var(--gold-dim); margin-bottom: 40px;
-      opacity: 0; animation: revealUp .8s .15s ease forwards;
-    }
-    .hero-eyebrow::before, .hero-eyebrow::after { content: ''; display: block; width: 36px; height: 1px; background: var(--gold-dim); }
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(4.5rem, 11vw, 11rem); font-weight: 300;
-      line-height: 0.92; letter-spacing: -0.02em; color: var(--cream);
-      opacity: 0; animation: revealUp .9s .3s ease forwards;
-    }
-    .hero-title em { font-style: italic; color: var(--gold); display: block; }
-    .hero-title strong { font-weight: 700; display: block; }
-    .hero-sub {
-      font-size: 1rem; font-weight: 300; color: var(--text-muted); line-height: 1.85;
-      max-width: 460px; margin: 36px auto 0;
-      opacity: 0; animation: revealUp .9s .48s ease forwards;
-    }
-    .hero-actions {
-      margin-top: 56px; display: flex; gap: 14px; justify-content: center;
-      opacity: 0; animation: revealUp .9s .62s ease forwards;
-    }
-    .hero-scroll {
-      position: absolute; bottom: 48px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 10px;
-      opacity: 0; animation: revealUp .9s .8s ease forwards;
-    }
-    .hero-scroll span { font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dim); }
-    .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold-dim), transparent); animation: scrollPulse 2.2s ease-in-out infinite; }
-    @keyframes scrollPulse { 0%, 100% { opacity: .4; transform: scaleY(.7) translateY(0); } 50% { opacity: 1; transform: scaleY(1) translateY(4px); } }
+/* Transformation section */
+.transform-sec{padding:120px 68px;max-width:1240px;margin:0 auto}
+.transform-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;background:var(--bs)}
+.tx-col{background:var(--ink2);padding:0}
+.tx-header{padding:28px 40px;border-bottom:1px solid var(--bs);display:flex;align-items:center;gap:12px}
+.tx-header-dot{width:8px;height:8px;border-radius:50%}
+.tx-header-label{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase}
+.tx-items{padding:8px 0}
+.tx-item{padding:18px 40px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid var(--bs)}
+.tx-item:last-child{border-bottom:none}
+.tx-icon{font-size:.8rem;margin-top:1px;flex-shrink:0;width:20px}
+.tx-text{font-size:.86rem;color:var(--muted);line-height:1.6}
+.tx-col.after .tx-header-dot{background:var(--gold)}
+.tx-col.after .tx-header-label{color:var(--gold)}
+.tx-col.after .tx-text{color:var(--body)}
 
-    /* Stats band */
-    .stats-band {
-      border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft);
-      padding: 72px 48px; display: grid; grid-template-columns: repeat(4, 1fr);
-      max-width: 1220px; margin: 0 auto;
-    }
-    .stat-item { text-align: center; padding: 0 24px; position: relative; }
-    .stat-item + .stat-item::before {
-      content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
-      width: 1px; height: 44px; background: var(--border);
-    }
-    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.4rem; font-weight: 300; line-height: 1; color: var(--gold); }
-    .stat-label { font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); margin-top: 10px; }
+/* Teasers */
+.tgrid{padding:0 68px 140px;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bs)}
+.tc{background:var(--ink2);padding:54px 46px;position:relative;overflow:hidden;cursor:none;transition:background .3s}
+.tc:hover{background:var(--ink3)}
+.tc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-gl),transparent 60%);opacity:0;transition:opacity .4s}
+.tc:hover::before{opacity:1}
+.tcn{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--gold-d);letter-spacing:.1em;margin-bottom:26px}
+.tct{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:400;color:var(--cream);margin-bottom:13px;line-height:1.2}
+.tcd{font-size:.85rem;color:var(--muted);line-height:1.8}
+.tca{margin-top:28px;font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);transition:letter-spacing .3s}
+.tc:hover .tca{letter-spacing:.26em}
+.tc-corner{position:absolute;bottom:0;right:0;width:90px;height:90px;border-top:1px solid var(--b);border-left:1px solid var(--b);opacity:.35}
 
-    /* Quote */
-    .quote-section { padding: 130px 48px; max-width: 860px; margin: 0 auto; text-align: center; }
-    .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 7rem; line-height: .4; color: var(--gold); opacity: .2; }
-    .quote-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.7rem, 3.2vw, 2.7rem); font-weight: 300; font-style: italic; line-height: 1.55; color: var(--cream); margin-top: 28px; }
-    .quote-author { margin-top: 32px; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold-dim); }
+/* Testimonials */
+.testi-sec{padding:120px 68px;max-width:1240px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px;background:var(--bs)}
+.tcard{background:var(--ink2);padding:48px 40px;position:relative}
+.tcard-quote{font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--gold-d);opacity:.4;font-size:3rem;line-height:.5;margin-bottom:20px}
+.tcard-text{font-size:.88rem;color:var(--body);line-height:1.85;font-style:italic;margin-bottom:28px}
+.tcard-divider{width:28px;height:1px;background:var(--gold-d);margin-bottom:18px}
+.tcard-name{font-size:.84rem;color:var(--cream);font-weight:500;margin-bottom:4px}
+.tcard-role{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 
-    /* Home teasers */
-    .teaser-grid {
-      padding: 0 64px 140px; max-width: 1220px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; background: var(--border-soft);
-    }
-    .teaser-card {
-      background: var(--ink-card); padding: 56px 48px; position: relative; overflow: hidden;
-      cursor: none; transition: background .3s ease;
-    }
-    .teaser-card:hover { background: var(--ink-soft); }
-    .teaser-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--gold-glow) 0%, transparent 60%);
-      opacity: 0; transition: opacity .4s ease;
-    }
-    .teaser-card:hover::before { opacity: 1; }
-    .teaser-num { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 28px; }
-    .teaser-title { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 400; color: var(--cream); margin-bottom: 14px; line-height: 1.2; }
-    .teaser-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.8; }
-    .teaser-arrow { margin-top: 28px; font-size: 0.68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); transition: letter-spacing .3s ease; }
-    .teaser-card:hover .teaser-arrow { letter-spacing: .25em; }
-    .teaser-corner { position: absolute; bottom: 0; right: 0; width: 100px; height: 100px; border-top: 1px solid var(--border); border-left: 1px solid var(--border); opacity: .4; }
+/* Next cohort CTA */
+.cohort-sec{margin:0 68px 120px;padding:80px 72px;background:var(--ink3);border:1px solid var(--b);position:relative;overflow:hidden;max-width:calc(1240px - 0px)}
+.cohort-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,.05),transparent)}
+.cohort-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:40px;position:relative;z-index:1}
+.cohort-left{}
+.cohort-eyebrow{font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.cohort-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,3rem);color:var(--cream);font-weight:300;line-height:1.2}
+.cohort-title em{font-style:italic;color:var(--gold)}
+.cohort-meta{margin-top:16px;font-size:.84rem;color:var(--muted);line-height:1.7}
+.cohort-right{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.seats-counter{font-family:'Cormorant Garamond',serif;font-size:4.5rem;color:var(--gold);font-weight:300;line-height:1}
+.seats-label{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.seats-bar{width:160px;height:3px;background:var(--bs);position:relative;overflow:hidden}
+.seats-fill{position:absolute;top:0;left:0;height:100%;background:var(--gold);animation:fillup 2s 1s ease forwards;width:0}
+@keyframes fillup{to{width:67%}}
 
-    /* ════════════ FOUNDER PAGE ════════════ */
-    .founder-layout {
-      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-      align-items: center;
-    }
-    .founder-visual {
-      height: 100vh; position: relative; overflow: hidden;
-      background: var(--ink-soft);
-      display: flex; align-items: flex-end; justify-content: center;
-    }
-    .founder-visual-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%);
-    }
-    .founder-placeholder {
-      position: relative; z-index: 1; text-align: center; padding: 60px 40px;
-    }
-    .founder-img-frame {
-      width: 280px; height: 380px; border: 1px solid var(--border);
-      position: relative; margin: 0 auto 0;
-      background: linear-gradient(160deg, rgba(201,168,76,0.04) 0%, transparent 60%);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; color: var(--text-muted);
-      font-size: 0.8rem; letter-spacing: 0.15em;
-    }
-    .founder-img-frame::before {
-      content: ''; position: absolute; top: -8px; left: -8px;
-      right: -8px; bottom: -8px; border: 1px solid var(--border-soft);
-    }
-    .founder-img-tag {
-      position: absolute; bottom: -1px; left: -1px; right: -1px;
-      background: var(--ink); border-top: 1px solid var(--border);
-      padding: 14px 20px; text-align: left;
-    }
-    .founder-img-tag .name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--cream); }
-    .founder-img-tag .role { font-size: 0.65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dim); margin-top: 4px; }
-    .founder-content { padding: 120px 72px 80px 64px; }
-    .founder-quote-large {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.5rem, 2.4vw, 2.1rem); font-weight: 300; font-style: italic;
-      line-height: 1.6; color: var(--cream); margin-bottom: 36px;
-    }
-    .founder-body { font-size: 0.9rem; color: var(--text-muted); line-height: 1.9; }
-    .founder-body + .founder-body { margin-top: 20px; }
-    .founder-sig {
-      margin-top: 48px; display: flex; align-items: center; gap: 20px;
-      padding-top: 32px; border-top: 1px solid var(--border-soft);
-    }
-    .founder-sig-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--cream); }
-    .founder-sig-role { font-size: 0.65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dim); margin-top: 4px; }
-    .founder-sig-line { flex: 1; height: 1px; background: var(--border); }
+/* ══════════ FOUNDER ══════════ */
+.founder-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.founder-vis{height:100vh;position:sticky;top:0;background:var(--ink2);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.fv-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 30%,rgba(201,168,76,.07),transparent 65%)}
+.fimg{position:relative;z-index:1;width:300px}
+.fimg-frame{width:300px;height:400px;border:1px solid var(--b);position:relative;background:linear-gradient(160deg,rgba(201,168,76,.04),transparent);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.75rem;letter-spacing:.12em}
+.fimg-frame::before{content:'';position:absolute;top:-10px;left:-10px;right:-10px;bottom:-10px;border:1px solid var(--bs)}
+.fimg-tag{position:absolute;bottom:-1px;left:-1px;right:-1px;background:var(--ink);border-top:1px solid var(--b);padding:16px 22px}
+.fimg-tag .fn{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream)}
+.fimg-tag .fr{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-top:4px}
+.founder-content{padding:120px 72px 80px 64px;background:var(--ink)}
+.fq{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,2.5vw,2.15rem);font-weight:300;font-style:italic;color:var(--cream);line-height:1.6;margin-bottom:40px}
+.fb{font-size:.89rem;color:var(--muted);line-height:1.92}
+.fb+.fb{margin-top:20px}
+.fsig{margin-top:52px;display:flex;align-items:center;gap:22px;padding-top:34px;border-top:1px solid var(--bs)}
+.fsig-n{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream)}
+.fsig-r{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-d);margin-top:4px}
+.fsig-line{flex:1;height:1px;background:var(--b)}
 
-    /* ════════════ PROGRAM PAGE ════════════ */
-    .page-hero {
-      min-height: 52vh; padding: 180px 64px 90px;
-      display: flex; align-items: flex-end; position: relative; overflow: hidden;
-    }
-    .page-hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 50% 80% at 85% 40%, rgba(201,168,76,0.055) 0%, transparent 65%);
-    }
-    .page-hero-grid {
-      position: absolute; inset: 0; opacity: 0.018;
-      background-image: linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px);
-      background-size: 80px 80px;
-      mask-image: radial-gradient(ellipse 80% 80% at 80% 50%, black, transparent);
-    }
+/* ══════════ PROGRAM ══════════ */
+.ph{min-height:52vh;padding:180px 68px 90px;display:flex;align-items:flex-end;position:relative;overflow:hidden}
+.ph-bg{position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 85% 40%,rgba(201,168,76,.05),transparent 65%)}
+.ph-grid{position:absolute;inset:0;opacity:.016;background-image:linear-gradient(var(--gold) 1px,transparent 1px),linear-gradient(90deg,var(--gold) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 80% 80% at 80% 50%,black,transparent)}
+.levels{display:grid;grid-template-columns:1fr}
+.lrow{display:grid;grid-template-columns:90px 1fr auto;align-items:start;gap:48px;padding:52px 0;border-bottom:1px solid var(--bs);position:relative;transition:background .3s}
+.lrow::after{content:'';position:absolute;left:0;bottom:-1px;width:0;height:1px;background:var(--gold-d);transition:width .55s}
+.lrow:hover::after{width:100%}
+.lnum{font-family:'Cormorant Garamond',serif;font-size:4.8rem;font-weight:300;line-height:1;color:rgba(201,168,76,.08);letter-spacing:-.04em;transition:color .3s}
+.lrow:hover .lnum{color:rgba(201,168,76,.22)}
+.ltag{display:inline-block;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid var(--b);padding:4px 12px;margin-bottom:14px}
+.lname{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--cream);line-height:1.15}
+.ldesc{font-size:.86rem;color:var(--muted);margin-top:12px;line-height:1.82;max-width:520px}
+.lpills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{font-size:.67rem;letter-spacing:.06em;color:var(--muted);background:var(--ink3);border:1px solid var(--bs);padding:6px 14px;transition:all .25s}
+.lrow:hover .pill{border-color:rgba(201,168,76,.14);color:var(--body)}
+.ldur{text-align:right;white-space:nowrap;padding-top:6px}
+.ldur-n{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gold);display:block}
+.ldur-l{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.lrow:last-child{border-bottom:none}
+.prog-sum{margin-top:72px;padding:44px 52px;background:var(--ink2);border:1px solid var(--bs);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:28px}
+.ps-stat .v{font-family:'Cormorant Garamond',serif;font-size:2.3rem;color:var(--gold);font-weight:300}
+.ps-stat .l{font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.ps-div{width:1px;height:44px;background:var(--b)}
 
-    /* Level rows */
-    .levels-grid { display: grid; grid-template-columns: 1fr; }
-    .level-row {
-      display: grid; grid-template-columns: 100px 1fr auto;
-      align-items: start; gap: 48px; padding: 56px 0;
-      border-bottom: 1px solid var(--border-soft); position: relative;
-      transition: background .3s ease;
-    }
-    .level-row::after {
-      content: ''; position: absolute; left: 0; bottom: -1px;
-      width: 0; height: 1px; background: var(--gold-dim); transition: width .5s ease;
-    }
-    .level-row:hover::after { width: 100%; }
-    .level-num {
-      font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; line-height: 1;
-      color: rgba(201,168,76,.1); letter-spacing: -0.04em; transition: color .3s;
-    }
-    .level-row:hover .level-num { color: rgba(201,168,76,.25); }
-    .level-tag {
-      display: inline-block; font-size: 0.62rem; letter-spacing: .22em; text-transform: uppercase;
-      color: var(--gold); border: 1px solid var(--border); padding: 4px 12px; margin-bottom: 16px;
-    }
-    .level-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--cream); line-height: 1.15; }
-    .level-desc { font-size: 0.87rem; color: var(--text-muted); margin-top: 12px; line-height: 1.8; max-width: 540px; }
-    .level-topics { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-    .topic-pill {
-      font-size: 0.68rem; letter-spacing: .07em; color: var(--text-muted);
-      background: var(--ink-soft); border: 1px solid var(--border-soft); padding: 6px 14px;
-      transition: border-color .25s, color .25s;
-    }
-    .level-row:hover .topic-pill { border-color: rgba(201,168,76,0.15); color: var(--text-body); }
-    .level-duration { text-align: right; white-space: nowrap; padding-top: 6px; }
-    .level-duration-num { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--gold); display: block; }
-    .level-duration-label { font-size: 0.62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); }
-    .level-row:last-child { border-bottom: none; }
+/* ══════════ METHOD ══════════ */
+.ideo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px;background:var(--bs)}
+.ic{background:var(--ink2);padding:50px 42px;position:relative}
+.in{font-family:'DM Mono',monospace;font-size:.64rem;color:var(--gold-d);letter-spacing:.1em;margin-bottom:18px}
+.it{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--cream);margin-bottom:10px}
+.is{font-size:.78rem;letter-spacing:.04em;color:var(--gold);margin-bottom:18px;font-style:italic}
+.id{font-size:.84rem;color:var(--muted);line-height:1.82}
+.msteps{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:60px;background:var(--bs)}
+.mc{background:var(--ink2);padding:58px 50px;position:relative;overflow:hidden;transition:background .3s}
+.mc:hover{background:var(--ink3)}
+.mc::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-gl),transparent 55%);opacity:0;transition:opacity .4s}
+.mc:hover::after{opacity:1}
+.mn{font-family:'DM Mono',monospace;font-size:.64rem;color:var(--gold-d);letter-spacing:.1em;margin-bottom:24px}
+.mi{width:42px;height:42px;border:1px solid var(--b);display:flex;align-items:center;justify-content:center;margin-bottom:26px;color:var(--gold-d);font-size:1rem}
+.mtt{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:400;color:var(--cream);margin-bottom:14px}
+.md{font-size:.86rem;color:var(--muted);line-height:1.85;max-width:360px}
+.mc-cor{position:absolute;bottom:0;right:0;width:90px;height:90px;border-top:1px solid var(--b);border-left:1px solid var(--b);opacity:.32}
+.outcomes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--bs)}
+.oc{background:var(--ink2);padding:38px 36px}
+.on{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-d);margin-bottom:14px}
+.ot{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);margin-bottom:10px}
+.od{font-size:.83rem;color:var(--muted);line-height:1.8}
+.ctable{width:100%;border-collapse:collapse;margin-top:72px}
+.ctable th{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:400;padding:16px 24px;border-bottom:1px solid var(--b);text-align:left}
+.ctable th:last-child{color:var(--gold)}
+.ctable td{padding:17px 24px;border-bottom:1px solid var(--bs);font-size:.84rem;color:var(--muted)}
+.ctable td:first-child{color:var(--body)}
+.ctable td:last-child{color:var(--gold-l);font-weight:500}
+.ctable tr:hover td{background:rgba(201,168,76,.015)}
+.chk{color:var(--gold)}.crs{color:#2e2c32}
 
-    /* Program summary bar */
-    .program-summary {
-      margin-top: 80px; padding: 48px 56px;
-      background: var(--ink-card); border: 1px solid var(--border-soft);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 28px;
-    }
-    .program-summary-stat { text-align: center; }
-    .program-summary-stat .val { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); font-weight: 300; }
-    .program-summary-stat .lbl { font-size: 0.66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
-    .program-summary-divider { width: 1px; height: 48px; background: var(--border); }
+/* ══════════ VALUES ══════════ */
+.val-intro{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:90px}
+.vbn{font-family:'Cormorant Garamond',serif;font-size:15rem;font-weight:300;line-height:.85;-webkit-text-stroke:1px rgba(201,168,76,.08);color:transparent;text-align:right;overflow:hidden}
+.vcards{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--bs)}
+.vcard{padding:50px 40px;border-right:1px solid var(--bs);position:relative;transition:background .3s}
+.vcard:last-child{border-right:none}
+.vcard:hover{background:rgba(201,168,76,.015)}
+.vline{width:26px;height:2px;background:var(--gold);margin-bottom:28px}
+.vcard h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--cream);margin-bottom:13px}
+.vcard p{font-size:.84rem;color:var(--muted);line-height:1.85}
+.manifesto{margin-top:80px;padding:76px 64px;background:var(--ink3);border:1px solid var(--bs);position:relative;overflow:hidden}
+.manifesto::before{content:'"';font-family:'Cormorant Garamond',serif;font-size:20rem;font-weight:300;line-height:.65;color:var(--gold);opacity:.04;position:absolute;top:-30px;left:10px;pointer-events:none}
+.m-label{font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-d);margin-bottom:34px}
+.manifesto p{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:300;font-style:italic;line-height:1.72;color:var(--cream);max-width:800px}
+.manifesto p+p{margin-top:24px}
+.sel-sec{margin-top:72px;padding:88px 48px;background:var(--ink2);border:1px solid var(--bs);text-align:center;position:relative;overflow:hidden}
+.sel-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,168,76,.04),transparent)}
 
-    /* ════════════ METHOD PAGE ════════════ */
-    .method-steps {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 2px; margin-top: 64px; background: var(--border-soft);
-    }
-    .method-card {
-      background: var(--ink-card); padding: 60px 52px;
-      position: relative; overflow: hidden; transition: background .3s;
-    }
-    .method-card:hover { background: var(--ink-soft); }
-    .method-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--gold-glow) 0%, transparent 55%); opacity: 0; transition: opacity .4s; }
-    .method-card:hover::after { opacity: 1; }
-    .method-num { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 28px; }
-    .method-icon { width: 44px; height: 44px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 1.1rem; color: var(--gold-dim); }
-    .method-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--cream); margin-bottom: 16px; }
-    .method-desc { font-size: 0.87rem; color: var(--text-muted); line-height: 1.85; max-width: 380px; }
-    .method-corner { position: absolute; bottom: 0; right: 0; width: 100px; height: 100px; border-top: 1px solid var(--border); border-left: 1px solid var(--border); opacity: .35; }
+/* ══════════ FEES ══════════ */
+.fees-wrap{padding:0 68px 120px;max-width:1240px;margin:0 auto}
+.fees-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bs);margin-top:64px}
+.fc{background:var(--ink2);padding:48px 44px;position:relative;overflow:hidden;transition:background .3s}
+.fc:hover{background:var(--ink3)}
+.fc.hl{background:var(--ink3);border:1px solid var(--b);grid-column:span 2}
+.fc.hl::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(201,168,76,.07),transparent)}
+.flt{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px}
+.fln{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--cream);margin-bottom:6px}
+.fldur{font-size:.78rem;color:var(--muted);margin-bottom:26px}
+.famt{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:var(--gold);font-weight:300;line-height:1}
+.famt-l{font-size:.68rem;color:var(--muted);margin-top:8px;letter-spacing:.05em}
+.ftotal{margin-top:48px;padding:44px 52px;border:1px solid var(--b);background:var(--ink3);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+.ftotal-l{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:8px}
+.ftotal-v{font-family:'Cormorant Garamond',serif;font-size:3.2rem;color:var(--cream);font-weight:300}
+.ftotal-s{font-size:.8rem;color:var(--muted);margin-top:6px}
+.fnote{margin-top:26px;font-size:.79rem;color:var(--muted);line-height:1.75;padding-left:16px;border-left:2px solid var(--gold-d)}
 
-    /* Teaching ideology */
-    .ideology-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 2px; margin-top: 64px; background: var(--border-soft);
-    }
-    .ideology-card { background: var(--ink-card); padding: 52px 44px; position: relative; overflow: hidden; }
-    .ideology-num { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--gold-dim); letter-spacing: .1em; margin-bottom: 20px; }
-    .ideology-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--cream); margin-bottom: 14px; }
-    .ideology-sub { font-size: 0.8rem; letter-spacing: .04em; color: var(--gold); margin-bottom: 20px; font-style: italic; }
-    .ideology-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
+/* ══════════ FAQ ══════════ */
+.faq-sec{padding:120px 68px;max-width:1240px;margin:0 auto}
+.faq-list{margin-top:56px;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--bs)}
+.faq-q{padding:26px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;transition:color .25s}
+.faq-q:hover{color:var(--gold-l)}
+.faq-q span{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);font-weight:400;line-height:1.4;flex:1;padding-right:24px}
+.faq-icon{width:28px;height:28px;border:1px solid var(--b);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold-d);font-size:.9rem;transition:all .3s}
+.faq-item.open .faq-icon{transform:rotate(45deg);border-color:var(--gold-d);color:var(--gold)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding-bottom:26px;font-size:.87rem;color:var(--muted);line-height:1.9;max-width:680px}
 
-    /* Compare table */
-    .compare-table { width: 100%; margin-top: 80px; border-collapse: collapse; }
-    .compare-table th {
-      font-size: 0.66rem; letter-spacing: .22em; text-transform: uppercase;
-      color: var(--text-muted); font-weight: 400;
-      padding: 16px 24px; border-bottom: 1px solid var(--border); text-align: left;
-    }
-    .compare-table th:last-child { color: var(--gold); }
-    .compare-table td { padding: 18px 24px; border-bottom: 1px solid var(--border-soft); font-size: 0.85rem; color: var(--text-muted); }
-    .compare-table td:first-child { color: var(--text-body); }
-    .compare-table td:last-child { color: var(--gold-light); font-weight: 500; }
-    .compare-table tr:hover td { background: rgba(201,168,76,.018); }
-    .check { color: var(--gold); } .cross { color: #3a3530; }
+/* ══════════ APPLY ══════════ */
+.apply-lay{display:grid;grid-template-columns:1fr 1.15fr;gap:96px;align-items:start;padding:150px 68px 100px;max-width:1240px;margin:0 auto}
+.reqs{margin-top:52px;display:flex;flex-direction:column}
+.ri{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-bottom:1px solid var(--bs)}
+.rn{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gold);min-width:22px;margin-top:3px}
+.rt{font-size:.86rem;color:var(--muted);line-height:1.7}
+.rt strong{color:var(--cream);display:block;margin-bottom:4px;font-size:.88rem;font-weight:500}
+.aform{background:var(--ink3);border:1px solid var(--bs);padding:54px 50px;position:relative;overflow:hidden}
+.aform::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold-d),transparent)}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:1.85rem;color:var(--cream);margin-bottom:42px}
+.fg{margin-bottom:26px}
+.fl{display:block;font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px}
+.fi{width:100%;background:transparent;border:none;border-bottom:1px solid var(--b);padding:12px 0;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--cream);outline:none;transition:border-color .3s;cursor:none}
+.fi:focus{border-bottom-color:var(--gold)}
+.fi::placeholder{color:var(--muted)}
+.fsel{width:100%;background:transparent;border:none;border-bottom:1px solid var(--b);padding:12px 0;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--cream);outline:none;transition:border-color .3s;appearance:none;cursor:none;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a6f2e' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center}
+.fsel option{background:var(--ink2)}
+.fsel:focus{border-bottom-color:var(--gold)}
+.fta{width:100%;background:transparent;border:1px solid var(--b);padding:14px 16px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--cream);outline:none;transition:border-color .3s;resize:none;min-height:110px;cursor:none;margin-top:4px}
+.fta:focus{border-color:var(--gold)}
+.fta::placeholder{color:var(--muted)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.fsub{width:100%;background:var(--gold);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;padding:18px;border:none;cursor:none;transition:all .25s;margin-top:8px;position:relative;overflow:hidden}
+.fsub::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transition:left .45s}
+.fsub:hover::before{left:100%}
+.fsub:hover{background:var(--gold-l);transform:translateY(-2px)}
+.fsuccess{display:none;text-align:center;padding:48px 0}
+.fsuccess.show{display:block;animation:fin .5s ease}
+.fsi{width:50px;height:50px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:1rem;color:var(--gold)}
+.fst{font-family:'Cormorant Garamond',serif;font-size:1.9rem;color:var(--cream);margin-bottom:12px}
+.fsd{font-size:.84rem;color:var(--muted);line-height:1.8}
 
-    /* ════════════ VALUES PAGE ════════════ */
-    .values-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 90px; }
-    .values-big-num {
-      font-family: 'Cormorant Garamond', serif; font-size: 16rem; font-weight: 300;
-      line-height: .85; color: transparent; text-align: right; overflow: hidden;
-      -webkit-text-stroke: 1px rgba(201,168,76,0.1);
-    }
-    .value-cards { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border-soft); }
-    .value-card {
-      padding: 52px 42px; border-right: 1px solid var(--border-soft);
-      position: relative; transition: background .3s;
-    }
-    .value-card:last-child { border-right: none; }
-    .value-card:hover { background: rgba(201,168,76,.018); }
-    .value-line { width: 28px; height: 2px; background: var(--gold); margin-bottom: 28px; }
-    .value-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 400; color: var(--cream); margin-bottom: 14px; }
-    .value-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.85; }
+/* ══════════ FOOTER ══════════ */
+footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
+.fg2{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:56px;margin-bottom:60px}
+.fb2{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--cream);margin-bottom:15px}
+.fb2 span{color:var(--gold)}
+.ft{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:260px}
+.fh{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-d);margin-bottom:20px}
+.flinks{list-style:none;display:flex;flex-direction:column;gap:12px}
+.flinks a{font-size:.83rem;color:var(--muted);text-decoration:none;transition:color .2s;cursor:none}
+.flinks a:hover{color:var(--gold-l)}
+.fbot{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--bs);font-size:.7rem;color:var(--muted);letter-spacing:.05em}
+.fbot a{color:var(--gold-d);text-decoration:none}
 
-    /* Manifesto */
-    .manifesto {
-      margin-top: 80px; padding: 80px 64px;
-      background: var(--ink-soft); border: 1px solid var(--border-soft); position: relative; overflow: hidden;
-    }
-    .manifesto::before {
-      content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 22rem; font-weight: 300; line-height: .65;
-      color: var(--gold); opacity: .04; position: absolute; top: -30px; left: 12px; pointer-events: none;
-    }
-    .manifesto-label { font-size: 0.66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 36px; }
-    .manifesto p {
-      font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; font-weight: 300; font-style: italic;
-      line-height: 1.7; color: var(--cream); max-width: 820px;
-    }
-    .manifesto p + p { margin-top: 24px; }
-
-    /* Not for everyone */
-    .selective-section { margin-top: 80px; text-align: center; padding: 90px 48px; background: var(--ink-card); border: 1px solid var(--border-soft); position: relative; overflow: hidden; }
-    .selective-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,168,76,0.04), transparent); }
-
-    /* ════════════ FEES PAGE ════════════ */
-    .fees-layout { padding: 0 64px 120px; max-width: 1220px; margin: 0 auto; }
-    .fees-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border-soft); margin-top: 64px; }
-    .fee-card {
-      background: var(--ink-card); padding: 52px 48px; position: relative; overflow: hidden;
-    }
-    .fee-card.highlight {
-      background: var(--ink-soft);
-      border: 1px solid var(--border);
-    }
-    .fee-card.highlight::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.06), transparent); }
-    .fee-level-tag { font-size: 0.62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 12px; }
-    .fee-level-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--cream); margin-bottom: 8px; }
-    .fee-duration { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 28px; }
-    .fee-amount { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; line-height: 1; }
-    .fee-amount-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 8px; letter-spacing: .06em; }
-    .fee-total-box {
-      margin-top: 56px; padding: 48px 56px;
-      border: 1px solid var(--border); background: var(--ink-soft);
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
-    }
-    .fee-total-label { font-size: 0.7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 8px; }
-    .fee-total-val { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; color: var(--cream); font-weight: 300; }
-    .fee-total-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
-    .fee-note { margin-top: 28px; font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; padding-left: 16px; border-left: 2px solid var(--gold-dim); }
-
-    /* ════════════ APPLY PAGE ════════════ */
-    .apply-layout {
-      display: grid; grid-template-columns: 1fr 1.15fr;
-      gap: 100px; align-items: start;
-      padding-top: 150px; padding-bottom: 100px;
-      padding-left: 64px; padding-right: 64px;
-      max-width: 1220px; margin: 0 auto;
-    }
-    .apply-requirements { margin-top: 56px; display: flex; flex-direction: column; gap: 0; }
-    .req-item { display: flex; align-items: flex-start; gap: 18px; padding: 22px 0; border-bottom: 1px solid var(--border-soft); }
-    .req-num { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--gold); min-width: 24px; margin-top: 3px; }
-    .req-text { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
-    .req-text strong { color: var(--cream); display: block; margin-bottom: 4px; font-size: 0.9rem; font-weight: 500; }
-    .apply-form { background: var(--ink-soft); border: 1px solid var(--border-soft); padding: 56px 52px; position: relative; overflow: hidden; }
-    .apply-form::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); }
-    .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 400; color: var(--cream); margin-bottom: 44px; }
-    .form-group { margin-bottom: 28px; }
-    .form-label { display: block; font-size: 0.65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 10px; }
-    .form-input {
-      width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border);
-      padding: 12px 0; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--cream);
-      outline: none; transition: border-color .3s; cursor: none;
-    }
-    .form-input:focus { border-bottom-color: var(--gold); }
-    .form-input::placeholder { color: var(--text-muted); }
-    .form-select {
-      width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--border);
-      padding: 12px 0; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--cream);
-      outline: none; transition: border-color .3s; appearance: none; cursor: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238a6f2e' stroke-width='1.2' fill='none'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 8px center;
-    }
-    .form-select option { background: var(--ink-mid); }
-    .form-select:focus { border-bottom-color: var(--gold); }
-    .form-textarea {
-      width: 100%; background: transparent; border: 1px solid var(--border);
-      padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--cream);
-      outline: none; transition: border-color .3s; resize: none; min-height: 110px; cursor: none; margin-top: 4px;
-    }
-    .form-textarea:focus { border-color: var(--gold); }
-    .form-textarea::placeholder { color: var(--text-muted); }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-    .btn-submit {
-      width: 100%; background: var(--gold); color: var(--ink);
-      font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: .2em; text-transform: uppercase;
-      font-weight: 600; padding: 18px; border: none; cursor: none;
-      transition: background .25s, transform .2s; margin-top: 8px; position: relative; overflow: hidden;
-    }
-    .btn-submit::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%); }
-    .btn-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
-    .form-success { display: none; text-align: center; padding: 48px 0; }
-    .form-success.show { display: block; animation: fadeIn .5s ease; }
-    .success-icon { width: 52px; height: 52px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 1.1rem; color: var(--gold); }
-    .success-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--cream); margin-bottom: 12px; }
-    .success-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.8; }
-
-    /* ════════════ FOOTER ════════════ */
-    footer { border-top: 1px solid var(--border-soft); padding: 72px 64px 44px; }
-    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 60px; margin-bottom: 64px; }
-    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 16px; }
-    .footer-brand span { color: var(--gold); }
-    .footer-tagline { font-size: 0.83rem; color: var(--text-muted); line-height: 1.8; max-width: 270px; }
-    .footer-heading { font-size: 0.63rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 22px; }
-    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 13px; }
-    .footer-links a { font-size: 0.84rem; color: var(--text-muted); text-decoration: none; transition: color .2s; cursor: none; }
-    .footer-links a:hover { color: var(--gold-light); }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: 32px; border-top: 1px solid var(--border-soft);
-      font-size: 0.7rem; color: var(--text-muted); letter-spacing: .05em;
-    }
-    .footer-bottom a { color: var(--gold-dim); text-decoration: none; }
-
-    /* ════════════ RESPONSIVE ════════════ */
-    @media (max-width: 960px) {
-      #navbar { padding: 20px 28px; }
-      #navbar.scrolled { padding: 14px 28px; }
-      .nav-links, .nav-cta { display: none; }
-      .nav-mobile-toggle { display: flex; }
-      .hero-title { font-size: clamp(3.6rem, 14vw, 5.5rem); }
-      .stats-band { grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(3)::before { display: none; }
-      .stat-item { padding: 28px 0; }
-      .section { padding: 80px 28px; }
-      .teaser-grid, .fees-grid { grid-template-columns: 1fr; padding: 0 28px 80px; }
-      .level-row { grid-template-columns: 64px 1fr; }
-      .level-duration { display: none; }
-      .method-steps, .ideology-grid { grid-template-columns: 1fr; }
-      .values-intro { grid-template-columns: 1fr; gap: 24px; }
-      .values-big-num { font-size: 8rem; }
-      .value-cards { grid-template-columns: 1fr; }
-      .value-card { border-right: none; border-bottom: 1px solid var(--border-soft); }
-      .apply-layout { grid-template-columns: 1fr; gap: 56px; padding: 120px 28px 80px; }
-      .form-row { grid-template-columns: 1fr; gap: 0; }
-      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
-      .page-hero { padding: 140px 28px 60px; }
-      .founder-layout { grid-template-columns: 1fr; }
-      .founder-visual { height: 50vh; }
-      .founder-content { padding: 64px 28px 64px; }
-      .fees-layout { padding: 0 28px 80px; }
-      .program-summary { flex-direction: column; align-items: flex-start; gap: 24px; }
-      .program-summary-divider { width: 60px; height: 1px; }
-    }
-  </style>
+/* ══════════ RESPONSIVE ══════════ */
+@media(max-width:980px){
+  #nav{padding:20px 28px}
+  #nav.sc{padding:14px 28px}
+  .navl,.navcta{display:none}
+  .mb-tog{display:flex}
+  .hero{padding:140px 28px 90px}
+  .ht{font-size:clamp(3.5rem,13vw,5.5rem)}
+  .sband{grid-template-columns:repeat(2,1fr)}
+  .si:nth-child(3)::before{display:none}
+  .si{padding:24px 0}
+  .sec{padding:80px 28px}
+  .problem{padding:80px 28px}
+  .problem-inner{grid-template-columns:1fr;gap:48px}
+  .transform-grid{grid-template-columns:1fr}
+  .tgrid{grid-template-columns:1fr;padding:0 28px 80px}
+  .testi-grid{grid-template-columns:1fr}
+  .cohort-sec{margin:0 28px 80px;padding:56px 40px}
+  .cohort-inner{flex-direction:column;gap:28px;align-items:flex-start}
+  .founder-wrap{grid-template-columns:1fr}
+  .founder-vis{height:50vh;position:relative}
+  .founder-content{padding:64px 28px}
+  .ph{padding:140px 28px 60px}
+  .lrow{grid-template-columns:64px 1fr}
+  .ldur{display:none}
+  .msteps,.ideo-grid,.outcomes-grid{grid-template-columns:1fr}
+  .val-intro{grid-template-columns:1fr;gap:20px}
+  .vbn{font-size:8rem}
+  .vcards{grid-template-columns:1fr}
+  .vcard{border-right:none;border-bottom:1px solid var(--bs)}
+  .fees-grid{grid-template-columns:1fr}
+  .fc.hl{grid-column:span 1}
+  .fees-wrap{padding:0 28px 80px}
+  .apply-lay{grid-template-columns:1fr;gap:52px;padding:120px 28px 80px}
+  .frow{grid-template-columns:1fr;gap:0}
+  .fg2{grid-template-columns:1fr;gap:32px}
+  footer{padding:60px 28px 36px}
+  footer .fbot{margin:0}
+  .transform-sec{padding:80px 28px}
+  .testi-sec{padding:80px 28px}
+  .faq-sec{padding:80px 28px}
+}
+</style>
 </head>
-
 <body>
-<div class="ambient ambient-1"></div>
-<div class="ambient ambient-2"></div>
-
-<!-- CURSOR -->
-<div id="cursor"><div id="cursor-dot"></div><div id="cursor-ring"></div></div>
+<div class="amb a1"></div><div class="amb a2"></div>
+<div id="pgbar"></div>
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="closeMobileMenu()">✕</button>
-  <a href="#" onclick="navigate('home'); closeMobileMenu()">Home</a>
-  <a href="#" onclick="navigate('founder'); closeMobileMenu()">Founder</a>
-  <a href="#" onclick="navigate('program'); closeMobileMenu()">Program</a>
-  <a href="#" onclick="navigate('method'); closeMobileMenu()">Method</a>
-  <a href="#" onclick="navigate('values'); closeMobileMenu()">Values</a>
-  <a href="#" onclick="navigate('fees'); closeMobileMenu()">Fees</a>
-  <a href="#" onclick="navigate('apply'); closeMobileMenu()">Apply</a>
+<div class="mb-menu" id="mbmenu">
+  <button class="mb-close" onclick="closeMB()">✕</button>
+  <a href="#" onclick="nav('home');closeMB()">Home</a>
+  <a href="#" onclick="nav('founder');closeMB()">Founder</a>
+  <a href="#" onclick="nav('program');closeMB()">Program</a>
+  <a href="#" onclick="nav('method');closeMB()">Method</a>
+  <a href="#" onclick="nav('values');closeMB()">Values</a>
+  <a href="#" onclick="nav('fees');closeMB()">Fees</a>
+  <a href="#" onclick="nav('faq');closeMB()">FAQ</a>
+  <a href="#" onclick="nav('apply');closeMB()" style="color:var(--gold)">Apply →</a>
 </div>
 
-<!-- NAVBAR -->
-<header id="navbar">
-  <a class="nav-logo" href="#" onclick="navigate('home'); return false;">
-    <div class="nav-logo-mark">
-      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M16 3L28 26H4L16 3Z" stroke="#c9a84c" stroke-width="1.2" fill="none"/>
-        <path d="M16 3L22 18H10L16 3Z" stroke="#c9a84c" stroke-width="0.8" fill="none" opacity="0.5"/>
-      </svg>
-    </div>
+<!-- NAV -->
+<header id="nav">
+  <a class="logo" href="#" onclick="nav('home');return false">
+    <div class="logo-m"><svg viewBox="0 0 32 32" fill="none"><path d="M16 3L28 28H4L16 3Z" stroke="#c9a84c" stroke-width="1.2" fill="none"/><path d="M16 3L22 20H10L16 3Z" stroke="#c9a84c" stroke-width=".7" fill="none" opacity=".45"/><line x1="4" y1="28" x2="28" y2="28" stroke="#c9a84c" stroke-width="1.2" opacity=".5"/></svg></div>
     The Pinnacle <span>Minds</span>
   </a>
-  <nav>
-    <ul class="nav-links">
-      <li><a href="#" onclick="navigate('home'); return false;" data-page="home">Home</a></li>
-      <li><a href="#" onclick="navigate('founder'); return false;" data-page="founder">Founder</a></li>
-      <li><a href="#" onclick="navigate('program'); return false;" data-page="program">Program</a></li>
-      <li><a href="#" onclick="navigate('method'); return false;" data-page="method">Method</a></li>
-      <li><a href="#" onclick="navigate('values'); return false;" data-page="values">Values</a></li>
-      <li><a href="#" onclick="navigate('fees'); return false;" data-page="fees">Fees</a></li>
-    </ul>
-  </nav>
-  <a class="nav-cta" href="#" onclick="navigate('apply'); return false;">Apply Now</a>
-  <button class="nav-mobile-toggle" onclick="openMobileMenu()">
-    <span></span><span></span><span></span>
-  </button>
+  <nav><ul class="navl">
+    <li><a href="#" onclick="nav('home');return false" data-p="home">Home</a></li>
+    <li><a href="#" onclick="nav('founder');return false" data-p="founder">Founder</a></li>
+    <li><a href="#" onclick="nav('program');return false" data-p="program">Program</a></li>
+    <li><a href="#" onclick="nav('method');return false" data-p="method">Method</a></li>
+    <li><a href="#" onclick="nav('values');return false" data-p="values">Values</a></li>
+    <li><a href="#" onclick="nav('fees');return false" data-p="fees">Fees</a></li>
+    <li><a href="#" onclick="nav('faq');return false" data-p="faq">FAQ</a></li>
+  </ul></nav>
+  <a class="navcta" href="#" onclick="nav('apply');return false">Apply Now</a>
+  <button class="mb-tog" onclick="openMB()"><span></span><span></span><span></span></button>
 </header>
 
-<!-- ══════════════════ HOME ══════════════════ -->
+<!-- ══════ HOME ══════ -->
 <div class="page active" id="page-home">
-  <section id="home">
-    <div class="hero">
-      <div class="hero-grid-bg"></div>
-      <div class="hero-eyebrow">Selective Admission · Grade 8–12 · Limited to 30</div>
-      <h1 class="hero-title">
-        The<br><em>Pinnacle</em><strong>Minds</strong>
-      </h1>
-      <p class="hero-sub">Not a tuition class. A structured 18-month system to build thinking, execution, and real-world capability — for the students who are serious about becoming the top 1%.</p>
-      <div class="hero-actions">
-        <a href="#" class="btn-primary" onclick="navigate('program'); return false;">View Program</a>
-        <a href="#" class="btn-ghost" onclick="navigate('apply'); return false;">Apply Now</a>
-      </div>
-      <div class="hero-scroll">
-        <span>Scroll</span>
-        <div class="scroll-line"></div>
-      </div>
+<section>
+  <div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-ey">Selective · Grade 8–12 · Max 30 Students · Pune</div>
+    <h1 class="ht">The<br><em>Pinnacle</em><strong>Minds</strong></h1>
+    <p class="hsub">Build who your child becomes before the world decides for them. An 18-month structured system for the students who are serious about becoming the top 1%.</p>
+    <div class="hact">
+      <a href="#" class="bp" onclick="nav('program');return false">Explore the Program</a>
+      <a href="#" class="bg" onclick="nav('apply');return false">Apply for Admission</a>
     </div>
+    <div class="hscroll"><span class="hscroll-label">Scroll</span><div class="hscroll-line"></div></div>
+  </div>
+</section>
 
-    <div class="stats-band reveal">
-      <div class="stat-item">
-        <div class="stat-num counter" data-target="97" data-suffix="%">0</div>
-        <div class="stat-label">Student Satisfaction</div>
+<!-- Problem -->
+<div class="problem rv">
+  <div class="problem-inner">
+    <div class="problem-stat-row">
+      <div class="problem-stat">
+        <div class="ps-num">65%</div>
+        <div class="ps-text">
+          <div class="ps-title">Jobs don't exist yet</div>
+          <div class="ps-sub">65% of children entering school today will work in careers that haven't been invented. The curriculum hasn't changed in 40 years.</div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">5</div>
-        <div class="stat-label">Structured Levels</div>
+      <div class="problem-stat">
+        <div class="ps-num">0</div>
+        <div class="ps-text">
+          <div class="ps-title">Skills taught that actually matter</div>
+          <div class="ps-sub">Thinking. Discipline. Communication. Leadership. Financial intelligence. Not one of these appears on a school report card.</div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-num">18</div>
-        <div class="stat-label">Months Duration</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">6:1</div>
-        <div class="stat-label">Mentor Ratio</div>
-      </div>
-    </div>
-
-    <div class="quote-section reveal">
-      <div class="quote-mark">"</div>
-      <p class="quote-text">The mind is not a vessel to be filled, but a fire to be kindled.</p>
-      <p class="quote-author">— Our founding philosophy</p>
-    </div>
-
-    <div class="teaser-grid reveal">
-      <div class="teaser-card" onclick="navigate('program')">
-        <div class="teaser-num">01</div>
-        <div class="teaser-title">The Program</div>
-        <p class="teaser-desc">Five structured levels: Cognitive Foundations, Self Mastery, Communication, Future Strategy, and an Elite Capstone.</p>
-        <div class="teaser-arrow">Explore →</div>
-        <div class="teaser-corner"></div>
-      </div>
-      <div class="teaser-card" onclick="navigate('method')">
-        <div class="teaser-num">02</div>
-        <div class="teaser-title">The Method</div>
-        <p class="teaser-desc">Learn by doing. Reflect & apply. Prove it. Every concept tested in the session, not at home, not on paper.</p>
-        <div class="teaser-arrow">Explore →</div>
-        <div class="teaser-corner"></div>
-      </div>
-      <div class="teaser-card" onclick="navigate('values')">
-        <div class="teaser-num">03</div>
-        <div class="teaser-title">The Values</div>
-        <p class="teaser-desc">Clarity of thought. Execution over ideation. Rise through discipline. The three pillars of everything we do.</p>
-        <div class="teaser-arrow">Explore →</div>
-        <div class="teaser-corner"></div>
+      <div class="problem-stat">
+        <div class="ps-num">3×</div>
+        <div class="ps-text">
+          <div class="ps-title">Harder to build habits at 18</div>
+          <div class="ps-sub">Every habit built at 13–15 becomes automatic by 18. Waiting until college means unlearning years of default patterns first.</div>
+        </div>
       </div>
     </div>
-  </section>
-
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">The Pinnacle <span>Minds</span></div>
-        <p class="footer-tagline">An 18-month structured program to build thinking, execution, and real-world capability in the next generation of leaders.</p>
-      </div>
-      <div>
-        <div class="footer-heading">Navigate</div>
-        <ul class="footer-links">
-          <li><a href="#" onclick="navigate('home'); return false;">Home</a></li>
-          <li><a href="#" onclick="navigate('founder'); return false;">Founder</a></li>
-          <li><a href="#" onclick="navigate('program'); return false;">Program</a></li>
-          <li><a href="#" onclick="navigate('method'); return false;">Method</a></li>
-          <li><a href="#" onclick="navigate('values'); return false;">Values</a></li>
-          <li><a href="#" onclick="navigate('fees'); return false;">Fees</a></li>
-          <li><a href="#" onclick="navigate('apply'); return false;">Apply</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-heading">Contact</div>
-        <ul class="footer-links">
-          <li><a href="mailto:hello@pinnacleminds.in">hello@pinnacleminds.in</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-        </ul>
-      </div>
+    <div class="problem-right">
+      <p>"The school system was designed 150 years ago to produce workers. Your child deserves a system built for the world they are actually entering."</p>
+      <div class="note">The gap between what schools prepare students for and what the world actually demands has never been wider. The Pinnacle Minds exists to close that gap — permanently, not temporarily.</div>
+      <div style="margin-top:32px"><a href="#" class="bg" onclick="nav('program');return false">See the Solution →</a></div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 The Pinnacle Minds</span>
-      <span>Built for the Top <a href="#">1%</a></span>
-    </div>
-  </footer>
+  </div>
 </div>
 
-<!-- ══════════════════ FOUNDER ══════════════════ -->
+<!-- Stats band -->
+<div class="sband rv">
+  <div class="si"><div class="sn counter" data-t="18">0</div><div class="sl">Months Duration</div></div>
+  <div class="si"><div class="sn">5</div><div class="sl">Structured Levels</div></div>
+  <div class="si"><div class="sn">6:1</div><div class="sl">Mentor Ratio</div></div>
+  <div class="si"><div class="sn">30</div><div class="sl">Max Per Cohort</div></div>
+</div>
+
+<!-- Transformation -->
+<div class="transform-sec rv">
+  <div class="ey">The Difference</div>
+  <h2 class="st">Average student<br>vs. <em>Top 1% student</em></h2>
+  <div class="transform-grid">
+    <div class="tx-col">
+      <div class="tx-header">
+        <div class="tx-header-dot" style="background:var(--muted)"></div>
+        <div class="tx-header-label" style="color:var(--muted);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase">Average Student (12–15)</div>
+      </div>
+      <div class="tx-items">
+        <div class="tx-item"><div class="tx-icon" style="color:var(--muted)">—</div><div class="tx-text">Studies only when forced. Motivated by exam dates alone.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--muted)">—</div><div class="tx-text">Gets stressed and shuts down under pressure.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--muted)">—</div><div class="tx-text">Waits for the teacher to explain. Avoids figuring things out alone.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--muted)">—</div><div class="tx-text">Avoids speaking up. Can't communicate ideas when it matters.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--muted)">—</div><div class="tx-text">Spends money the moment they receive it. No system.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--muted)">—</div><div class="tx-text">Dependent on parents for every decision. No direction.</div></div>
+      </div>
+    </div>
+    <div class="tx-col after">
+      <div class="tx-header">
+        <div class="tx-header-dot"></div>
+        <div class="tx-header-label">Top 1% Student (12–15)</div>
+      </div>
+      <div class="tx-items">
+        <div class="tx-item"><div class="tx-icon" style="color:var(--gold)">◆</div><div class="tx-text">Builds a study system that runs on its own — not on mood.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--gold)">◆</div><div class="tx-text">Manages pressure with a framework. Keeps moving regardless.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--gold)">◆</div><div class="tx-text">Goes and finds the answer. Reasons from first principles.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--gold)">◆</div><div class="tx-text">Speaks with confidence and structure. Makes people listen.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--gold)">◆</div><div class="tx-text">Understands money and makes it work. Saves automatically.</div></div>
+        <div class="tx-item"><div class="tx-icon" style="color:var(--gold)">◆</div><div class="tx-text">Makes good decisions independently. Has a vision for their future.</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:28px;padding:28px 36px;background:var(--ink3);border:1px solid var(--bs)">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--body);font-style:italic;line-height:1.65">The difference between these two columns is not intelligence. It is not family background. It is not the school they attend. <strong style="color:var(--gold);font-weight:400;font-style:normal">It is training.</strong></p>
+  </div>
+</div>
+
+<!-- Teasers -->
+<div class="tgrid rv">
+  <div class="tc" onclick="nav('program')">
+    <div class="tcn">01</div>
+    <div class="tct">The Program</div>
+    <p class="tcd">Five levels: Cognitive Foundations → Self Mastery → Communication → Future Strategy → Elite Capstone. 18 months that build a complete human being.</p>
+    <div class="tca">Explore →</div>
+    <div class="tc-corner"></div>
+  </div>
+  <div class="tc" onclick="nav('method')">
+    <div class="tcn">02</div>
+    <div class="tct">The Method</div>
+    <p class="tcd">Learn by doing. Reflect and apply. Prove it. Every concept tested in the session — not at home, not on paper, not on exam day.</p>
+    <div class="tca">Explore →</div>
+    <div class="tc-corner"></div>
+  </div>
+  <div class="tc" onclick="nav('values')">
+    <div class="tcn">03</div>
+    <div class="tct">The Values</div>
+    <p class="tcd">Clarity of thought. Execution over ideation. Rise through discipline. The three pillars that define every session, every feedback, every standard we hold.</p>
+    <div class="tca">Explore →</div>
+    <div class="tc-corner"></div>
+  </div>
+</div>
+
+<!-- Testimonials -->
+<div class="testi-sec rv">
+  <div class="ey">What Parents Say</div>
+  <h2 class="st">The change happens<br><em>at home first</em></h2>
+  <div class="testi-grid">
+    <div class="tcard rv d1">
+      <div class="tcard-quote">"</div>
+      <p class="tcard-text">My daughter was the kind of child who waited to be told what to do. Within three months, she came to me with a plan she'd made herself. I didn't ask. She just showed up with it. That never happened before.</p>
+      <div class="tcard-divider"></div>
+      <div class="tcard-name">Parent of Riya, 14</div>
+      <div class="tcard-role">Grade 9 · Pune</div>
+    </div>
+    <div class="tcard rv d2">
+      <div class="tcard-quote">"</div>
+      <p class="tcard-text">We were skeptical — there are so many programs that promise transformation and deliver a certificate. This is different. My son talks differently. He thinks differently. He handles being wrong without shutting down. That's real.</p>
+      <div class="tcard-divider"></div>
+      <div class="tcard-name">Parent of Aryan, 13</div>
+      <div class="tcard-role">Grade 8 · Pune</div>
+    </div>
+    <div class="tcard rv d3">
+      <div class="tcard-quote">"</div>
+      <p class="tcard-text">The quarterly report was the moment I understood the difference. It wasn't a grade or a certificate — it was a mirror of my child. Specific. Honest. Developmental. It told me things about my son's growth I hadn't noticed yet but recognised immediately.</p>
+      <div class="tcard-divider"></div>
+      <div class="tcard-name">Parent of Karan, 15</div>
+      <div class="tcard-role">Grade 10 · Pune</div>
+    </div>
+  </div>
+</div>
+
+<!-- Cohort CTA -->
+<div class="cohort-sec rv">
+  <div class="cohort-inner">
+    <div class="cohort-left">
+      <div class="cohort-eyebrow">Next Cohort — September 5, 2026</div>
+      <h2 class="cohort-title">The window is<br><em>still open.</em></h2>
+      <div class="cohort-meta">Every habit built at 13 is automatic at 18. Every year you wait is a year your child's defaults are being set by whatever environment they happen to be in.<br>The window doesn't close — but it narrows.</div>
+      <div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap">
+        <a href="#" class="bp" onclick="nav('apply');return false">Apply for Admission</a>
+        <a href="#" class="bg" onclick="nav('fees');return false">View Fees</a>
+      </div>
+    </div>
+    <div class="cohort-right">
+      <div class="seats-counter">8</div>
+      <div class="seats-label">Seats Remaining</div>
+      <div class="seats-bar"><div class="seats-fill"></div></div>
+      <div style="font-size:.68rem;color:var(--muted);margin-top:10px;letter-spacing:.06em">22 of 30 seats filled</div>
+    </div>
+  </div>
+</div>
+
+</section>
+<footer>
+  <div class="fg2">
+    <div>
+      <div class="fb2">The Pinnacle <span>Minds</span></div>
+      <p class="ft">An 18-month structured program to build thinking, execution, and real-world capability in the next generation of leaders. Pune, Maharashtra.</p>
+    </div>
+    <div>
+      <div class="fh">Navigate</div>
+      <ul class="flinks">
+        <li><a href="#" onclick="nav('home');return false">Home</a></li>
+        <li><a href="#" onclick="nav('founder');return false">Founder</a></li>
+        <li><a href="#" onclick="nav('program');return false">Program</a></li>
+        <li><a href="#" onclick="nav('method');return false">Method</a></li>
+        <li><a href="#" onclick="nav('values');return false">Values</a></li>
+        <li><a href="#" onclick="nav('fees');return false">Fees</a></li>
+        <li><a href="#" onclick="nav('faq');return false">FAQ</a></li>
+        <li><a href="#" onclick="nav('apply');return false">Apply</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fh">Contact</div>
+      <ul class="flinks">
+        <li><a href="mailto:hello@pinnacleminds.in">hello@pinnacleminds.in</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 The Pinnacle Minds · Pune</span>
+    <span>Built for the Top <a href="#">1%</a></span>
+  </div>
+</footer>
+</div>
+
+<!-- ══════ FOUNDER ══════ -->
 <div class="page" id="page-founder">
-  <div class="founder-layout">
-    <div class="founder-visual">
-      <div class="founder-visual-bg"></div>
-      <div class="founder-placeholder">
-        <div class="founder-img-frame">
-          <!-- Replace src with actual photo -->
-          <span style="font-size:0.72rem;letter-spacing:.1em;color:var(--text-muted);">[ Founder Photo ]</span>
-          <div class="founder-img-tag">
-            <div class="name">Sneh Shah</div>
-            <div class="role">Founder, The Pinnacle Minds</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="founder-content">
-      <div class="section-eyebrow">The Founder</div>
-      <p class="founder-quote-large">
-        "Most institutions teach students <em style="color:var(--gold);">what</em> to think. I built TPM to teach students <em style="color:var(--gold);">how</em> to think."
-      </p>
-      <p class="founder-body">
-        The Pinnacle Minds was built on a simple but uncomfortable observation: the education system hasn't changed in decades, but the world has changed completely. In 2026, 65% of the children entering school today will work in jobs that don't yet exist — yet we're still preparing them for jobs that do.
-      </p>
-      <p class="founder-body">
-        TPM exists to correct that gap. Not by teaching more subjects, but by building the foundational capabilities that remain constant: the ability to think clearly, execute consistently, communicate precisely, and adapt faster than the environment changes.
-      </p>
-      <p class="founder-body">
-        This is not a coaching centre. This is a structured development system — designed for the students who are ready to be challenged, pushed, and built into something exceptional.
-      </p>
-      <div class="founder-sig">
-        <div>
-          <div class="founder-sig-name">Sneh Shah</div>
-          <div class="founder-sig-role">Founder · The Pinnacle Minds</div>
-        </div>
-        <div class="founder-sig-line"></div>
-        <a href="#" onclick="navigate('apply'); return false;" class="btn-primary" style="white-space:nowrap;">Apply Now</a>
+<div class="founder-wrap">
+  <div class="founder-vis">
+    <div class="fv-bg"></div>
+    <div class="fimg">
+      <div class="fimg-frame">[ Founder Photo ]
+        <div class="fimg-tag"><div class="fn">Sneh Shah</div><div class="fr">Founder · The Pinnacle Minds</div></div>
       </div>
     </div>
   </div>
+  <div class="founder-content">
+    <div class="ey">The Founder</div>
+    <p class="fq">"Most institutions teach students <em style="color:var(--gold)">what</em> to think. I built The Pinnacle Minds to teach students <em style="color:var(--gold)">how</em> to think — and why that difference changes everything."</p>
+    <p class="fb">The Pinnacle Minds was built on a simple but uncomfortable observation: the education system hasn't fundamentally changed in over a century, but the world it's preparing students for has transformed completely. In 2026, 65% of children entering school today will work in jobs that don't yet exist — yet we're still preparing them for jobs that do.</p>
+    <p class="fb">TPM exists to correct that gap. Not by teaching more subjects, but by building the foundational capabilities that remain constant regardless of what the future looks like: the ability to think clearly, execute consistently, communicate precisely, and adapt faster than the environment changes.</p>
+    <p class="fb">This is not a coaching centre. It is a structured development system — with measurable milestones, a quarterly development report, and a curriculum designed for the critical 12–15 age window when habits and thinking patterns are still being formed. Built for students who are ready to be challenged, pushed, and built into something exceptional.</p>
+    <div class="fsig">
+      <div><div class="fsig-n">Sneh Shah</div><div class="fsig-r">Founder · The Pinnacle Minds</div></div>
+      <div class="fsig-line"></div>
+      <a href="#" onclick="nav('apply');return false" class="bp" style="white-space:nowrap">Apply Now</a>
+    </div>
+  </div>
+</div>
 </div>
 
-<!-- ══════════════════ PROGRAM ══════════════════ -->
+<!-- ══════ PROGRAM ══════ -->
 <div class="page" id="page-program">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-grid"></div>
-    <div>
-      <div class="section-eyebrow">Curriculum Structure</div>
-      <h1 class="section-title" style="font-size: clamp(3rem, 7vw, 6.5rem);">Five Levels.<br><em>One Transformation.</em></h1>
+<div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
+  <div><div class="ey">Curriculum Structure</div><h1 class="st" style="font-size:clamp(3rem,8vw,7rem)">Five Levels.<br><em>One Transformation.</em></h1></div>
+</div>
+<div class="sec" style="padding-top:72px">
+  <div class="levels">
+    <div class="lrow rv">
+      <div class="lnum">01</div>
+      <div>
+        <div class="ltag">L1 · Cognitive Foundations · 3 Months</div>
+        <div class="lname">How to Think</div>
+        <div class="ldesc">The meta-skill that amplifies everything else. Students learn to reason from first principles, build mental models, understand how their own cognitive biases work against them, and develop independent thinking. Before any other skill is built, the mind must be sharpened.</div>
+        <div class="lpills"><span class="pill">Mental Models</span><span class="pill">First Principles</span><span class="pill">Systems Thinking</span><span class="pill">Decision Science</span><span class="pill">Cognitive Biases</span><span class="pill">Self-Awareness</span></div>
+      </div>
+      <div class="ldur"><span class="ldur-n">3</span><span class="ldur-l">Months</span></div>
+    </div>
+    <div class="lrow rv">
+      <div class="lnum">02</div>
+      <div>
+        <div class="ltag">L2 · Self Mastery · 3 Months</div>
+        <div class="lname">How to Perform</div>
+        <div class="ldesc">Talent is common. Consistency is rare. Students build the internal infrastructure of high performance — habit systems, deep work protocols, OKRs, emotional intelligence, and execution frameworks that run regardless of motivation. Discipline as architecture, not willpower.</div>
+        <div class="lpills"><span class="pill">Habit Systems</span><span class="pill">Deep Work</span><span class="pill">Emotional Intelligence</span><span class="pill">OKRs & 90-Day Planning</span><span class="pill">Stress Management</span></div>
+      </div>
+      <div class="ldur"><span class="ldur-n">3</span><span class="ldur-l">Months</span></div>
+    </div>
+    <div class="lrow rv">
+      <div class="lnum">03</div>
+      <div>
+        <div class="ltag">L3 · Communication & Influence · 3 Months</div>
+        <div class="lname">How to Lead Rooms</div>
+        <div class="ldesc">Communication is the multiplier of all other skills. A brilliant thinker who cannot express their ideas clearly will always be outpaced by someone who can. Students develop structured speaking, persuasive writing, negotiation, and the ability to lead without a title.</div>
+        <div class="lpills"><span class="pill">Structured Speaking</span><span class="pill">Storytelling</span><span class="pill">Persuasion</span><span class="pill">Negotiation</span><span class="pill">Leadership Styles</span><span class="pill">Networking</span></div>
+      </div>
+      <div class="ldur"><span class="ldur-n">3</span><span class="ldur-l">Months</span></div>
+    </div>
+    <div class="lrow rv">
+      <div class="lnum">04</div>
+      <div>
+        <div class="ltag">L4 · Future Strategy · 3 Months</div>
+        <div class="lname">How to Navigate Tomorrow</div>
+        <div class="ldesc">Financial intelligence, business model understanding, AI and automation tools, industry mapping, and trend forecasting. Students gain the real-world knowledge that most adults had to learn the hard way — on their own, years too late. They will understand how the world actually works before they have to live in it.</div>
+        <div class="lpills"><span class="pill">Financial Intelligence</span><span class="pill">Business Models</span><span class="pill">AI & Automation</span><span class="pill">Industry Mapping</span><span class="pill">Personal Roadmap</span></div>
+      </div>
+      <div class="ldur"><span class="ldur-n">3</span><span class="ldur-l">Months</span></div>
+    </div>
+    <div class="lrow rv" style="border-bottom:none">
+      <div class="lnum">05</div>
+      <div>
+        <div class="ltag">L5 · Elite Capstone · 6 Months</div>
+        <div class="lname">Build Something Real</div>
+        <div class="ldesc">The final level is pure creation. Students select a real problem, design a solution, build it, validate it with users, and present to a jury panel of practising professionals who ask hard questions. What they leave with isn't a certificate — it's a demonstrated capability that no exam can replicate.</div>
+        <div class="lpills"><span class="pill">Problem Selection</span><span class="pill">Solution Design</span><span class="pill">User Insight</span><span class="pill">Build Phase</span><span class="pill">Feedback Loops</span><span class="pill">Demo Day Showcase</span></div>
+      </div>
+      <div class="ldur"><span class="ldur-n">6</span><span class="ldur-l">Months</span></div>
     </div>
   </div>
-
-  <div class="section" style="padding-top: 72px;">
-    <div class="levels-grid">
-
-      <div class="level-row reveal">
-        <div class="level-num">01</div>
-        <div class="level-body">
-          <div class="level-tag">L1 · Cognitive Foundations</div>
-          <div class="level-name">How to Think</div>
-          <div class="level-desc">Students learn to reason from first principles, build mental models, understand cognitive biases, and develop independent thinking — the meta-skill that amplifies every other capability.</div>
-          <div class="level-topics">
-            <span class="topic-pill">Mental Models</span>
-            <span class="topic-pill">First Principles Thinking</span>
-            <span class="topic-pill">Systems Thinking</span>
-            <span class="topic-pill">Decision Science</span>
-            <span class="topic-pill">Cognitive Biases</span>
-            <span class="topic-pill">Strategy Basics</span>
-            <span class="topic-pill">Self Awareness</span>
-          </div>
-        </div>
-        <div class="level-duration">
-          <span class="level-duration-num">3</span>
-          <span class="level-duration-label">Months</span>
-        </div>
-      </div>
-
-      <div class="level-row reveal">
-        <div class="level-num">02</div>
-        <div class="level-body">
-          <div class="level-tag">L2 · Self Mastery</div>
-          <div class="level-name">How to Perform</div>
-          <div class="level-desc">Talent is common. Consistency is rare. Students build the internal infrastructure for high performance — habit systems, deep work protocols, emotional intelligence, and execution frameworks that work regardless of motivation.</div>
-          <div class="level-topics">
-            <span class="topic-pill">Habit Systems</span>
-            <span class="topic-pill">Deep Work & Productivity</span>
-            <span class="topic-pill">Emotional Intelligence</span>
-            <span class="topic-pill">Execution Systems</span>
-            <span class="topic-pill">OKRs & 90-Day Planning</span>
-            <span class="topic-pill">Stress Handling</span>
-          </div>
-        </div>
-        <div class="level-duration">
-          <span class="level-duration-num">3</span>
-          <span class="level-duration-label">Months</span>
-        </div>
-      </div>
-
-      <div class="level-row reveal">
-        <div class="level-num">03</div>
-        <div class="level-body">
-          <div class="level-tag">L3 · Communication & Influence</div>
-          <div class="level-name">How to Lead Rooms</div>
-          <div class="level-desc">The ability to communicate clearly — in writing, speaking, and persuasion — is the multiplier of all other skills. Students develop structured communication, negotiation, and leadership capabilities.</div>
-          <div class="level-topics">
-            <span class="topic-pill">Structured Speaking</span>
-            <span class="topic-pill">Storytelling</span>
-            <span class="topic-pill">Persuasive Communication</span>
-            <span class="topic-pill">Negotiation</span>
-            <span class="topic-pill">Networking</span>
-            <span class="topic-pill">Leadership Styles</span>
-          </div>
-        </div>
-        <div class="level-duration">
-          <span class="level-duration-num">3</span>
-          <span class="level-duration-label">Months</span>
-        </div>
-      </div>
-
-      <div class="level-row reveal">
-        <div class="level-num">04</div>
-        <div class="level-body">
-          <div class="level-tag">L4 · Future Strategy</div>
-          <div class="level-name">How to Navigate Tomorrow</div>
-          <div class="level-desc">Students gain financial intelligence, understand business models, master AI and automation tools, and build a personal roadmap for navigating a rapidly changing world — before most adults even understand it.</div>
-          <div class="level-topics">
-            <span class="topic-pill">Financial Intelligence</span>
-            <span class="topic-pill">Business Models</span>
-            <span class="topic-pill">AI & Automation</span>
-            <span class="topic-pill">Industry Mapping</span>
-            <span class="topic-pill">Trend Forecasting</span>
-            <span class="topic-pill">Personal Roadmap</span>
-          </div>
-        </div>
-        <div class="level-duration">
-          <span class="level-duration-num">3</span>
-          <span class="level-duration-label">Months</span>
-        </div>
-      </div>
-
-      <div class="level-row reveal">
-        <div class="level-num">05</div>
-        <div class="level-body">
-          <div class="level-tag">L5 · Elite Capstone</div>
-          <div class="level-name">Build Something Real</div>
-          <div class="level-desc">The final level is pure creation. Students select a real problem, design a solution, build it, validate it, and present it to a jury panel of practising professionals. What they leave with isn't a certificate — it's a demonstrated capability.</div>
-          <div class="level-topics">
-            <span class="topic-pill">Problem Selection</span>
-            <span class="topic-pill">Solution Design</span>
-            <span class="topic-pill">User Insight</span>
-            <span class="topic-pill">Building Phase</span>
-            <span class="topic-pill">Feedback Loops</span>
-            <span class="topic-pill">Final Showcase</span>
-          </div>
-        </div>
-        <div class="level-duration">
-          <span class="level-duration-num">6</span>
-          <span class="level-duration-label">Months</span>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="program-summary reveal">
-      <div class="program-summary-stat">
-        <div class="val">18</div>
-        <div class="lbl">Months Total</div>
-      </div>
-      <div class="program-summary-divider"></div>
-      <div class="program-summary-stat">
-        <div class="val">16+</div>
-        <div class="lbl">Chapters</div>
-      </div>
-      <div class="program-summary-divider"></div>
-      <div class="program-summary-stat">
-        <div class="val">5</div>
-        <div class="lbl">Levels</div>
-      </div>
-      <div class="program-summary-divider"></div>
-      <div class="program-summary-stat">
-        <div class="val">6:1</div>
-        <div class="lbl">Mentor Ratio</div>
-      </div>
-      <a class="btn-primary" href="#" onclick="navigate('apply'); return false;" style="white-space:nowrap;">Apply for Next Cohort</a>
-    </div>
-
+  <div class="prog-sum rv">
+    <div class="ps-stat"><div class="v">18</div><div class="l">Months Total</div></div>
+    <div class="ps-div"></div>
+    <div class="ps-stat"><div class="v">5</div><div class="l">Levels</div></div>
+    <div class="ps-div"></div>
+    <div class="ps-stat"><div class="v">3hrs</div><div class="l">Per Week</div></div>
+    <div class="ps-div"></div>
+    <div class="ps-stat"><div class="v">6:1</div><div class="l">Mentor Ratio</div></div>
+    <div class="ps-div"></div>
+    <div class="ps-stat"><div class="v">30</div><div class="l">Max Per Cohort</div></div>
+    <a class="bp" href="#" onclick="nav('apply');return false" style="white-space:nowrap">Apply for Next Cohort</a>
   </div>
-
-  <footer>
-    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;">
-      <span>© 2026 The Pinnacle Minds</span>
-      <span>Built for the Top <a href="#">1%</a></span>
-    </div>
-  </footer>
+</div>
+<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px"><span>© 2026 The Pinnacle Minds</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>
 
-<!-- ══════════════════ METHOD ══════════════════ -->
+<!-- ══════ METHOD ══════ -->
 <div class="page" id="page-method">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-grid"></div>
-    <div>
-      <div class="section-eyebrow">How It Works</div>
-      <h1 class="section-title" style="font-size: clamp(3rem, 7vw, 6.5rem);">The Method.<br><em>Learn. Apply. Prove.</em></h1>
+<div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
+  <div><div class="ey">How It Works</div><h1 class="st" style="font-size:clamp(3rem,8vw,7rem)">The Method.<br><em>Learn. Apply. Prove.</em></h1></div>
+</div>
+<div class="sec" style="padding-top:72px">
+  <div class="ey rv">Teaching Ideology</div>
+  <h2 class="st rv" style="font-size:clamp(2rem,4vw,3.2rem)">Every session <em>proves</em> capability</h2>
+  <div class="ideo-grid rv">
+    <div class="ic"><div class="in">01</div><div class="it">Learn by Doing</div><div class="is">Activities & live exercises</div><p class="id">Concepts are tested inside the session — not at home, not on paper. Knowledge is stress-tested the moment it is introduced. If a student cannot apply it under mild pressure, they don't know it yet.</p></div>
+    <div class="ic"><div class="in">02</div><div class="it">Reflect & Apply</div><div class="is">Worksheets, case studies & personal audits</div><p class="id">Students don't study concepts in theory — they map every framework onto their own real life. Every mental model becomes personal. Every bias audit becomes a mirror.</p></div>
+    <div class="ic"><div class="in">03</div><div class="it">Prove It</div><div class="is">Real scenarios, group challenges & presentations</div><p class="id">Skills are verified by what a student does when the problem is real and the room is watching. No hiding behind theory. No partial credit for knowing without doing.</p></div>
+  </div>
+  <div style="margin-top:100px">
+    <div class="ey rv">Session Structure</div>
+    <h2 class="st rv" style="font-size:clamp(2rem,4vw,3.2rem)">Four steps. <em>Every session.</em></h2>
+  </div>
+  <div class="msteps">
+    <div class="mc rv"><div class="mn">01 — Learn</div><div class="mi">◎</div><div class="mtt">Concept-Driven Depth</div><p class="md">One powerful concept per session. Real-world examples, case studies, research evidence. No surface-level information, no motivational padding — only depth that builds a permanent mental model.</p><div class="mc-cor"></div></div>
+    <div class="mc rv d1"><div class="mn">02 — Apply</div><div class="mi">◈</div><div class="mtt">Immediate Implementation</div><p class="md">In the same session, concepts are applied. Written exercises, decision frameworks, real scenarios, partner challenges. Knowledge that stays in the head is knowledge wasted.</p><div class="mc-cor"></div></div>
+    <div class="mc rv d2"><div class="mn">03 — Build</div><div class="mi">◇</div><div class="mtt">Portfolio Outcomes</div><p class="md">Every session produces a tangible output that goes into the student's portfolio — worksheets, blueprints, recorded speeches, project plans. Evidence that can't be faked.</p><div class="mc-cor"></div></div>
+    <div class="mc rv d1"><div class="mn">04 — Review</div><div class="mi">◉</div><div class="mtt">Accountability & Feedback</div><p class="md">Every 12 sessions, parents receive a full Development Report — not a grade, not a certificate. Six measured dimensions of growth. Specific mentor observations. Real data.</p><div class="mc-cor"></div></div>
+  </div>
+  <div style="margin-top:96px" class="rv">
+    <div class="ey">At Completion</div>
+    <h2 class="st" style="font-size:clamp(2rem,4vw,3.2rem)">What you <em>leave with</em></h2>
+    <div class="outcomes-grid" style="margin-top:48px">
+      <div class="oc"><div class="on">01</div><div class="ot">Course Certification</div><p class="od">A formal certificate attesting to specific, measurable competencies built across all five levels — with scored dimensions, not just a programme name.</p></div>
+      <div class="oc"><div class="on">02</div><div class="ot">Real Portfolio</div><p class="od">A 5-level portfolio of worksheets, projects, speech recordings, leadership logs, and habit records. Evidence that any university or institution can evaluate.</p></div>
+      <div class="oc"><div class="on">03</div><div class="ot">420-Day Habit Record</div><p class="od">A comprehensive record of daily discipline across the full 18-month programme. Evidence of character that no exam, interview, or exam score can produce.</p></div>
     </div>
   </div>
-
-  <div class="section" style="padding-top: 72px;">
-
-    <!-- Teaching Ideology -->
-    <div class="section-eyebrow reveal">Teaching Ideology</div>
-    <h2 class="section-title reveal" style="font-size: clamp(2rem, 4vw, 3.2rem);">Every session <em>proves</em> capability.</h2>
-    <div class="ideology-grid reveal">
-      <div class="ideology-card">
-        <div class="ideology-num">01</div>
-        <div class="ideology-title">Learn by Doing</div>
-        <div class="ideology-sub">Activities & live exercises</div>
-        <p class="ideology-desc">Concepts are tested inside the session — not at home, not on paper. Knowledge is stress-tested the moment it's introduced.</p>
-      </div>
-      <div class="ideology-card">
-        <div class="ideology-num">02</div>
-        <div class="ideology-title">Reflect & Apply</div>
-        <div class="ideology-sub">Worksheets, case studies & personal audits</div>
-        <p class="ideology-desc">Students don't study concepts in theory — they map them onto their own real life. Every framework becomes personal.</p>
-      </div>
-      <div class="ideology-card">
-        <div class="ideology-num">03</div>
-        <div class="ideology-title">Prove It</div>
-        <div class="ideology-sub">Real scenarios, group challenges & presentations</div>
-        <p class="ideology-desc">Skills are verified by what a student does when the problem is real and the room is watching. No hiding behind theory.</p>
-      </div>
-    </div>
-
-    <!-- 4-step method -->
-    <div style="margin-top:100px;">
-      <div class="section-eyebrow reveal">Session Structure</div>
-      <h2 class="section-title reveal" style="font-size: clamp(2rem, 4vw, 3.2rem);">Four steps. <em>Every session.</em></h2>
-    </div>
-    <div class="method-steps">
-      <div class="method-card reveal">
-        <div class="method-num">01 — Learn</div>
-        <div class="method-icon">◎</div>
-        <div class="method-title">Concept-Driven Sessions</div>
-        <p class="method-desc">Every session is built around one powerful concept, taught with real-world examples, case studies, and historical evidence. No surface-level information — only depth.</p>
-        <div class="method-corner"></div>
-      </div>
-      <div class="method-card reveal reveal-delay-1">
-        <div class="method-num">02 — Apply</div>
-        <div class="method-icon">◈</div>
-        <div class="method-title">Immediate Implementation</div>
-        <p class="method-desc">The same session, concepts are applied. Written exercises, decision frameworks, real scenarios. Knowledge that stays in the head is knowledge wasted.</p>
-        <div class="method-corner"></div>
-      </div>
-      <div class="method-card reveal reveal-delay-2">
-        <div class="method-num">03 — Build</div>
-        <div class="method-icon">◇</div>
-        <div class="method-title">Portfolio Outcomes</div>
-        <p class="method-desc">Every student leaves with a tangible output — written pieces, frameworks, project documentation, or a completed real-world project demonstrating their capability.</p>
-        <div class="method-corner"></div>
-      </div>
-      <div class="method-card reveal reveal-delay-1">
-        <div class="method-num">04 — Review</div>
-        <div class="method-icon">◉</div>
-        <div class="method-title">Accountability & Feedback</div>
-        <p class="method-desc">Weekly reviews with mentors. Honest, direct feedback. Progress tracked. Students are held to high standards because that is the only way to actually grow.</p>
-        <div class="method-corner"></div>
-      </div>
-    </div>
-
-    <!-- What you leave with -->
-    <div style="margin-top: 100px;" class="reveal">
-      <div class="section-eyebrow">At Completion</div>
-      <h2 class="section-title" style="font-size: clamp(2rem, 4vw, 3.2rem);">What you <em>leave with</em></h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--border-soft);">
-        <div style="background:var(--ink-card);padding:40px 36px;">
-          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:16px;">01</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:10px;">Course Certification</div>
-          <p style="font-size:.84rem;color:var(--text-muted);line-height:1.8;">A formal certificate attesting to specific competencies demonstrably built across all five levels.</p>
-        </div>
-        <div style="background:var(--ink-card);padding:40px 36px;">
-          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:16px;">02</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:10px;">Real Portfolio</div>
-          <p style="font-size:.84rem;color:var(--text-muted);line-height:1.8;">A 5-level portfolio of scored outputs and deliverables — formatted for university applications and scholarships.</p>
-        </div>
-        <div style="background:var(--ink-card);padding:40px 36px;">
-          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--gold-dim);margin-bottom:16px;">03</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);margin-bottom:10px;">420-Day Habit Record</div>
-          <p style="font-size:.84rem;color:var(--text-muted);line-height:1.8;">A comprehensive record of daily discipline across the full 18-month programme — evidence no exam result can produce.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Comparison table -->
-    <div style="margin-top:100px;" class="reveal">
-      <div class="section-eyebrow">Differentiation</div>
-      <h2 class="section-title" style="font-size:clamp(2rem,4vw,3.2rem);">Why we're <em>different</em></h2>
-    </div>
-    <table class="compare-table reveal">
-      <thead>
-        <tr>
-          <th>What we measure</th>
-          <th>Typical Coaching</th>
-          <th>The Pinnacle Minds</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td>Primary focus</td><td>Exam scores</td><td>Thinking ability</td></tr>
-        <tr><td>Teaching style</td><td>Passive lectures</td><td>Active implementation</td></tr>
-        <tr><td>Output</td><td>Marks on paper</td><td>Real portfolio work</td></tr>
-        <tr><td>Student-to-mentor ratio</td><td>40:1</td><td>6:1 maximum</td></tr>
-        <tr><td>Accountability</td><td class="cross">None</td><td class="check">Weekly reviews</td></tr>
-        <tr><td>Admission</td><td>Anyone who pays</td><td>Selective process</td></tr>
-        <tr><td>Duration</td><td>Exam cycle</td><td>18 months structured</td></tr>
-        <tr><td>What you leave with</td><td>A certificate</td><td>A demonstrated capability</td></tr>
-      </tbody>
-    </table>
+  <div style="margin-top:96px" class="rv">
+    <div class="ey">Differentiation</div>
+    <h2 class="st" style="font-size:clamp(2rem,4vw,3.2rem)">Why we're <em>different</em></h2>
   </div>
-
-  <footer>
-    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;">
-      <span>© 2026 The Pinnacle Minds</span>
-      <span>Built for the Top <a href="#">1%</a></span>
-    </div>
-  </footer>
+  <table class="ctable rv">
+    <thead><tr><th>Dimension</th><th>Typical Coaching</th><th>The Pinnacle Minds</th></tr></thead>
+    <tbody>
+      <tr><td>Primary focus</td><td>Exam scores</td><td>Thinking ability & character</td></tr>
+      <tr><td>Teaching method</td><td>Passive lectures</td><td>Active implementation</td></tr>
+      <tr><td>What you produce</td><td>Marks on paper</td><td>Real portfolio work</td></tr>
+      <tr><td>Student-to-mentor ratio</td><td>40:1</td><td>6:1 maximum</td></tr>
+      <tr><td>Accountability</td><td class="crs">None</td><td class="chk">Weekly + Quarterly Reports</td></tr>
+      <tr><td>Admission</td><td>Anyone who pays</td><td>Selective — conversation first</td></tr>
+      <tr><td>Duration</td><td>Exam cycle (3–4 months)</td><td>18 months, structured</td></tr>
+      <tr><td>Parent visibility</td><td class="crs">None</td><td class="chk">Quarterly Development Report</td></tr>
+      <tr><td>What you leave with</td><td>A certificate</td><td>A demonstrated capability</td></tr>
+    </tbody>
+  </table>
+</div>
+<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px"><span>© 2026 The Pinnacle Minds</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>
 
-<!-- ══════════════════ VALUES ══════════════════ -->
+<!-- ══════ VALUES ══════ -->
 <div class="page" id="page-values">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-grid"></div>
+<div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
+  <div><div class="ey">What We Stand For</div><h1 class="st" style="font-size:clamp(3rem,8vw,7rem)">Our <em>Values.</em><br>Our Foundation.</h1></div>
+</div>
+<div class="sec" style="padding-top:72px">
+  <div class="val-intro">
     <div>
-      <div class="section-eyebrow">What We Stand For</div>
-      <h1 class="section-title" style="font-size: clamp(3rem, 7vw, 6.5rem);">Our <em>Values.</em><br>Our Foundation.</h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:var(--cream);line-height:1.7;font-style:italic">"We don't believe in shortcuts. We believe in building the rare, foundational abilities that compound over a lifetime — and that no exam will ever measure."</p>
+      <p style="margin-top:26px;font-size:.88rem;color:var(--muted);line-height:1.92">Most educational institutions teach students what to think. The Pinnacle Minds exists to correct that. We teach students how to think, how to act consistently, and how to build real things in the world.</p>
+      <p style="margin-top:18px;font-size:.88rem;color:var(--muted);line-height:1.92">The gap between average and exceptional is not intelligence. It is the quality of one's thinking, the consistency of one's execution, and the depth of one's discipline. These are teachable. These are trainable. This is what we do.</p>
+      <a class="bg" style="margin-top:36px;display:inline-block" href="#" onclick="nav('apply');return false">Join the Program</a>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:flex-end;overflow:hidden"><div class="vbn">1%</div></div>
+  </div>
+  <div class="vcards rv">
+    <div class="vcard"><div class="vline"></div><h3>Clarity of Thought</h3><p>Think clearly. Speak precisely. Act with logic. Every concept broken to first principles. Students must articulate ideas clearly — feedback focuses on clarity, not just correctness. Vagueness is not permitted as an answer.</p></div>
+    <div class="vcard"><div class="vline"></div><h3>Execution over Ideation</h3><p>Ideas are common. Execution is rare. Every session produces a tangible output. Students build — projects, presentations, decisions, plans, actions. Less planning, more shipping. The portfolio proves the work was done.</p></div>
+    <div class="vcard"><div class="vline"></div><h3>Rise through Discipline</h3><p>Consistency builds the top 1%. Fixed systems: punctuality, submission discipline, weekly tracking. Mentors reinforce standards, not motivation. Habits over bursts of effort. Show up on your worst day — that is the actual test.</p></div>
+  </div>
+  <div class="manifesto rv">
+    <div class="m-label">Our Manifesto</div>
+    <p>We are not building students who score well. We are building students who think well, act consistently, and create real things in the world.</p>
+    <p>Mindset matters more than skillset. The ability to think clearly, adapt fast, and execute consistently — these are the capabilities that remain valuable no matter what the world looks like in 10 years.</p>
+    <p>65% of children entering school today will work in jobs that don't yet exist. We are preparing them for that world — not the world that was.</p>
+  </div>
+  <div class="sel-sec rv">
+    <div style="position:relative;z-index:1">
+      <div class="ey" style="justify-content:center">Selective Admission</div>
+      <h2 class="st">This is NOT <em>for everyone</em></h2>
+      <p style="margin:22px auto 0;font-size:.9rem;color:var(--muted);max-width:500px;line-height:1.88">This program is designed only for Grade 8–12 students who are serious about growth, willing to think deeply, and committed to consistent execution. We do not lower our standards. We raise yours.</p>
+      <div style="margin-top:18px;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)">Limited to 30 students per cohort · September 5, 2026</div>
+      <a class="bp" style="margin-top:44px;display:inline-block" href="#" onclick="nav('apply');return false">Apply for Admission</a>
     </div>
   </div>
-
-  <div class="section" style="padding-top:72px;">
-    <div class="values-intro">
-      <div>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:var(--cream);line-height:1.7;font-style:italic;">
-          "We don't believe in shortcuts. We believe in building the rare, foundational abilities that compound over a lifetime — and that no exam can measure."
-        </p>
-        <p style="margin-top:26px;font-size:0.89rem;color:var(--text-muted);line-height:1.9;">
-          Most educational institutions teach students what to think. The Pinnacle Minds exists to correct that. We teach students how to think, how to act consistently, and how to build real things in the world.
-        </p>
-        <p style="margin-top:18px;font-size:0.89rem;color:var(--text-muted);line-height:1.9;">
-          The gap between average and exceptional is not intelligence — it is the quality of one's thinking, the consistency of one's execution, and the depth of one's discipline. These are teachable. These are trainable. This is what we do.
-        </p>
-        <a class="btn-ghost" style="margin-top:36px;display:inline-block;" href="#" onclick="navigate('apply'); return false;">Join the Program</a>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:flex-end;overflow:hidden;">
-        <div class="values-big-num">1%</div>
-      </div>
-    </div>
-
-    <div class="value-cards reveal">
-      <div class="value-card">
-        <div class="value-line"></div>
-        <h3>Clarity of Thought</h3>
-        <p>Think clearly. Speak precisely. Act with logic. Every concept broken into first principles. Students must articulate ideas clearly — feedback focuses on clarity, not just correctness.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-line"></div>
-        <h3>Execution over Ideation</h3>
-        <p>Ideas are common. Execution is rare. Every session leads to a tangible output. Students build: projects, presentations, decisions, actions. Less planning, more shipping.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-line"></div>
-        <h3>Rise through Discipline</h3>
-        <p>Consistency builds the top 1%. Fixed systems: punctuality, submission discipline. Students track weekly progress. Mentors reinforce standards, not motivation. Habits over short bursts of effort.</p>
-      </div>
-    </div>
-
-    <div class="manifesto reveal">
-      <div class="manifesto-label">Our Manifesto</div>
-      <p>We are not building students who score well. We are building students who think well, act consistently, and create real things in the world.</p>
-      <p>Mindset matters more than skillset. The ability to think clearly, adapt fast, and execute consistently — these are the capabilities that remain valuable no matter what the world looks like in 10 years.</p>
-      <p>65% of children entering school today will work in jobs that don't yet exist. We are preparing them for that world — not the world that was.</p>
-    </div>
-
-    <div class="selective-section reveal">
-      <div style="position:relative;z-index:1;">
-        <div class="section-eyebrow" style="justify-content:center;">Selective Admission</div>
-        <h2 class="section-title">This is NOT <em>for everyone</em></h2>
-        <p style="margin:24px auto 0;font-size:.92rem;color:var(--text-muted);max-width:500px;line-height:1.85;">
-          This program is designed only for Grade 8–12 students who are serious about growth, willing to think deeply, and committed to consistent execution. We don't lower our standards. We raise yours.
-        </p>
-        <div style="margin-top:20px;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);">Limited to 30 students per cohort</div>
-        <a class="btn-primary" style="margin-top:44px;display:inline-block;" href="#" onclick="navigate('apply'); return false;">Apply for Admission</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;">
-      <span>© 2026 The Pinnacle Minds</span>
-      <span>Built for the Top <a href="#">1%</a></span>
-    </div>
-  </footer>
+</div>
+<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px"><span>© 2026 The Pinnacle Minds</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>
 
-<!-- ══════════════════ FEES ══════════════════ -->
+<!-- ══════ FEES ══════ -->
 <div class="page" id="page-fees">
-  <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-grid"></div>
+<div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
+  <div><div class="ey">Investment</div><h1 class="st" style="font-size:clamp(3rem,8vw,7rem)">Fee <em>Structure.</em></h1></div>
+</div>
+<div class="fees-wrap">
+  <div class="fees-grid rv">
+    <div class="fc"><div class="flt">Level 01 · 3 Months</div><div class="fln">Cognitive Foundations</div><div class="fldur">Month 0 → Month 3</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
+    <div class="fc"><div class="flt">Level 02 · 3 Months</div><div class="fln">Self Mastery</div><div class="fldur">Month 3 → Month 6</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
+    <div class="fc"><div class="flt">Level 03 · 3 Months</div><div class="fln">Communication & Influence</div><div class="fldur">Month 6 → Month 9</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
+    <div class="fc"><div class="flt">Level 04 · 3 Months</div><div class="fln">Future Strategy</div><div class="fldur">Month 9 → Month 12</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
+    <div class="fc hl"><div class="flt" style="position:relative;z-index:1">Level 05 · 6 Months</div><div class="fln" style="position:relative;z-index:1">Elite Capstone — Build Something Real</div><div class="fldur" style="position:relative;z-index:1">Month 12 → Month 18 · Includes Demo Day & Professional Jury Evaluation</div><div class="famt" style="position:relative;z-index:1">₹24,000</div><div class="famt-l" style="position:relative;z-index:1">₹4,000 / month · paid in advance</div></div>
+  </div>
+  <div class="ftotal rv">
     <div>
-      <div class="section-eyebrow">Investment</div>
-      <h1 class="section-title" style="font-size:clamp(3rem,7vw,6.5rem);">Fee <em>Structure.</em></h1>
+      <div class="ftotal-l">Total Programme Investment</div>
+      <div class="ftotal-v">₹72,000</div>
+      <div class="ftotal-s">over 18 months · ₹4,000 per month · no large upfront payment</div>
     </div>
+    <a href="#" onclick="nav('apply');return false" class="bp">Apply Now</a>
   </div>
-
-  <div class="fees-layout">
-    <div class="fees-grid reveal">
-      <div class="fee-card">
-        <div class="fee-level-tag">Level 01 · 3 Months</div>
-        <div class="fee-level-name">Cognitive Foundations</div>
-        <div class="fee-duration">Month 0 → Month 3</div>
-        <div class="fee-amount">₹12,000</div>
-        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
-      </div>
-      <div class="fee-card">
-        <div class="fee-level-tag">Level 02 · 3 Months</div>
-        <div class="fee-level-name">Self Mastery</div>
-        <div class="fee-duration">Month 3 → Month 6</div>
-        <div class="fee-amount">₹12,000</div>
-        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
-      </div>
-      <div class="fee-card">
-        <div class="fee-level-tag">Level 03 · 3 Months</div>
-        <div class="fee-level-name">Communication & Influence</div>
-        <div class="fee-duration">Month 6 → Month 9</div>
-        <div class="fee-amount">₹12,000</div>
-        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
-      </div>
-      <div class="fee-card">
-        <div class="fee-level-tag">Level 04 · 3 Months</div>
-        <div class="fee-level-name">Future Strategy</div>
-        <div class="fee-duration">Month 9 → Month 12</div>
-        <div class="fee-amount">₹12,000</div>
-        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
-      </div>
-      <div class="fee-card highlight" style="grid-column:span 2;">
-        <div class="fee-level-tag">Level 05 · 6 Months</div>
-        <div class="fee-level-name">Elite Capstone · Build Something Real</div>
-        <div class="fee-duration">Month 12 → Month 18 · Includes Demo Day & Jury Evaluation</div>
-        <div class="fee-amount">₹24,000</div>
-        <div class="fee-amount-label">₹4,000 / month · paid in advance</div>
-      </div>
-    </div>
-
-    <div class="fee-total-box reveal">
-      <div>
-        <div class="fee-total-label">Total Programme Investment</div>
-        <div class="fee-total-val">₹72,000</div>
-        <div class="fee-total-sub">over 18 months · ₹4,000 per month</div>
-      </div>
-      <a href="#" onclick="navigate('apply'); return false;" class="btn-primary">Apply Now</a>
-    </div>
-
-    <div class="fee-note reveal" style="margin-top:32px;">
-      Fees are structured to be paid in monthly installments of ₹4,000 in advance — making the full 18-month programme accessible without a large upfront commitment. Admission is selective; fee payment follows acceptance.
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;margin:0 64px;">
-      <span>© 2026 The Pinnacle Minds</span>
-      <span>Built for the Top <a href="#">1%</a></span>
-    </div>
-  </footer>
+  <div class="fnote rv">Fees are structured as monthly installments of ₹4,000 in advance, making the full 18-month programme accessible without a large upfront commitment. Admission is selective — fee payment follows acceptance, not before. Sibling discounts and merit considerations are discussed during the assessment conversation.</div>
+</div>
+<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px;margin:0 68px"><span>© 2026 The Pinnacle Minds</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>
 
-<!-- ══════════════════ APPLY ══════════════════ -->
+<!-- ══════ FAQ ══════ -->
+<div class="page" id="page-faq">
+<div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
+  <div><div class="ey">Common Questions</div><h1 class="st" style="font-size:clamp(3rem,8vw,7rem)">Questions<br><em>Answered.</em></h1></div>
+</div>
+<div class="faq-sec">
+  <div class="ey rv">Before You Apply</div>
+  <div class="faq-list rv">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>Is 12 or 13 years old too young for this?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Not at all — 12 to 15 is the perfect age, not too young. Every neuroscientist who studies the brain agrees: the habits and thinking patterns formed between 12 and 16 become the defaults your child runs on for the rest of their life. If we wait until 17 or 18, we are not building habits — we are trying to break old ones. That is three times harder. The students who begin at 13 and complete by 15–16 are not doing what their peers are doing. They are two to three years ahead.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>My child is already too busy with school and tuitions.</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Most students who are overwhelmed by school are not overwhelmed by the content — they are overwhelmed because they have never been taught how to manage their time, how to focus deeply, or how to organise their effort. Level 2 (Self Mastery) addresses this directly. The habit systems and deep work protocols we teach have helped students manage their school workload better, not worse. Three hours on a Saturday morning is less time than most students spend on their phone on a Sunday.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>My child isn't interested — I can't force them.</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">You're absolutely right that forcing never works — and we agree completely. What we suggest: let your child be part of the assessment conversation. Not the enrollment decision. Just the conversation. Let them meet us, see the environment, and understand what other students their age are doing here. In our experience, the moment a 13-year-old walks into a room where students their age are being taken seriously — not talked down to, not fed worksheets, but actually challenged — they want to be part of it.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>How do I know it will actually work?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">That's the right question — and we can answer it. Every 12 sessions, you receive a Quarterly Development Report with actual measured scores across six dimensions: cognitive growth, discipline consistency, communication development, leadership behaviour, project quality, and mentor observations. You will see the numbers move. You will also see the change at home before the report arrives — in how your child handles a disagreement, in whether they pick up a responsibility before being told, in how they talk about their own future.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>Can we wait until they are older?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">You can — and that is a valid choice. But consider this honestly: the skills we build at 13 are permanent. The same skills built at 17 are still valuable, but they now compete with years of existing habits that need to be replaced first. Every year you wait is not a neutral decision. It is a year in which your child's defaults are being set by whatever environment they happen to be in. The window doesn't close at 16 — but it does narrow.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>When are classes? How much time is required?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Classes run every Saturday morning, 3 hours per session. The next cohort begins September 5, 2026. Beyond Saturday sessions, students maintain a daily habit (5–20 minutes) and complete short weekly reflections. The total weekly commitment is approximately 3.5–4 hours. We designed it to complement, not compete with, school and other commitments.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFAQ(this)"><span>What is the admission process?</span><div class="faq-icon">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">After you submit the application form, we schedule a 20-minute assessment conversation — with the student, not just the parent. We ask three things: what are you good at that your school report card has never measured, what do you want to be known for, and where do you feel most stuck right now. There is no test. We are assessing readiness and genuine motivation. If it's a good fit, we confirm admission and discuss the starting date and fee structure.</div></div>
+    </div>
+  </div>
+  <div style="margin-top:80px;text-align:center;padding:72px 48px;background:var(--ink3);border:1px solid var(--bs)" class="rv">
+    <div class="ey" style="justify-content:center">Still have questions?</div>
+    <h2 class="st" style="font-size:clamp(1.8rem,3.5vw,2.8rem)">Talk to us <em>directly</em></h2>
+    <p style="margin:20px auto;font-size:.88rem;color:var(--muted);max-width:420px;line-height:1.85">Reach out on WhatsApp or email. We respond to every message personally — not an automated reply.</p>
+    <div style="margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a href="mailto:hello@pinnacleminds.in" class="bp">Email Us</a>
+      <a href="#" onclick="nav('apply');return false" class="bg">Apply Now</a>
+    </div>
+  </div>
+</div>
+<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px;margin:0 68px"><span>© 2026 The Pinnacle Minds</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
+</div>
+
+<!-- ══════ APPLY ══════ -->
 <div class="page" id="page-apply">
-  <div class="apply-layout">
-    <div class="apply-left">
-      <div class="section-eyebrow">Limited Seats</div>
-      <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4.5rem);">Apply to<br><em>Join</em> the<br>Next Cohort.</h1>
-      <p style="margin-top:28px;font-size:0.88rem;color:var(--text-muted);line-height:1.9;max-width:380px;">
-        Admission is selective. Every application is reviewed personally. We admit only students who demonstrate genuine commitment — not just academic capability.
-      </p>
-      <div class="apply-requirements">
-        <div class="req-item">
-          <div class="req-num">01</div>
-          <div class="req-text"><strong>Genuine Motivation</strong>A clear desire to grow — not because parents said so, but because you want to become exceptional.</div>
-        </div>
-        <div class="req-item">
-          <div class="req-num">02</div>
-          <div class="req-text"><strong>Willingness to be Challenged</strong>Our sessions are not comfortable. You will be pushed to think harder than you ever have.</div>
-        </div>
-        <div class="req-item">
-          <div class="req-num">03</div>
-          <div class="req-text"><strong>Commitment to Execution</strong>Every session requires output. You must be willing to do the work, not just attend.</div>
-        </div>
-        <div class="req-item">
-          <div class="req-num">04</div>
-          <div class="req-text"><strong>Grade 8 – 12</strong>Currently designed for school students at a critical stage of development.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="apply-right">
-      <div class="apply-form" id="applicationForm">
-        <div class="form-title">Application Form</div>
-        <div class="form-group">
-          <label class="form-label">Student Name</label>
-          <input type="text" class="form-input" placeholder="Full name" id="f-name">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Grade / Class</label>
-            <select class="form-select" id="f-grade">
-              <option value="">Select grade</option>
-              <option>Grade 8</option><option>Grade 9</option><option>Grade 10</option>
-              <option>Grade 11</option><option>Grade 12</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">School</label>
-            <input type="text" class="form-input" placeholder="School name" id="f-school">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Parent / Guardian Contact</label>
-          <input type="text" class="form-input" placeholder="Phone number or email" id="f-parent">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Area of Interest</label>
-          <select class="form-select" id="f-track">
-            <option value="">Select a track</option>
-            <option>Technology & AI</option>
-            <option>Business & Entrepreneurship</option>
-            <option>Science & Research</option>
-            <option>Arts & Communication</option>
-            <option>Undecided</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Why do you want to join?</label>
-          <textarea class="form-textarea" placeholder="Tell us in your own words — be honest." id="f-why"></textarea>
-        </div>
-        <button class="btn-submit" onclick="submitForm()">Submit Application</button>
-      </div>
-      <div class="form-success" id="formSuccess">
-        <div class="success-icon">✓</div>
-        <div class="success-title">Application Received</div>
-        <p class="success-text">We review every application personally and will reach out within 3–5 business days.<br><br>In the meantime, explore our <a href="#" onclick="navigate('program'); return false;" style="color:var(--gold);">program structure</a>.</p>
-      </div>
+<div class="apply-lay">
+  <div>
+    <div class="ey">Limited Seats</div>
+    <h1 class="st" style="font-size:clamp(2.4rem,5vw,4.5rem)">Apply to<br><em>Join</em> the<br>Next Cohort.</h1>
+    <p style="margin-top:26px;font-size:.87rem;color:var(--muted);line-height:1.92;max-width:380px">Admission is selective. Every application is reviewed personally. We admit only students who demonstrate genuine commitment — not just academic capability.</p>
+    <div class="reqs">
+      <div class="ri"><div class="rn">01</div><div class="rt"><strong>Genuine Motivation</strong>A clear desire to grow — not because parents said so, but because you want to become exceptional.</div></div>
+      <div class="ri"><div class="rn">02</div><div class="rt"><strong>Willingness to be Challenged</strong>Our sessions are not comfortable. You will be pushed to think harder than you ever have been pushed before.</div></div>
+      <div class="ri"><div class="rn">03</div><div class="rt"><strong>Commitment to Execution</strong>Every session requires output. You must be willing to do the work — not just attend and listen.</div></div>
+      <div class="ri"><div class="rn">04</div><div class="rt"><strong>Grade 8 – 12</strong>Designed for school students at the critical 12–17 development window.</div></div>
+      <div class="ri" style="border-bottom:none"><div class="rn">05</div><div class="rt"><strong>Saturday Availability</strong>Classes run every Saturday morning, 3 hours. Starting September 5, 2026.</div></div>
     </div>
   </div>
-
-  <footer>
-    <div class="footer-bottom" style="border-top:1px solid var(--border-soft);padding-top:32px;margin:0 64px;">
-      <span>© 2026 The Pinnacle Minds</span>
-      <span>Built for the Top <a href="#">1%</a></span>
+  <div>
+    <div class="aform" id="appForm">
+      <div class="form-title">Application Form</div>
+      <div class="fg"><label class="fl">Student Name</label><input type="text" class="fi" placeholder="Full name" id="fn"></div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Grade / Class</label><select class="fsel" id="fg"><option value="">Select grade</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div>
+        <div class="fg"><label class="fl">School</label><input type="text" class="fi" placeholder="School name" id="fs"></div>
+      </div>
+      <div class="fg"><label class="fl">Parent / Guardian Contact</label><input type="text" class="fi" placeholder="Phone number or email" id="fp"></div>
+      <div class="fg"><label class="fl">Area of Interest</label><select class="fsel" id="ft"><option value="">Select a track</option><option>Technology & AI</option><option>Business & Entrepreneurship</option><option>Science & Research</option><option>Arts & Communication</option><option>Undecided — want guidance</option></select></div>
+      <div class="fg"><label class="fl">Why do you want to join?</label><textarea class="fta" placeholder="Tell us in your own words — be honest. What brought you here?" id="fw"></textarea></div>
+      <button class="fsub" onclick="submitForm()">Submit Application</button>
     </div>
-  </footer>
+    <div class="fsuccess" id="formOk">
+      <div class="fsi">✓</div>
+      <div class="fst">Application Received</div>
+      <p class="fsd">We review every application personally and will reach out within 3–5 business days to schedule your assessment conversation.<br><br>In the meantime, explore our <a href="#" onclick="nav('program');return false" style="color:var(--gold)">program structure</a> or <a href="#" onclick="nav('fees');return false" style="color:var(--gold)">fee breakdown</a>.</p>
+    </div>
+  </div>
+</div>
+<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px;margin:0 68px"><span>© 2026 The Pinnacle Minds</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>
 
-<!-- ══════════════════ SCRIPTS ══════════════════ -->
 <script>
-  /* CURSOR */
-  const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; });
-  (function animRing() { rx += (mx - rx) * .11; ry += (my - ry) * .11; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); })();
-  document.querySelectorAll('a, button, .teaser-card, .level-row, .method-card, .ideology-card, .value-card, .fee-card').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+/* CURSOR */
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+document.addEventListener('mousedown',()=>document.body.classList.add('click'));
+document.addEventListener('mouseup',()=>document.body.classList.remove('click'));
+(function ar(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ar)})();
+document.querySelectorAll('a,button,.tc,.lrow,.mc,.vcard,.fc,.tcard,.faq-q').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('h'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('h'));
+});
+
+/* PROGRESS BAR */
+window.addEventListener('scroll',()=>{
+  const b=document.getElementById('pgbar'),n=document.getElementById('nav');
+  const h=document.documentElement,s=h.scrollTop||document.body.scrollTop,t=h.scrollHeight-h.clientHeight;
+  b.style.width=(t>0?s/t*100:0)+'%';
+  n.classList.toggle('sc',window.scrollY>50);
+});
+
+/* NAV */
+function nav(p){
+  document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  document.querySelectorAll('.navl a').forEach(a=>a.classList.toggle('active',a.dataset.p===p));
+  setTimeout(reveal,80);
+  if(p==='home')setTimeout(counters,400);
+}
+function openMB(){document.getElementById('mbmenu').classList.add('open')}
+function closeMB(){document.getElementById('mbmenu').classList.remove('open')}
+
+/* REVEAL */
+function reveal(){
+  const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
+  document.querySelectorAll('.page.active .rv').forEach(el=>{el.classList.remove('vis');io.observe(el)});
+}
+setTimeout(reveal,100);
+
+/* COUNTERS */
+function counters(){
+  document.querySelectorAll('.page.active .counter').forEach(el=>{
+    const t=+el.dataset.t,s=el.dataset.s||'';
+    let c=0;const step=Math.ceil(t/50);
+    const id=setInterval(()=>{c=Math.min(c+step,t);el.textContent=c+s;if(c>=t)clearInterval(id)},22);
   });
+}
+setTimeout(counters,500);
 
-  /* NAVIGATION */
-  function navigate(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + page).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.page === page));
-    setTimeout(initReveal, 80);
-    if (page === 'home') setTimeout(initCounters, 400);
-  }
+/* FAQ */
+function toggleFAQ(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen)item.classList.add('open');
+}
 
-  /* NAVBAR */
-  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40));
-
-  /* MOBILE */
-  function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); }
-  function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
-
-  /* SCROLL REVEAL */
-  function initReveal() {
-    const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
-    document.querySelectorAll('.page.active .reveal').forEach(el => { el.classList.remove('visible'); io.observe(el); });
-  }
-  setTimeout(initReveal, 100);
-
-  /* COUNTERS */
-  function initCounters() {
-    document.querySelectorAll('.page.active .counter').forEach(el => {
-      const target = +el.dataset.target;
-      const suffix = el.dataset.suffix || '';
-      let cur = 0;
-      const step = Math.ceil(target / 55);
-      const id = setInterval(() => {
-        cur = Math.min(cur + step, target);
-        el.textContent = cur + suffix;
-        if (cur >= target) clearInterval(id);
-      }, 22);
+/* FORM */
+function submitForm(){
+  const n=document.getElementById('fn').value.trim();
+  const p=document.getElementById('fp').value.trim();
+  const w=document.getElementById('fw').value.trim();
+  if(!n||!p||!w){
+    [document.getElementById('fn'),document.getElementById('fp'),document.getElementById('fw')].forEach(el=>{
+      if(!el.value.trim()){el.style.borderColor='var(--gold-d)';setTimeout(()=>el.style.borderColor='',2000)}
     });
+    return;
   }
-  setTimeout(initCounters, 500);
+  document.getElementById('appForm').style.display='none';
+  document.getElementById('formOk').classList.add('show');
+}
 
-  /* FORM */
-  function submitForm() {
-    const name = document.getElementById('f-name').value.trim();
-    const parent = document.getElementById('f-parent').value.trim();
-    const why = document.getElementById('f-why').value.trim();
-    if (!name || !parent || !why) {
-      [document.getElementById('f-name'), document.getElementById('f-parent'), document.getElementById('f-why')].forEach(el => {
-        if (!el.value.trim()) { el.style.borderColor = 'var(--gold-dim)'; setTimeout(() => el.style.borderColor = '', 2000); }
-      });
-      return;
-    }
-    document.getElementById('applicationForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-  }
-
-  /* CARD TILT */
-  document.querySelectorAll('.teaser-card, .method-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - .5) * 5;
-      const y = ((e.clientY - r.top) / r.height - .5) * -5;
-      card.style.transform = `perspective(700px) rotateX(${y}deg) rotateY(${x}deg)`;
-    });
-    card.addEventListener('mouseleave', () => card.style.transform = '');
+/* CARD TILT */
+document.querySelectorAll('.tc,.mc').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();
+    const x=((e.clientX-r.left)/r.width-.5)*5,y=((e.clientY-r.top)/r.height-.5)*-5;
+    c.style.transform=`perspective(700px) rotateX(${y}deg) rotateY(${x}deg)`;
   });
+  c.addEventListener('mouseleave',()=>c.style.transform='');
+});
 </script>
-
 </body>
 </html>

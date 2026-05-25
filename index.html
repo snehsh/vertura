@@ -1109,24 +1109,34 @@ function submitForm(){
     submittedAt:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})
   };
 
-  fetch(APPS_SCRIPT_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers: { 'Content-Type': 'text/plain' },
-    body:JSON.stringify(payload)
-  })
-  .then(()=>{
-    // no-cors means we can't read the response, but if fetch didn't throw it went through
+  // Hidden iframe form POST — the only reliable way to hit Apps Script.
+  // fetch() with no-cors drops the POST body on Apps Script's 302 redirect.
+  var iframe = document.getElementById('_gsIframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.id = '_gsIframe';
+    iframe.name = '_gsIframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = APPS_SCRIPT_URL;
+  form.target = '_gsIframe';
+  var input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'data';
+  input.value = JSON.stringify(payload);
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+
+  // Show success after 1.5 s — enough time for the iframe POST to land
+  setTimeout(function(){
     document.getElementById('appForm').style.display='none';
     document.getElementById('formOk').classList.add('show');
-  })
-  .catch(err=>{
-    console.error('Submission error:',err);
-    btn.disabled=false;
-    btn.textContent='Submit Application';
-    btn.style.borderColor='var(--gold-d)';
-    btn.insertAdjacentHTML('afterend','<p style="color:var(--gold-d);font-size:.78rem;margin-top:10px">Something went wrong. Please email us directly at info@pinnacleminds.in</p>');
-  });
+  }, 1500);
 }
 
 /* CARD TILT */

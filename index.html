@@ -1075,18 +1075,58 @@ function toggleFAQ(btn){
 }
 
 /* FORM */
+// ─── REPLACE THIS URL with your deployed Google Apps Script Web App URL ───
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxFkwxMS-sVWH7fRJ_hahygRxiFHy9wIinl0wUxE8Zq8NT2Qaf4TCGBOY_aen_5sEGM_w/exec';
+
 function submitForm(){
   const n=document.getElementById('fn').value.trim();
+  const g=document.getElementById('fg').value;
+  const s=document.getElementById('fs').value.trim();
   const p=document.getElementById('fp').value.trim();
+  const t=document.getElementById('ft').value;
   const w=document.getElementById('fw').value.trim();
+
+  // Validation
   if(!n||!p||!w){
     [document.getElementById('fn'),document.getElementById('fp'),document.getElementById('fw')].forEach(el=>{
       if(!el.value.trim()){el.style.borderColor='var(--gold-d)';setTimeout(()=>el.style.borderColor='',2000)}
     });
     return;
   }
-  document.getElementById('appForm').style.display='none';
-  document.getElementById('formOk').classList.add('show');
+
+  // Disable button + show loading state
+  const btn=document.querySelector('.fsub');
+  btn.disabled=true;
+  btn.textContent='Submitting…';
+
+  const payload={
+    studentName:n,
+    age:g,
+    school:s,
+    parentContact:p,
+    areaOfInterest:t,
+    whyJoin:w,
+    submittedAt:new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})
+  };
+
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  })
+  .then(()=>{
+    // no-cors means we can't read the response, but if fetch didn't throw it went through
+    document.getElementById('appForm').style.display='none';
+    document.getElementById('formOk').classList.add('show');
+  })
+  .catch(err=>{
+    console.error('Submission error:',err);
+    btn.disabled=false;
+    btn.textContent='Submit Application';
+    btn.style.borderColor='var(--gold-d)';
+    btn.insertAdjacentHTML('afterend','<p style="color:var(--gold-d);font-size:.78rem;margin-top:10px">Something went wrong. Please email us directly at info@pinnacleminds.in</p>');
+  });
 }
 
 /* CARD TILT */

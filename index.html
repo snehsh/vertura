@@ -998,7 +998,7 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
       <div class="form-title">Application Form</div>
       <div class="fg"><label class="fl">Student Name</label><input type="text" class="fi" placeholder="Full name" id="fn"></div>
       <div class="frow">
-        <div class="fg"><label class="fl">Age / Class</label><select class="fsel" id="fg"><option value="">Select Age</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option></select></div>
+        <div class="fg"><label class="fl">Age</label><select class="fsel" id="fg"><option value="">Select Age</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option></select></div>
         <div class="fg"><label class="fl">School</label><input type="text" class="fi" placeholder="School name" id="fs"></div>
       </div>
       <div class="fg"><label class="fl">Parent / Guardian Contact</label><input type="text" class="fi" placeholder="Phone number or email" id="fp"></div>
@@ -1111,7 +1111,7 @@ function submitForm(){
       subject:            'New Application — ' + n,
       from_name:          'Pinnacle Minds Website',
       'Student Name':     n,
-      'Age / Class':      g || '—',
+      'Age':      g || '—',
       'School':           s || '—',
       'Parent Contact':   p,
       'Area of Interest': t || '—',
@@ -1128,7 +1128,7 @@ function submitForm(){
       data: {
         'Submitted At':              submittedAt,
         'Student Name':              n,
-        'Age / Class':               g || '',
+        'Age':               g || '',
         'School':                    s || '',
         'Parent / Guardian Contact': p,
         'Area of Interest':          t || '',

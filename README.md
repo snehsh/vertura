@@ -1,1 +1,1 @@
-# thepinnacleminds
+The Vertura Academy

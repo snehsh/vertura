@@ -77,7 +77,7 @@
     "https://www.linkedin.com/company/vertura"
   ]
 }
-</script></script>
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -185,7 +185,6 @@ display:flex;align-items:center;justify-content:space-between;transition:all .4s
 .hero-ey{display:inline-flex;align-items:center;gap:14px;font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-d);margin-bottom:36px;opacity:0;animation:rup .8s .1s ease forwards}
 .hero-ey::before,.hero-ey::after{content:'';display:block;width:32px;height:1px;background:var(--gold-d)}
 .ht{font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:clamp(4rem,12vw,11.5rem);font-weight:500;line-height:.9;letter-spacing:-0.03em;color:var(--cream);opacity:0;animation:rup .9s .28s ease forwards}
-.ht em{font-style:normal;color:var(--gold);display:block}
 .ht em{font-style:normal;color:var(--gold);display:block}
 .brand-pre{font-family:'Cinzel',serif;font-size:clamp(.85rem,1.4vw,1.15rem);font-weight:500;letter-spacing:.5em;color:var(--body);display:block;margin-bottom:18px;padding-left:.5em}
 .brand-main{font-family:'Cinzel',serif;font-size:clamp(3.6rem,11vw,9.5rem);font-weight:700;line-height:.95;letter-spacing:.06em;color:var(--gold);display:block;background:linear-gradient(180deg,var(--gold-l),var(--gold) 55%,var(--gold-d));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -336,7 +335,8 @@ display:flex;align-items:center;justify-content:space-between;transition:all .4s
 .on{font-family:'Plus Jakarta Sans',sans-serif;font-size:.62rem;color:var(--gold-d);margin-bottom:14px}
 .ot{font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:1.25rem;color:var(--cream);margin-bottom:10px}
 .od{font-size:.92rem;color:var(--muted);line-height:1.8}
-.ctable{width:100%;border-collapse:collapse;margin-top:72px}
+.ctable-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:72px}
+.ctable{width:100%;min-width:560px;border-collapse:collapse;margin-top:0}
 .ctable th{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:400;padding:16px 24px;border-bottom:1px solid var(--b);text-align:left}
 .ctable th:last-child{color:var(--gold)}
 .ctable td{padding:17px 24px;border-bottom:1px solid var(--bs);font-size:.92rem;color:var(--muted)}
@@ -489,6 +489,8 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
   .transform-sec{padding:80px 28px}
   .testi-sec{padding:80px 28px}
   .faq-sec{padding:80px 28px}
+  .ctable{min-width:480px}
+  .ctable th,.ctable td{padding:14px 14px;font-size:.82rem}
 }
 </style>
 </head>
@@ -874,7 +876,8 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
     <div class="ey">Differentiation</div>
     <h2 class="st" style="font-size:clamp(2rem,4vw,3.2rem)">Why we're <em>different</em></h2>
   </div>
-  <table class="ctable rv">
+  <div class="ctable-wrap rv">
+  <table class="ctable">
     <thead><tr><th>Dimension</th><th>Typical Coaching</th><th>The Vertura Academy</th></tr></thead>
     <tbody>
       <tr><td>Primary focus</td><td>Exam scores</td><td>Thinking ability & character</td></tr>
@@ -888,6 +891,7 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
       <tr><td>What you leave with</td><td>A certificate</td><td>A demonstrated capability</td></tr>
     </tbody>
   </table>
+  </div>
 </div>
 <footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px"><span>© 2026 The Vertura Academy</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>

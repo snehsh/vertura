@@ -363,24 +363,6 @@ display:flex;align-items:center;justify-content:space-between;transition:all .4s
 .sel-sec{margin-top:72px;padding:88px 48px;background:var(--ink2);border:1px solid var(--bs);text-align:center;position:relative;overflow:hidden}
 .sel-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,168,76,.04),transparent)}
 
-/* ══════════ FEES ══════════ */
-.fees-wrap{padding:0 68px 120px;max-width:1240px;margin:0 auto}
-.fees-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bs);margin-top:64px}
-.fc{background:var(--ink2);padding:48px 44px;position:relative;overflow:hidden;transition:background .3s}
-.fc:hover{background:var(--ink3)}
-.fc.hl{background:var(--ink3);border:1px solid var(--b);grid-column:span 2}
-.fc.hl::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(201,168,76,.07),transparent)}
-.flt{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-d);margin-bottom:10px}
-.fln{font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:1.6rem;color:var(--cream);margin-bottom:6px}
-.fldur{font-size:.78rem;color:var(--muted);margin-bottom:26px}
-.famt{font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:2.8rem;color:var(--gold);font-weight:500;line-height:1}
-.famt-l{font-size:.68rem;color:var(--muted);margin-top:8px;letter-spacing:.05em}
-.ftotal{margin-top:48px;padding:44px 52px;border:1px solid var(--b);background:var(--ink3);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
-.ftotal-l{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-d);margin-bottom:8px}
-.ftotal-v{font-family:'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:2.6rem;color:var(--cream);font-weight:500}
-.ftotal-s{font-size:.8rem;color:var(--muted);margin-top:6px}
-.fnote{margin-top:26px;font-size:.79rem;color:var(--muted);line-height:1.75;padding-left:16px;border-left:2px solid var(--gold-d)}
-
 /* ══════════ FAQ ══════════ */
 .faq-sec{padding:120px 68px;max-width:1240px;margin:0 auto}
 .faq-list{margin-top:56px;display:flex;flex-direction:column;gap:0}
@@ -478,9 +460,6 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
   .vbn{font-size:8rem}
   .vcards{grid-template-columns:1fr}
   .vcard{border-right:none;border-bottom:1px solid var(--bs)}
-  .fees-grid{grid-template-columns:1fr}
-  .fc.hl{grid-column:span 1}
-  .fees-wrap{padding:0 28px 80px}
   .apply-lay{grid-template-columns:1fr;gap:52px;padding:120px 28px 80px}
   .frow{grid-template-columns:1fr;gap:0}
   .fg2{grid-template-columns:1fr;gap:32px}
@@ -507,7 +486,6 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
   <a href="#" onclick="nav('program');closeMB()">Program</a>
   <a href="#" onclick="nav('method');closeMB()">Method</a>
   <a href="#" onclick="nav('values');closeMB()">Values</a>
-  <a href="#" onclick="nav('fees');closeMB()">Fees</a>
   <a href="#" onclick="nav('faq');closeMB()">FAQ</a>
   <a href="#" onclick="nav('apply');closeMB()" style="color:var(--gold)">Apply →</a>
 </div>
@@ -523,7 +501,6 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
     <li><a href="#" onclick="nav('program');return false" data-p="program">Program</a></li>
     <li><a href="#" onclick="nav('method');return false" data-p="method">Method</a></li>
     <li><a href="#" onclick="nav('values');return false" data-p="values">Values</a></li>
-    <li><a href="#" onclick="nav('fees');return false" data-p="fees">Fees</a></li>
     <li><a href="#" onclick="nav('faq');return false" data-p="faq">FAQ</a></li>
   </ul></nav>
   <a class="navcta" href="#" onclick="nav('apply');return false">Apply Now</a>
@@ -690,7 +667,6 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
       <div class="cohort-meta">Every habit built at 13 is automatic at 18. Every year you wait is a year your child's defaults are being set by whatever environment they happen to be in.<br>The window doesn't close — but it narrows.</div>
       <div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap">
         <a href="#" class="bp" onclick="nav('apply');return false">Apply for Admission</a>
-        <a href="#" class="bg" onclick="nav('fees');return false">View Fees</a>
       </div>
     </div>
     <div class="cohort-right">
@@ -717,7 +693,6 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
         <li><a href="#" onclick="nav('program');return false">Program</a></li>
         <li><a href="#" onclick="nav('method');return false">Method</a></li>
         <li><a href="#" onclick="nav('values');return false">Values</a></li>
-        <li><a href="#" onclick="nav('fees');return false">Fees</a></li>
         <li><a href="#" onclick="nav('faq');return false">FAQ</a></li>
         <li><a href="#" onclick="nav('apply');return false">Apply</a></li>
       </ul>
@@ -935,32 +910,6 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
 <footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px"><span>© 2026 The Vertura Academy</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
 </div>
 
-<!-- ══════ FEES ══════ -->
-<div class="page" id="page-fees">
-<div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
-  <div><div class="ey">Investment</div><h1 class="st" style="font-size:clamp(3rem,8vw,7rem)">Fee <em>Structure.</em></h1></div>
-</div>
-<div class="fees-wrap">
-  <div class="fees-grid rv">
-    <div class="fc"><div class="flt">Level 01 · 3 Months</div><div class="fln">Cognitive Foundations</div><div class="fldur">Month 0 → Month 3</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
-    <div class="fc"><div class="flt">Level 02 · 3 Months</div><div class="fln">Self Mastery</div><div class="fldur">Month 3 → Month 6</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
-    <div class="fc"><div class="flt">Level 03 · 3 Months</div><div class="fln">Communication & Influence</div><div class="fldur">Month 6 → Month 9</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
-    <div class="fc"><div class="flt">Level 04 · 3 Months</div><div class="fln">Future Strategy</div><div class="fldur">Month 9 → Month 12</div><div class="famt">₹12,000</div><div class="famt-l">₹4,000 / month · paid in advance</div></div>
-    <div class="fc hl"><div class="flt" style="position:relative;z-index:1">Level 05 · 6 Months</div><div class="fln" style="position:relative;z-index:1">Elite Capstone — Build Something Real</div><div class="fldur" style="position:relative;z-index:1">Month 12 → Month 18 · Includes Demo Day & Professional Jury Evaluation</div><div class="famt" style="position:relative;z-index:1">₹24,000</div><div class="famt-l" style="position:relative;z-index:1">₹4,000 / month · paid in advance</div></div>
-  </div>
-  <div class="ftotal rv">
-    <div>
-      <div class="ftotal-l">Total Programme Investment</div>
-      <div class="ftotal-v">₹72,000</div>
-      <div class="ftotal-s">over 18 months · ₹4,000 per month · no large upfront payment</div>
-    </div>
-    <a href="#" onclick="nav('apply');return false" class="bp">Apply Now</a>
-  </div>
-  <div class="fnote rv">Fees are structured as monthly installments of ₹4,000 in advance, making the full 18-month programme accessible without a large upfront commitment. Admission is selective — fee payment follows acceptance, not before.</div>
-</div>
-<footer><div class="fbot" style="border-top:1px solid var(--bs);padding-top:28px;margin:0 68px"><span>© 2026 The Vertura Academy</span><span>Built for the Top <a href="#">1%</a></span></div></footer>
-</div>
-
 <!-- ══════ FAQ ══════ -->
 <div class="page" id="page-faq">
 <div class="ph"><div class="ph-bg"></div><div class="ph-grid"></div>
@@ -995,7 +944,7 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
     </div>
     <div class="faq-item">
       <div class="faq-q" onclick="toggleFAQ(this)"><span>What is the admission process?</span><div class="faq-icon">+</div></div>
-      <div class="faq-a"><div class="faq-a-inner">After you submit the application form, we schedule a 20-minute assessment conversation — with the student, not just the parent. We ask three things: what are you good at that your school report card has never measured, what do you want to be known for, and where do you feel most stuck right now. There is no test. We are assessing readiness and genuine motivation. If it's a good fit, we confirm admission and discuss the starting date and fee structure.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">After you submit the application form, we schedule a 20-minute assessment conversation — with the student, not just the parent. We ask three things: what are you good at that your school report card has never measured, what do you want to be known for, and where do you feel most stuck right now. There is no test. We are assessing readiness and genuine motivation. If it's a good fit, we confirm admission and discuss the starting date.</div></div>
     </div>
   </div>
   <div style="margin-top:80px;text-align:center;padding:72px 48px;background:var(--ink3);border:1px solid var(--bs)" class="rv">
@@ -1042,7 +991,7 @@ footer{border-top:1px solid var(--bs);padding:68px 68px 40px}
     <div class="fsuccess" id="formOk">
       <div class="fsi">✓</div>
       <div class="fst">Application Received</div>
-      <p class="fsd">We review every application personally and will reach out within 3–5 business days to schedule your assessment conversation.<br><br>In the meantime, explore our <a href="#" onclick="nav('program');return false" style="color:var(--gold)">program structure</a> or <a href="#" onclick="nav('fees');return false" style="color:var(--gold)">fee breakdown</a>.</p>
+      <p class="fsd">We review every application personally and will reach out within 3–5 business days to schedule your assessment conversation.<br><br>In the meantime, explore our <a href="#" onclick="nav('program');return false" style="color:var(--gold)">program structure</a>.</p>
     </div>
   </div>
 </div>
@@ -1057,7 +1006,7 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.le
 document.addEventListener('mousedown',()=>document.body.classList.add('click'));
 document.addEventListener('mouseup',()=>document.body.classList.remove('click'));
 (function ar(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ar)})();
-document.querySelectorAll('a,button,.tc,.lrow,.mc,.vcard,.fc,.tcard,.faq-q').forEach(el=>{
+document.querySelectorAll('a,button,.tc,.lrow,.mc,.vcard,.tcard,.faq-q').forEach(el=>{
   el.addEventListener('mouseenter',()=>document.body.classList.add('h'));
   el.addEventListener('mouseleave',()=>document.body.classList.remove('h'));
 });

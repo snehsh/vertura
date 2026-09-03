@@ -29,6 +29,60 @@ const FALLBACK_EMAIL = "info@vertura.in";
   });
 })();
 
+/* ---------- AI Labs promo bar: live countdown + dismiss ---------- */
+(function () {
+  const bar = document.getElementById("promoBar");
+  if (!bar) return;
+
+  if (sessionStorage.getItem("promoDismissed") === "1") {
+    bar.style.display = "none";
+    return;
+  }
+
+  const close = document.getElementById("promoClose");
+  if (close) {
+    close.addEventListener("click", function () {
+      bar.style.display = "none";
+      sessionStorage.setItem("promoDismissed", "1");
+    });
+  }
+
+  const countEl = document.getElementById("promoCountdown");
+  if (countEl) {
+    /* SAME target and SAME maths as the countdown bar on the AI Labs page.
+       If the start time moves, change the timestamp in BOTH places:
+       here, and in ai-labs/index.html (const LAUNCH). */
+    const LAUNCH = new Date("2026-09-21T16:00:00+05:30").getTime();
+    /* Shown once that moment passes — keep this identical to AFTER_LAUNCH
+       in ai-labs/index.html. */
+    const AFTER_LAUNCH = "AI Labs have begun — ask us about the next batch";
+
+    let timer = null;
+    const pad = function (n) { return String(n).padStart(2, "0"); };
+
+    function update() {
+      const left = LAUNCH - Date.now();
+      if (left <= 0) {
+        countEl.textContent = AFTER_LAUNCH;
+        if (timer) clearInterval(timer);
+        return;
+      }
+      const d = Math.floor(left / 86400000);
+      const h = Math.floor(left / 3600000) % 24;
+      const m = Math.floor(left / 60000) % 60;
+      const s = Math.floor(left / 1000) % 60;
+      countEl.textContent =
+        "AI Labs begin in " +
+        (d > 0 ? d + "d " : "") +
+        pad(h) + "h " + pad(m) + "m " + pad(s) + "s" +
+        " (21st Sept)";
+    }
+
+    update();
+    timer = setInterval(update, 1000);
+  }
+})();
+
 /* ---------- hero network canvas ---------- */
 (function () {
   const c = document.getElementById("net");

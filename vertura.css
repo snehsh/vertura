@@ -64,8 +64,33 @@ p{margin:0 0 1.1em;max-width:66ch}
 .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
 @media(max-width:520px){.actions{flex-direction:column}.actions .btn{width:100%}}
 
+/* ---------- promo bar (site-wide AI Labs announcement) ---------- */
+.site-top{position:sticky;top:0;z-index:80}
+.promo-bar{background:linear-gradient(90deg,#0A1222,#12203D 50%,#0A1222);border-bottom:1px solid rgba(231,178,60,.25)}
+.promo-bar__inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 16px;
+  padding:9px 40px 9px 16px;position:relative;text-align:center}
+.promo-bar__text{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;color:#DCE6F7}
+.promo-bar__text b{color:var(--gold);font-weight:800}
+#promoCountdown{font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.promo-bar__live{display:inline-flex;align-items:center;gap:6px;margin-right:10px;padding:2px 8px;
+  border-radius:2px;background:rgba(255,59,48,.14);border:1px solid rgba(255,59,48,.45);color:#FF6B60;
+  font-family:"Archivo",sans-serif;font-weight:800;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;vertical-align:middle;white-space:nowrap}
+.promo-bar__live i{width:6px;height:6px;border-radius:50%;background:#FF3B30;
+  box-shadow:0 0 0 3px rgba(255,59,48,.22);animation:promoLive 1.8s ease-in-out infinite}
+@keyframes promoLive{0%,100%{opacity:1}50%{opacity:.25}}
+.promo-bar__cta{display:inline-flex;align-items:center;gap:6px;flex:none;font-family:"Archivo",sans-serif;
+  font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#241703;
+  background:var(--goldgrad);padding:6px 14px;border-radius:2px;text-decoration:none;
+  animation:promoPulse 2.4s ease-in-out infinite}
+.promo-bar__close{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;
+  color:#8CA0C4;font-size:18px;line-height:1;cursor:pointer;padding:6px}
+.promo-bar__close:hover{color:var(--text)}
+@keyframes promoPulse{0%,100%{box-shadow:0 0 0 0 rgba(231,178,60,.55)}50%{box-shadow:0 0 0 6px rgba(231,178,60,0)}}
+@media(prefers-reduced-motion: reduce){.promo-bar__cta,.promo-bar__live i{animation:none}}
+
 /* ---------- masthead ---------- */
-.masthead{position:sticky;top:0;z-index:70;background:rgba(4,7,15,.86);backdrop-filter:blur(14px);
+.masthead{position:static;background:rgba(4,7,15,.86);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line)}
 .masthead__inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0}
 .wordmark{display:flex;align-items:center;gap:11px;text-decoration:none}

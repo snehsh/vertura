@@ -964,6 +964,31 @@
       .bopt:hover em {
         opacity: 1;
       }
+      /* closed batches — visible but not selectable */
+      .bopt[disabled] {
+        cursor: not-allowed;
+        opacity: 0.45;
+        background: rgba(6, 11, 23, 0.5);
+        border-color: rgba(150, 185, 235, 0.12);
+      }
+      .bopt[disabled]:hover {
+        border-color: rgba(150, 185, 235, 0.12);
+        background: rgba(6, 11, 23, 0.5);
+        transform: none;
+      }
+      .bopt[disabled] em {
+        opacity: 1;
+        color: var(--muted-2);
+      }
+      .bcard--closed {
+        border-color: rgba(150, 185, 235, 0.16);
+      }
+      .bcard--closed .bage {
+        background: linear-gradient(180deg, #4a5f7f, #33445f);
+      }
+      .bhint.closed {
+        color: var(--muted-2);
+      }
 
       /* ---------- faq ---------- */
       .faq details {
@@ -1290,6 +1315,22 @@
         background: rgba(231, 178, 60, 0.12);
         box-shadow: inset 0 0 0 1px rgba(231, 178, 60, 0.4);
       }
+      .pick button[disabled] {
+        cursor: not-allowed;
+        opacity: 0.42;
+        color: var(--muted-2);
+        border-color: rgba(150, 185, 235, 0.12);
+        background: rgba(5, 10, 20, 0.55);
+      }
+      .pick button[disabled] small {
+        display: block;
+        margin-top: 4px;
+        font-family: "Manrope", sans-serif;
+        font-weight: 500;
+        font-size: 12px;
+        letter-spacing: 0.02em;
+        text-transform: none;
+      }
       .summary {
         border: 1px solid rgba(231, 178, 60, 0.32);
         padding: 18px;
@@ -1557,32 +1598,28 @@
   <body>
     <div class="topstack">
       <header class="masthead">
-      <div class="shell masthead__inner">
-        <a
-          class="brandmark"
-          href="/"
-          aria-label="The Vertura Academy, home"
-        >
-          <img src="/logo-mark.png" alt="" width="30" height="30" />
-          <span>The Vertura Academy</span>
-        </a>
-        <button
-          class="navtoggle"
-          id="navtoggle"
-          aria-expanded="false"
-          aria-controls="nav"
-        >
-          Menu
-        </button>
-        <nav class="nav" id="nav" aria-label="Main">
-          <a href="/">Home</a>
-          <a href="/programs/">Programmes</a>
-          <a href="/ai-labs/" aria-current="page">AI Labs</a>
-          <a href="/corporate/">For Business</a>
-          <a href="/founder/">Founder</a>
-          <a href="/contact/">Get in touch</a>
-        </nav>
-      </div>
+        <div class="shell masthead__inner">
+          <a class="brandmark" href="/" aria-label="The Vertura Academy, home">
+            <img src="/logo-mark.png" alt="" width="30" height="30" />
+            <span>The Vertura Academy</span>
+          </a>
+          <button
+            class="navtoggle"
+            id="navtoggle"
+            aria-expanded="false"
+            aria-controls="nav"
+          >
+            Menu
+          </button>
+          <nav class="nav" id="nav" aria-label="Main">
+            <a href="/">Home</a>
+            <a href="/programs/">Programmes</a>
+            <a href="/ai-labs/" aria-current="page">AI Labs</a>
+            <a href="/corporate/">For Business</a>
+            <a href="/founder/">Founder</a>
+            <a href="/contact/">Get in touch</a>
+          </nav>
+        </div>
       </header>
 
       <!-- live launch countdown — filled by JS, stays hidden if the script fails -->
@@ -2074,14 +2111,15 @@
       <div class="shell">
         <h2>Choose your batch</h2>
         <p class="lede" style="margin-top: 18px; max-width: 54ch">
-          Timings are fixed by age group. Within that, pick the two days that
-          suit your week — sessions run on the same two days for all four weeks.
+          One batch is open for this cohort: ages 13–14, Monday &amp; Wednesday,
+          4:00 PM – 5:00 PM IST. Sessions run on the same two days for all four
+          weeks. The remaining schedules open with the next cohort.
         </p>
         <div class="bgrid">
           <div class="bcard">
             <span class="bage">Age 13–14</span>
             <p class="btime">4:00 PM – 5:00 PM IST</p>
-            <p class="bhint">Choose one schedule</p>
+            <p class="bhint">One schedule open for this cohort</p>
             <div class="bopts">
               <button
                 class="bopt"
@@ -2094,43 +2132,53 @@
                 class="bopt"
                 data-age="13-14"
                 data-batch="Tuesday &amp; Friday"
+                disabled
+                aria-disabled="true"
               >
-                Tuesday &amp; Friday <em>Select</em>
+                Tuesday &amp; Friday <em>Not open</em>
               </button>
               <button
                 class="bopt"
                 data-age="13-14"
                 data-batch="Thursday &amp; Saturday"
+                disabled
+                aria-disabled="true"
               >
-                Thursday &amp; Saturday <em>Select</em>
+                Thursday &amp; Saturday <em>Not open</em>
               </button>
             </div>
           </div>
-          <div class="bcard">
+          <div class="bcard bcard--closed">
             <span class="bage">Age 15–16</span>
             <p class="btime">5:30 PM – 6:30 PM IST</p>
-            <p class="bhint">Choose one schedule</p>
+            <p class="bhint closed">Not open for this cohort</p>
             <div class="bopts">
               <button
                 class="bopt"
                 data-age="15-16"
                 data-batch="Monday &amp; Wednesday"
+                disabled
+                aria-disabled="true"
               >
-                Monday &amp; Wednesday <em>Select</em>
+                Monday &amp; Wednesday <em>Not open</em>
               </button>
               <button
                 class="bopt"
                 data-age="15-16"
                 data-batch="Tuesday &amp; Friday"
+                disabled
+                aria-disabled="true"
               >
-                Tuesday &amp; Friday <em>Select</em>
+                Tuesday &amp; Friday <em>Not open</em>
               </button>
               <button
                 class="bopt"
                 data-age="15-16"
                 data-batch="Thursday &amp; Saturday"
+                disabled
+                aria-disabled="true"
               >
-                Thursday &amp; Saturday <em>Select</em>
+                Thursday &amp; Saturday <em>Not open</em>
               </button>
             </div>
           </div>
@@ -2331,8 +2379,8 @@
             <option value="">Select age</option>
             <option value="13">13</option>
             <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
+            <option value="15" disabled>15 — not open this cohort</option>
+            <option value="16" disabled>16 — not open this cohort</option>
           </select>
           <p class="err" id="e1">Add the student's name and age to continue.</p>
           <button class="btn btn-blue btn-wide" data-next>Continue</button>
@@ -2372,11 +2420,23 @@
             <button data-batch="Monday &amp; Wednesday" aria-pressed="false">
               Monday &amp; Wednesday
             </button>
-            <button data-batch="Tuesday &amp; Friday" aria-pressed="false">
+            <button
+              data-batch="Tuesday &amp; Friday"
+              aria-pressed="false"
+              disabled
+              aria-disabled="true"
+            >
               Tuesday &amp; Friday
+              <small>Opens with the next cohort</small>
             </button>
-            <button data-batch="Thursday &amp; Saturday" aria-pressed="false">
+            <button
+              data-batch="Thursday &amp; Saturday"
+              aria-pressed="false"
+              disabled
+              aria-disabled="true"
+            >
               Thursday &amp; Saturday
+              <small>Opens with the next cohort</small>
             </button>
           </div>
           <p class="err" id="e3">Pick one schedule to continue.</p>
@@ -2634,7 +2694,13 @@
           const m = Math.floor(left / 60000) % 60;
           const s = Math.floor(left / 1000) % 60;
           clock.textContent =
-            (d > 0 ? d + "d " : "") + pad(h) + "h " + pad(m) + "m " + pad(s) + "s";
+            (d > 0 ? d + "d " : "") +
+            pad(h) +
+            "h " +
+            pad(m) +
+            "m " +
+            pad(s) +
+            "s";
           bar.hidden = false;
         }
 
@@ -2679,9 +2745,19 @@
         if (e.key === "Escape" && modal.classList.contains("open")) closeForm();
       });
 
+      /* ---------- open batches for this cohort ----------
+         Only these age/schedule pairs can be selected anywhere on the page.
+         To reopen a batch: add it here AND remove the `disabled` attribute
+         from its button in section 12 and in the form's #pick list. */
+      const OPEN_BATCHES = { "13-14": ["Monday & Wednesday"] };
+      function isOpen(band, batch) {
+        return (OPEN_BATCHES[band] || []).indexOf(batch) > -1;
+      }
+
       /* batch buttons in section 12 open the form pre-filled */
       document.querySelectorAll(".bopt").forEach((b) => {
         b.addEventListener("click", () => {
+          if (b.disabled || !isOpen(b.dataset.age, b.dataset.batch)) return;
           data.batch = b.dataset.batch;
           data.preAge = b.dataset.age;
           openForm();
@@ -2718,7 +2794,7 @@
               data.band +
               " sessions run " +
               timings[data.band] +
-              ". Choose the two days that suit your week.";
+              ". Monday & Wednesday is the only schedule open for this cohort.";
             show(2);
           } else if (step === 2) {
             data.parent = document.getElementById("pname").value.trim();
@@ -2734,9 +2810,10 @@
             }
             err("e2", false);
             /* pre-select if they came from the batch section */
+            if (data.batch && !isOpen(data.band, data.batch)) data.batch = "";
             if (data.batch) {
               const btn = [...document.querySelectorAll("#pick button")].find(
-                (x) => x.dataset.batch === data.batch,
+                (x) => x.dataset.batch === data.batch && !x.disabled,
               );
               if (btn) {
                 document
@@ -2747,7 +2824,7 @@
             }
             show(3);
           } else if (step === 3) {
-            if (!data.batch) {
+            if (!data.batch || !isOpen(data.band, data.batch)) {
               err("e3", true);
               return;
             }
@@ -2784,6 +2861,7 @@
 
       document.querySelectorAll("#pick button").forEach((b) => {
         b.addEventListener("click", () => {
+          if (b.disabled || !isOpen(data.band, b.dataset.batch)) return;
           document
             .querySelectorAll("#pick button")
             .forEach((x) => x.setAttribute("aria-pressed", "false"));
@@ -2811,7 +2889,9 @@
           location.hash === "#enroll-now";
         if (!wantsForm) return;
 
-        /* age — accepts 13-14, 15-16, or a plain 13/14/15/16 */
+        /* age — accepts 13-14, 15-16, or a plain 13/14/15/16.
+           Bands with no open batch are ignored, so an older link that says
+           age=15-16 simply opens the form on step 1 instead of dead-ending. */
         const ageParam = (q.get("age") || "").trim();
         if (ageParam) {
           const exact = /^1[3-6]$/.test(ageParam);
@@ -2820,7 +2900,7 @@
             : ageParam === "13-14" || ageParam === "15-16"
               ? ageParam
               : "";
-          if (band) {
+          if (band && OPEN_BATCHES[band]) {
             data.preAge = band;
             document.getElementById("sage").value = exact
               ? ageParam
@@ -2830,21 +2910,22 @@
           }
         }
 
-        /* batch — accepts mon-wed, tue-fri, thu-sat */
+        /* batch — accepts mon-wed, tue-fri, thu-sat.
+           Closed schedules are ignored for the same reason. */
         const batchMap = {
           "mon-wed": "Monday & Wednesday",
           "tue-fri": "Tuesday & Friday",
           "thu-sat": "Thursday & Saturday",
         };
         const batch = batchMap[(q.get("batch") || "").trim().toLowerCase()];
-        if (batch) {
+        if (batch && isOpen(data.preAge || "13-14", batch)) {
           data.batch = batch;
           document
             .querySelectorAll("#pick button")
             .forEach((x) =>
               x.setAttribute(
                 "aria-pressed",
-                x.dataset.batch === batch ? "true" : "false",
+                x.dataset.batch === batch && !x.disabled ? "true" : "false",
               ),
             );
         }

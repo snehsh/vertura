@@ -11,7 +11,7 @@
     </title>
     <meta
       name="description"
-      content="Vertura AI Labs is a 4-week live online experience where students aged 13–16 think, research, create, build and solve with AI. Twice a week. Starts 21 September 2026."
+      content="Vertura AI Labs is a 4-week live online experience where students aged 13–16 think, research, create, build and solve with AI. Twice a week. Next cohort coming soon."
     />
     <meta
       property="og:title"
@@ -19,7 +19,7 @@
     />
     <meta
       property="og:description"
-      content="Students don't just learn about AI — they think, research, create, build and solve with it. Twice a week, live online. Starts 21 September 2026."
+      content="Students don't just learn about AI — they think, research, create, build and solve with it. Twice a week, live online. Next cohort coming soon."
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="The Vertura Academy" />
@@ -59,7 +59,7 @@
           "@type": "Offer",
           "price": "999",
           "priceCurrency": "INR",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/SoldOut"
         }
       }
     </script>
@@ -1468,69 +1468,22 @@
         text-transform: uppercase;
         color: var(--text);
       }
-      /* ---------- live launch countdown (AI Labs page only) ---------- */
-      .labsbar {
-        background:
-          linear-gradient(
-            90deg,
-            rgba(30, 123, 255, 0.18),
-            rgba(231, 178, 60, 0.14)
-          ),
-          rgba(4, 7, 15, 0.92);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--line);
-      }
-      .labsbar__inner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding: 9px 0;
-        font-family: "Archivo", sans-serif;
-        font-weight: 700;
-        font-size: 11.5px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-      }
-      .labsbar__dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--gold);
-        box-shadow: 0 0 0 4px rgba(231, 178, 60, 0.16);
-        animation: labspulse 2.4s ease-in-out infinite;
-      }
-      @keyframes labspulse {
-        50% {
-          opacity: 0.3;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        .labsbar__dot {
-          animation: none;
-        }
-      }
-      .labsbar__label {
-        color: var(--muted);
-      }
-      .labsbar__clock {
+      /* ---------- enrolment closed — CTA slots show a status, not a button ---------- */
+      .btn-soon,
+      .btn-soon:hover {
+        background: rgba(231, 178, 60, 0.08);
+        border-color: rgba(231, 178, 60, 0.45);
         color: var(--gold-lite);
-        font-variant-numeric: tabular-nums;
-        letter-spacing: 0.1em;
+        box-shadow: none;
+        transform: none;
+        cursor: default;
+        line-height: 1.25;
       }
-      .labsbar__date {
-        color: var(--muted-2);
-      }
-      @media (max-width: 560px) {
-        .labsbar__inner {
-          gap: 8px;
-          padding: 8px 0;
-          font-size: 10px;
-          letter-spacing: 0.1em;
-        }
-        .labsbar__date {
-          display: none;
+      @media (min-width: 860px) {
+        .hero-cta .btn-soon {
+          flex: 0 0 auto;
+          width: auto;
+          white-space: nowrap;
         }
       }
 
@@ -1621,16 +1574,6 @@
           </nav>
         </div>
       </header>
-
-      <!-- live launch countdown — filled by JS, stays hidden if the script fails -->
-      <div class="labsbar" id="labsbar" hidden>
-        <div class="shell labsbar__inner">
-          <span class="labsbar__dot" aria-hidden="true"></span>
-          <span class="labsbar__label" id="labsLabel">Batches begin in</span>
-          <span class="labsbar__clock" id="labsClock" role="timer"></span>
-          <span class="labsbar__date" id="labsDate">21 September 2026</span>
-        </div>
-      </div>
     </div>
     <canvas id="net" aria-hidden="true"></canvas>
 
@@ -1659,10 +1602,17 @@
         <ul class="facts rise d5">
           <li>4-week live online experience</li>
           <li>For students aged 13–16</li>
-          <li>Starting 21 September 2026</li>
+          <li>Next cohort coming soon</li>
         </ul>
         <div class="hero-cta rise d6">
-          <button class="btn btn-gold" data-open-form>🚀 Enroll now</button>
+          <button
+            class="btn btn-soon"
+            data-open-form
+            disabled
+            aria-disabled="true"
+          >
+            Next cohort coming soon
+          </button>
           <a class="btn btn-ghost" href="#outcomes">Explore AI Labs</a>
           <a class="btn btn-ghost" href="#" data-wa="hero">💬 Talk to us</a>
         </div>
@@ -1827,7 +1777,14 @@
           <b class="gold">Minimum theory. Maximum hands-on.</b>
         </div>
         <div class="band-cta">
-          <button class="btn btn-gold" data-open-form>🚀 Enroll now</button>
+          <button
+            class="btn btn-soon"
+            data-open-form
+            disabled
+            aria-disabled="true"
+          >
+            Next cohort coming soon
+          </button>
         </div>
       </div>
     </section>
@@ -2100,7 +2057,7 @@
           </div>
           <div>
             <dt>Start date</dt>
-            <dd class="gold">21 September 2026</dd>
+            <dd class="gold">Next cohort coming soon</dd>
           </div>
         </dl>
       </div>
@@ -2109,24 +2066,25 @@
     <!-- ============ 12. CHOOSE YOUR BATCH ============ -->
     <section class="batches" id="batches">
       <div class="shell">
-        <h2>Choose your batch</h2>
+        <h2>Next cohort coming soon</h2>
         <p class="lede" style="margin-top: 18px; max-width: 54ch">
-          One batch is open for this cohort: ages 13–14, Monday &amp; Wednesday,
-          4:00 PM – 5:00 PM IST. Sessions run on the same two days for all four
-          weeks. The remaining schedules open with the next cohort.
+          Enrolment for the September cohort has closed. Dates and batches for
+          the next cohort will be posted here when enrolment opens.
         </p>
         <div class="bgrid">
-          <div class="bcard">
+          <div class="bcard bcard--closed">
             <span class="bage">Age 13–14</span>
             <p class="btime">4:00 PM – 5:00 PM IST</p>
-            <p class="bhint">One schedule open for this cohort</p>
+            <p class="bhint closed">Next cohort coming soon</p>
             <div class="bopts">
               <button
                 class="bopt"
                 data-age="13-14"
                 data-batch="Monday &amp; Wednesday"
+                disabled
+                aria-disabled="true"
               >
-                Monday &amp; Wednesday <em>Select</em>
+                Monday &amp; Wednesday <em>Coming soon</em>
               </button>
               <button
                 class="bopt"
@@ -2135,7 +2093,7 @@
                 disabled
                 aria-disabled="true"
               >
-                Tuesday &amp; Friday <em>Not open</em>
+                Tuesday &amp; Friday <em>Coming soon</em>
               </button>
               <button
                 class="bopt"
@@ -2144,14 +2102,14 @@
                 disabled
                 aria-disabled="true"
               >
-                Thursday &amp; Saturday <em>Not open</em>
+                Thursday &amp; Saturday <em>Coming soon</em>
               </button>
             </div>
           </div>
           <div class="bcard bcard--closed">
             <span class="bage">Age 15–16</span>
             <p class="btime">5:30 PM – 6:30 PM IST</p>
-            <p class="bhint closed">Not open for this cohort</p>
+            <p class="bhint closed">Next cohort coming soon</p>
             <div class="bopts">
               <button
                 class="bopt"
@@ -2160,7 +2118,7 @@
                 disabled
                 aria-disabled="true"
               >
-                Monday &amp; Wednesday <em>Not open</em>
+                Monday &amp; Wednesday <em>Coming soon</em>
               </button>
               <button
                 class="bopt"
@@ -2169,7 +2127,7 @@
                 disabled
                 aria-disabled="true"
               >
-                Tuesday &amp; Friday <em>Not open</em>
+                Tuesday &amp; Friday <em>Coming soon</em>
               </button>
               <button
                 class="bopt"
@@ -2178,7 +2136,7 @@
                 disabled
                 aria-disabled="true"
               >
-                Thursday &amp; Saturday <em>Not open</em>
+                Thursday &amp; Saturday <em>Coming soon</em>
               </button>
             </div>
           </div>
@@ -2291,18 +2249,23 @@
           Vertura AI Labs
         </p>
         <p class="lede" style="max-width: 42ch; margin-inline: auto">
-          A 4-week live online experience, starting 21 September 2026.
+          A 4-week live online experience. Next cohort coming soon.
         </p>
         <div class="pricebox">
           <p class="price-old">₹1,999 <span class="off">50% off</span></p>
           <p class="price-now gold">₹999</p>
           <p class="price-note">Complete 4-week program</p>
           <div class="final-cta">
-            <button class="btn btn-gold" data-open-form>🚀 Enroll now</button>
+            <button
+              class="btn btn-soon"
+              data-open-form
+              disabled
+              aria-disabled="true"
+            >
+              Next cohort coming soon
+            </button>
           </div>
-          <p class="pay-note">
-            Limited seats per batch. Launch pricing for the September cohort.
-          </p>
+          <p class="pay-note">Next cohort coming soon.</p>
         </div>
         <div class="final-cta">
           <a class="btn btn-ghost" href="#" data-wa="final"
@@ -2348,7 +2311,9 @@
     <!-- sticky mobile CTA -->
     <div class="sticky" id="sticky">
       <a class="btn btn-ghost" href="#" data-wa="sticky">💬 Ask us</a>
-      <button class="btn btn-gold" data-open-form>🚀 Enroll now</button>
+      <button class="btn btn-soon" data-open-form disabled aria-disabled="true">
+        Next cohort coming soon
+      </button>
     </div>
 
     <!-- ============ REGISTRATION ============ -->
@@ -2417,8 +2382,14 @@
           <p class="step-h">Select batch</p>
           <p class="step-s" id="timing">Timings are set by age group.</p>
           <div class="pick" id="pick">
-            <button data-batch="Monday &amp; Wednesday" aria-pressed="false">
+            <button
+              data-batch="Monday &amp; Wednesday"
+              aria-pressed="false"
+              disabled
+              aria-disabled="true"
+            >
               Monday &amp; Wednesday
+              <small>Opens with the next cohort</small>
             </button>
             <button
               data-batch="Tuesday &amp; Friday"
@@ -2662,58 +2633,32 @@
         { passive: true },
       );
 
-      /* ---------- live launch countdown ---------- */
-      (function launchCountdown() {
-        const bar = document.getElementById("labsbar");
-        const clock = document.getElementById("labsClock");
-        const label = document.getElementById("labsLabel");
-        const date = document.getElementById("labsDate");
-        if (!bar || !clock) return;
-
-        /* SAME target and SAME maths as the promo bar in vertura.js.
-           If the start time moves, change the timestamp in BOTH places. */
-        const LAUNCH = new Date("2026-09-21T16:00:00+05:30").getTime();
-        /* Shown once that moment passes — edit this line when the cohort closes. */
-        const AFTER_LAUNCH = "AI Labs have begun — ask us about the next batch";
-
-        let timer = null;
-        const pad = (n) => String(n).padStart(2, "0");
-
-        function tick() {
-          const left = LAUNCH - Date.now();
-          if (left <= 0) {
-            label.textContent = AFTER_LAUNCH;
-            clock.textContent = "";
-            date.hidden = true;
-            bar.hidden = false;
-            if (timer) clearInterval(timer);
-            return;
-          }
-          const d = Math.floor(left / 86400000);
-          const h = Math.floor(left / 3600000) % 24;
-          const m = Math.floor(left / 60000) % 60;
-          const s = Math.floor(left / 1000) % 60;
-          clock.textContent =
-            (d > 0 ? d + "d " : "") +
-            pad(h) +
-            "h " +
-            pad(m) +
-            "m " +
-            pad(s) +
-            "s";
-          bar.hidden = false;
-        }
-
-        tick();
-        timer = setInterval(tick, 1000);
-      })();
-
       /* ---------- registration flow ---------- */
       const modal = document.getElementById("modal");
       const panes = [...document.querySelectorAll(".pane")];
       const bars = [...document.querySelectorAll("#prog i")];
       let step = 1;
       const data = { batch: "" };
+
+      /* ---------- enrolment switch ----------
+         No batch is open, so the form cannot be opened from anywhere —
+         not the buttons, not old ?enroll=1 links from other pages.
+         TO REOPEN:
+           1. List the open schedules in OPEN_BATCHES, e.g.
+              { "13-14": ["Monday & Wednesday"] }
+           2. Set COHORT_START to the new start date.
+           3. In the HTML, remove `disabled aria-disabled="true"` from those
+              batch buttons (section 12 and the form's #pick list), and turn
+              the four "Next cohort coming soon" buttons back into
+              <button class="btn btn-gold" data-open-form>🚀 Enroll now</button>. */
+      const OPEN_BATCHES = {};
+      const COHORT_START = "Next cohort coming soon";
+      const ENROLMENT_OPEN = Object.keys(OPEN_BATCHES).some(
+        (k) => OPEN_BATCHES[k].length > 0,
+      );
+      function isOpen(band, batch) {
+        return (OPEN_BATCHES[band] || []).indexOf(batch) > -1;
+      }
 
       function show(n) {
         step = n;
@@ -2723,6 +2668,7 @@
         modal.scrollTop = 0;
       }
       function openForm() {
+        if (!ENROLMENT_OPEN) return;
         if (!data.ref)
           data.ref = "VAL-" + Date.now().toString(36).toUpperCase().slice(-6);
         modal.classList.add("open");
@@ -2744,15 +2690,6 @@
       addEventListener("keydown", (e) => {
         if (e.key === "Escape" && modal.classList.contains("open")) closeForm();
       });
-
-      /* ---------- open batches for this cohort ----------
-         Only these age/schedule pairs can be selected anywhere on the page.
-         To reopen a batch: add it here AND remove the `disabled` attribute
-         from its button in section 12 and in the form's #pick list. */
-      const OPEN_BATCHES = { "13-14": ["Monday & Wednesday"] };
-      function isOpen(band, batch) {
-        return (OPEN_BATCHES[band] || []).indexOf(batch) > -1;
-      }
 
       /* batch buttons in section 12 open the form pre-filled */
       document.querySelectorAll(".bopt").forEach((b) => {
@@ -2794,7 +2731,7 @@
               data.band +
               " sessions run " +
               timings[data.band] +
-              ". Monday & Wednesday is the only schedule open for this cohort.";
+              ". Pick the schedule that suits your week.";
             show(2);
           } else if (step === 2) {
             data.parent = document.getElementById("pname").value.trim();
@@ -2834,7 +2771,7 @@
               row("Student", data.student + ", age " + data.age) +
               row("Batch", data.batch) +
               row("Timing", timings[data.band]) +
-              row("Starts", "21 September 2026") +
+              row("Starts", COHORT_START) +
               row(
                 "Program fee",
                 '<s style="color:#7386A3">₹1,999</s> &nbsp; ₹999',
@@ -2878,7 +2815,9 @@
            /ai-labs/?enroll=1&age=15-16       → age pre-selected (or age=15)
            /ai-labs/?enroll=1&batch=thu-sat   → schedule pre-selected
          The hash #enroll-now does the same, for links that cannot carry a
-         query string. Runs after every handler above is defined. */
+         query string. Runs after every handler above is defined.
+         While ENROLMENT_OPEN is false these links load the page normally
+         and the form stays shut. */
       (function deepLinkEnroll() {
         const q = new URLSearchParams(location.search);
         const src = (q.get("src") || "").trim();

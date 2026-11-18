@@ -9,44 +9,7 @@ const WEB3FORMS_KEY = "51329b09-c18c-45fe-b5be-4c16c6a902df";
 const SHEETDB_URL   = "https://sheetdb.io/api/v1/wzcxpkl5ebxgn";
 const FALLBACK_EMAIL = "info@vertura.in";
 
-/* ---------- mobile navigation ---------- */
-(function () {
-  const btn = document.getElementById("navtoggle");
-  const nav = document.getElementById("nav");
-  if (!btn || !nav) return;
-  btn.addEventListener("click", function () {
-    const open = nav.classList.toggle("is-open");
-    btn.setAttribute("aria-expanded", String(open));
-    btn.textContent = open ? "Close" : "Menu";
-  });
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && nav.classList.contains("is-open")) {
-      nav.classList.remove("is-open");
-      btn.setAttribute("aria-expanded", "false");
-      btn.textContent = "Menu";
-      btn.focus();
-    }
-  });
-})();
-
-/* ---------- AI Labs promo bar: dismiss ---------- */
-(function () {
-  const bar = document.getElementById("promoBar");
-  if (!bar) return;
-
-  if (sessionStorage.getItem("promoDismissed") === "1") {
-    bar.style.display = "none";
-    return;
-  }
-
-  const close = document.getElementById("promoClose");
-  if (close) {
-    close.addEventListener("click", function () {
-      bar.style.display = "none";
-      sessionStorage.setItem("promoDismissed", "1");
-    });
-  }
-})();
+/* The mobile menu and the "Proof" dropdown live in nav.js. */
 
 /* ---------- hero network canvas ---------- */
 (function () {
@@ -124,7 +87,7 @@ if ("IntersectionObserver" in window) {
       ["unsure", "Not sure yet \u2014 help me choose"]
     ],
     school: [
-      ["schools", "Vertura for Schools — six verticals, Grades 6\u20139"],
+      ["schools", "Vertura for Schools — six verticals, Grades 5\u201310"],
       ["unsure", "Not sure yet \u2014 tell me how it works"]
     ],
     business: [
@@ -164,9 +127,12 @@ if ("IntersectionObserver" in window) {
   const q = new URLSearchParams(location.search);
   const forParam = q.get("for");
   const progParam = q.get("program");
-  let kind = "parent";
-  if (forParam === "school") kind = "school";
+  /* Vertura for Schools is the default enquiry; links that name another
+     audience or programme switch the form to match. */
+  let kind = "school";
+  if (forParam === "parent") kind = "parent";
   if (forParam === "business") kind = "business";
+  if (progParam === "foundation" || progParam === "ai-labs") kind = "parent";
   if (progParam === "schools") kind = "school";
   if (progParam === "corporate") kind = "business";
   who.value = kind;

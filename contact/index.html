@@ -38,24 +38,12 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/nav.css" />
     <link rel="stylesheet" href="/vertura.css" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <div class="site-top">
-      <div class="promo-bar" id="promoBar">
-        <div class="shell promo-bar__inner">
-          <span class="promo-bar__text"
-            ><b>VERTURA AI LABS</b>: 4-week online, live and hands-on AI
-            experience &middot; Ages 13&ndash;16 &middot; Next cohort coming
-            soon</span
-          >
-          <a class="promo-bar__cta" href="/ai-labs/">Explore AI Labs →</a>
-          <button class="promo-bar__close" id="promoClose" aria-label="Dismiss">
-            ×
-          </button>
-        </div>
-      </div>
       <header class="masthead">
         <div class="shell masthead__inner">
           <a class="wordmark" href="/" aria-label="The Vertura Academy, home">
@@ -71,10 +59,13 @@
             Menu
           </button>
           <nav class="nav" id="nav" aria-label="Main">
-            <a href="/">Home</a>
-            <a href="/programs/">Programmes</a>
+            <a class="nav__home" href="/">Home</a>
+            <a class="nav__feature" href="/schools/">For Schools</a>
+            <a href="/foundation/">Foundation</a>
             <a href="/ai-labs/">AI Labs</a>
             <a href="/corporate/">For Business</a>
+            <a href="/partnerships/">Partnerships</a>
+            <a href="/gallery/">Gallery</a>
             <a href="/founder/">Founder</a>
             <a href="/contact/" aria-current="page">Get in touch</a>
           </nav>
@@ -109,8 +100,8 @@
               <div class="field">
                 <label for="who">Who is this for?</label>
                 <select id="who" name="Enquiry type" required>
-                  <option value="parent">A parent enrolling a child</option>
                   <option value="school">A school partnership</option>
+                  <option value="parent">A parent enrolling a child</option>
                   <option value="business">A company training its team</option>
                   <option value="other">Something else</option>
                 </select>
@@ -196,10 +187,10 @@
                 Corporate AI training for non-technical departments.
                 <a href="/corporate/">See how it works</a>.
               </dd>
-              <dt>Enrolling in AI Labs?</dt>
+              <dt>A school leader?</dt>
               <dd>
-                Next cohort coming soon.
-                <a href="/ai-labs/">See the AI Labs page</a>.
+                Six skill verticals inside the school week, Grades 5–10.
+                <a href="/schools/">See Vertura for Schools</a>.
               </dd>
               <dt>Email</dt>
               <dd><a href="mailto:info@vertura.in">info@vertura.in</a></dd>
@@ -215,8 +206,8 @@
               <dd>Pune, Maharashtra.</dd>
               <dt>Currently open</dt>
               <dd>
-                The Foundation Programme waitlist for the next Pune cohort.
-                Vertura AI Labs: next cohort coming soon.
+                Conversations with schools about Vertura for Schools, and the
+                Foundation Programme waitlist for the next Pune cohort.
               </dd>
             </dl>
           </aside>
@@ -234,11 +225,12 @@
             <h4>Pages</h4>
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/programs/">Programmes</a></li>
+              <li><a href="/schools/">Vertura for Schools</a></li>
               <li><a href="/foundation/">Foundation Programme</a></li>
               <li><a href="/ai-labs/">Vertura AI Labs</a></li>
-              <li><a href="/schools/">Vertura for Schools</a></li>
               <li><a href="/corporate/">Corporate AI training</a></li>
+              <li><a href="/partnerships/">Partnerships</a></li>
+              <li><a href="/gallery/">Gallery</a></li>
               <li><a href="/founder/">Founder</a></li>
               <li><a href="/contact/">Get in touch</a></li>
             </ul>
@@ -272,6 +264,7 @@
       </div>
     </footer>
 
+    <script src="/nav.js" defer></script>
     <script src="/vertura.js" defer></script>
     <!-- GoatCounter — free, cookie-free visitor analytics. Dashboard: vertura.goatcounter.com -->
     <script

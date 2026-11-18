@@ -19,18 +19,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/nav.css">
 <link rel="stylesheet" href="/vertura.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="site-top">
-<div class="promo-bar" id="promoBar">
-  <div class="shell promo-bar__inner">
-    <span class="promo-bar__text"><b>VERTURA AI LABS</b>: 4-week online, live and hands-on AI experience &middot; Ages 13&ndash;16 &middot; Next cohort coming soon</span>
-    <a class="promo-bar__cta" href="/ai-labs/">Explore AI Labs →</a>
-    <button class="promo-bar__close" id="promoClose" aria-label="Dismiss">×</button>
-  </div>
-</div>
 <header class="masthead">
   <div class="shell masthead__inner">
     <a class="wordmark" href="/" aria-label="The Vertura Academy, home">
@@ -39,12 +33,16 @@
     </a>
     <button class="navtoggle" id="navtoggle" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="/">Home</a>
-      <a href="/programs/">Programmes</a>
+      <a class="nav__home" href="/">Home</a>
+      <a class="nav__feature" href="/schools/">For Schools</a>
+      <a href="/foundation/">Foundation</a>
       <a href="/ai-labs/">AI Labs</a>
       <a href="/corporate/" aria-current="page">For Business</a>
+      <a href="/partnerships/">Partnerships</a>
+      <a href="/gallery/">Gallery</a>
       <a href="/founder/">Founder</a>
-      <a href="/contact/">Get in touch</a></nav>
+      <a href="/contact/">Get in touch</a>
+    </nav>
   </div>
 </header>
 </div>
@@ -164,11 +162,12 @@
         <h4>Pages</h4>
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/programs/">Programmes</a></li>
+          <li><a href="/schools/">Vertura for Schools</a></li>
           <li><a href="/foundation/">Foundation Programme</a></li>
           <li><a href="/ai-labs/">Vertura AI Labs</a></li>
-          <li><a href="/schools/">Vertura for Schools</a></li>
           <li><a href="/corporate/">Corporate AI training</a></li>
+          <li><a href="/partnerships/">Partnerships</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
           <li><a href="/founder/">Founder</a></li>
           <li><a href="/contact/">Get in touch</a></li>
         </ul>
@@ -190,6 +189,7 @@
   </div>
 </footer>
 
+<script src="/nav.js" defer></script>
 <script src="/vertura.js" defer></script>
 <!-- GoatCounter — free, cookie-free visitor analytics. Dashboard: vertura.goatcounter.com -->
 <script data-goatcounter="https://vertura.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>

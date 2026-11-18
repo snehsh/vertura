@@ -11,7 +11,7 @@
     </title>
     <meta
       name="description"
-      content="The Vertura Academy runs in-person and online programmes in Pune for ages 10-16, and skill verticals inside schools for Grades 6-9. Six capabilities: thinking, discipline, communication, leadership, financial intelligence, execution."
+      content="Vertura for Schools brings six skill verticals into the school timetable for Grades 5-10, with a quarterly Growth Index report per student. The Vertura Academy also runs programmes in Pune and online for ages 10-16."
     />
     <link rel="canonical" href="https://www.vertura.in/" />
     <meta property="og:type" content="website" />
@@ -23,7 +23,7 @@
     />
     <meta
       property="og:description"
-      content="The Vertura Academy runs in-person and online programmes in Pune for ages 10-16, and skill verticals inside schools for Grades 6-9. Six capabilities: thinking, discipline, communication, leadership, financial intelligence, execution."
+      content="Vertura for Schools brings six skill verticals into the school timetable for Grades 5-10, with a quarterly Growth Index report per student. The Vertura Academy also runs programmes in Pune and online for ages 10-16."
     />
     <meta property="og:url" content="https://www.vertura.in/" />
     <meta
@@ -43,6 +43,7 @@
       href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/nav.css" />
     <link rel="stylesheet" href="/vertura.css" />
     <script type="application/ld+json">
       {
@@ -51,7 +52,7 @@
         "name": "The Vertura Academy",
         "url": "https://www.vertura.in",
         "logo": "https://raw.githubusercontent.com/snehsh/vertura/main/logo.png",
-        "description": "Programmes for ages 10 to 16 that build thinking, discipline, communication, leadership, financial intelligence and execution. In person in Pune, online, and inside partner schools for Grades 6 to 9.",
+        "description": "Skill verticals inside partner schools for Grades 5 to 10, plus programmes for ages 10 to 16 that build thinking, discipline, communication, leadership, financial intelligence and execution. In person in Pune and online.",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Pune",
@@ -79,19 +80,6 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <div class="site-top">
-      <div class="promo-bar" id="promoBar">
-        <div class="shell promo-bar__inner">
-          <span class="promo-bar__text"
-            ><b>VERTURA AI LABS</b>: 4-week online, live and hands-on AI
-            experience &middot; Ages 13&ndash;16 &middot; Next cohort coming
-            soon</span
-          >
-          <a class="promo-bar__cta" href="/ai-labs/">Explore AI Labs →</a>
-          <button class="promo-bar__close" id="promoClose" aria-label="Dismiss">
-            ×
-          </button>
-        </div>
-      </div>
       <header class="masthead">
         <div class="shell masthead__inner">
           <a class="wordmark" href="/" aria-label="The Vertura Academy, home">
@@ -107,10 +95,13 @@
             Menu
           </button>
           <nav class="nav" id="nav" aria-label="Main">
-            <a href="/" aria-current="page">Home</a>
-            <a href="/programs/">Programmes</a>
+            <a class="nav__home" href="/" aria-current="page">Home</a>
+            <a class="nav__feature" href="/schools/">For Schools</a>
+            <a href="/foundation/">Foundation</a>
             <a href="/ai-labs/">AI Labs</a>
             <a href="/corporate/">For Business</a>
+            <a href="/partnerships/">Partnerships</a>
+            <a href="/gallery/">Gallery</a>
             <a href="/founder/">Founder</a>
             <a href="/contact/">Get in touch</a>
           </nav>
@@ -123,39 +114,42 @@
         <canvas id="net" aria-hidden="true"></canvas>
         <div class="shell ed">
           <div>
-            <p class="mark rise d1">Built for the top 1%</p>
+            <p class="mark rise d1">Vertura for Schools &middot; Grades 5&ndash;10</p>
             <h1 class="rise d2">
-              <span class="chrome">Your child is taught</span
+              <span class="chrome">Students are taught</span
               ><span class="chrome">what to think.</span
               ><span class="gold">We teach how to think.</span>
             </h1>
             <p class="lede rise d3" style="margin-top: 26px">
-              The Vertura Academy builds six real-world capabilities in children
-              aged 10 to 16 — thinking, discipline, communication, leadership,
-              financial intelligence and execution. It runs alongside school. It
-              is not a replacement for it, and it is not a tuition centre.
+              Vertura brings six skill verticals into the school week —
+              communication, leadership, self-mastery, financial literacy, AI
+              and critical thinking — in a timetabled period, for whole grades.
+              It runs alongside the syllabus. It does not replace it, and it is
+              not a tuition centre.
             </p>
             <div class="actions rise d4">
-              <a class="btn btn--primary" href="/contact/?for=parent"
-                >Enroll your child</a
+              <a class="btn btn--primary" href="/contact/?for=school"
+                >Partner your school</a
               >
-              <a class="btn btn--ghost" href="/programs/">See the programmes</a>
+              <a class="btn btn--ghost" href="/schools/">How it works</a>
             </div>
           </div>
           <aside class="rail rise d5">
             <dl>
-              <dt>Foundation Programme, Pune</dt>
+              <dt>Inside the timetable</dt>
               <dd>
-                Weekends, 18 months, ages 10–14. Next cohort dates being
-                confirmed — the waitlist is open.
+                A weekly period, Grades 5&ndash;10. The school chooses which
+                verticals run for which grade.
               </dd>
-              <dt>Vertura AI Labs, online</dt>
+              <dt>Measured every quarter</dt>
               <dd>
-                Next cohort coming soon. Four weeks, twice a week, ages 13–16.
-                <a href="/ai-labs/">See the page</a>
+                The Vertura Growth Index, per student, delivered to the school.
               </dd>
-              <dt>Cohort size</dt>
-              <dd>Capped at 20 students, with a 20:1 mentor ratio.</dd>
+              <dt>Also open</dt>
+              <dd>
+                The Foundation Programme waitlist for the next Pune cohort.
+                <a href="/foundation/">See the programme</a>
+              </dd>
             </dl>
           </aside>
         </div>
@@ -200,8 +194,8 @@
               </dd>
               <dt>Ages served</dt>
               <dd>
-                10–14 in the Foundation Programme, 13–16 in AI Labs, Grades 6–9
-                through partner schools.
+                Grades 5–10 through partner schools. Ages 10–14 in the Foundation
+                Programme and 13–16 in AI Labs.
               </dd>
             </dl>
           </aside>
@@ -266,148 +260,56 @@
         </div>
       </section>
 
-      <section class="navy" id="programmes">
+      <section class="navy" id="schools">
         <div class="shell">
-          <h2>Three programmes. One method underneath all of them.</h2>
-          <p class="lede" style="margin-top: 20px; max-width: 56ch">
-            They differ in age, format and outcome — not in standard. Each has
-            an admission conversation before a seat is confirmed.
+          <p class="mark">Vertura for Schools</p>
+          <h2>Six skill verticals, inside your school week.</h2>
+          <p class="lede" style="margin-top: 20px; max-width: 58ch">
+            Schools commonly weight the earlier grades towards communication,
+            leadership and self-mastery, and the later grades towards critical
+            thinking, financial literacy and AI. The selection is yours, and it
+            usually follows what your parent body is already asking you about.
           </p>
-
-          <div class="progs">
-            <article class="prog">
-              <div>
-                <p class="prog__n">01 — Flagship</p>
-                <h3 class="prog__name">The Vertura Foundation Programme</h3>
-                <p class="prog__for">In person in Pune, ages 10–14.</p>
-              </div>
-              <div>
-                <p>
-                  Eighteen months across five levels, moving a child from how to
-                  think, through how to perform and how to lead a room, to
-                  building and defending something real in front of practising
-                  professionals.
-                </p>
-                <ul class="prog__facts">
-                  <li>
-                    <b>Format</b
-                    ><span
-                      >Weekends, roughly three hours per session, in person in
-                      Pune.</span
-                    >
-                  </li>
-                  <li>
-                    <b>Group</b
-                    ><span
-                      >Maximum 20 students per cohort, 20:1 mentor ratio.</span
-                    >
-                  </li>
-                  <li>
-                    <b>Next cohort</b
-                    ><span
-                      >Dates being confirmed. The waitlist is open now.</span
-                    >
-                  </li>
-                  <li>
-                    <b>Admission</b
-                    ><span
-                      >A short assessment conversation with the student. Not a
-                      written test.</span
-                    >
-                  </li>
-                </ul>
-                <div class="prog__links">
-                  <a class="is-key" href="/foundation/"
-                    >The five levels in full</a
-                  >
-                  <a href="/contact/?program=foundation">Join the waitlist</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="prog">
-              <div>
-                <p class="prog__n">02 — Online</p>
-                <h3 class="prog__name">Vertura AI Labs</h3>
-                <p class="prog__for">Fully online, ages 13–16.</p>
-              </div>
-              <div>
-                <p>
-                  A lab, not a course. Students don't just learn about AI — they
-                  think, research, create, build and solve with it, and the four
-                  weeks end in a showcase where they present what they made.
-                </p>
-                <ul class="prog__facts">
-                  <li>
-                    <b>Format</b
-                    ><span>Four weeks, twice a week, live online.</span>
-                  </li>
-                  <li>
-                    <b>Cohorts</b
-                    ><span
-                      >Split by age, 13–14 and 15–16, across three weekly batch
-                      timings.</span
-                    >
-                  </li>
-                  <li><b>Starts</b><span>Next cohort coming soon.</span></li>
-                  <li>
-                    <b>Enrolment</b><span>Opens with the next cohort.</span>
-                  </li>
-                </ul>
-                <div class="prog__links">
-                  <a class="is-key" href="/ai-labs/">Open the AI Labs page</a>
-                  <a href="/contact/?program=ai-labs">Ask a question first</a>
-                </div>
-              </div>
-            </article>
-
-            <article class="prog">
-              <div>
-                <p class="prog__n">03 — For schools</p>
-                <h3 class="prog__name">Vertura for Schools</h3>
-                <p class="prog__for">Grades 6–9, inside the timetable.</p>
-              </div>
-              <div>
-                <p>
-                  Schools bring Vertura in to run six skill verticals as part of
-                  the school week — not as an optional add-on parents have to
-                  enroll their child into separately. The school chooses which
-                  verticals run for which grade.
-                </p>
-                <ul class="prog__facts">
-                  <li>
-                    <b>Verticals</b
-                    ><span
-                      >Communication, Leadership, Self-Mastery, Financial
-                      Literacy, AI &amp; Technology, Critical Thinking.</span
-                    >
-                  </li>
-                  <li>
-                    <b>Delivery</b
-                    ><span
-                      >Built into a weekly period for the grades the school
-                      selects.</span
-                    >
-                  </li>
-                  <li>
-                    <b>Reporting</b
-                    ><span
-                      >The Vertura Growth Index, given to the school each
-                      quarter per student.</span
-                    >
-                  </li>
-                </ul>
-                <div class="prog__links">
-                  <a class="is-key" href="/schools/">How a partnership runs</a>
-                  <a href="/contact/?for=school">Partner your school</a>
-                </div>
-              </div>
-            </article>
+          <div class="grid6">
+            <div class="cell">
+              <span class="cell__n">01</span>
+              <h3>Communication</h3>
+              <p>Structured speaking, persuasive writing, and being understood the first time.</p>
+            </div>
+            <div class="cell">
+              <span class="cell__n">02</span>
+              <h3>Leadership</h3>
+              <p>Negotiation, judgement under pressure, leading a group without holding a title.</p>
+            </div>
+            <div class="cell">
+              <span class="cell__n">03</span>
+              <h3>Self-Mastery</h3>
+              <p>Habit systems, deep work, and emotional regulation under real friction.</p>
+            </div>
+            <div class="cell">
+              <span class="cell__n">04</span>
+              <h3>Financial Literacy</h3>
+              <p>How money grows, how businesses make it, and how to read cost, risk and return.</p>
+            </div>
+            <div class="cell">
+              <span class="cell__n">05</span>
+              <h3>AI &amp; Technology</h3>
+              <p>Using modern tools to think, research, create and build — not just to answer.</p>
+            </div>
+            <div class="cell">
+              <span class="cell__n">06</span>
+              <h3>Critical Thinking</h3>
+              <p>Mental models, first-principles reasoning, and catching your own bias.</p>
+            </div>
           </div>
-          <p class="note" style="margin-top: 26px">
-            Two further programmes are in development and will be published when
-            they open.
-          </p>
+          <div class="actions">
+            <a class="btn btn--primary" href="/contact/?for=school"
+              >Partner your school</a
+            >
+            <a class="btn btn--ghost" href="/schools/"
+              >How a partnership runs</a
+            >
+          </div>
         </div>
       </section>
 
@@ -663,6 +565,13 @@
               <cite>Parent of Purvi, 14. Grade 8, Pune.</cite>
             </blockquote>
           </div>
+
+          <div class="actions">
+            <a class="btn btn--ghost" href="/partnerships/"
+              >Schools that have partnered with us</a
+            >
+            <a class="btn btn--ghost" href="/gallery/">Event gallery</a>
+          </div>
         </div>
       </section>
 
@@ -774,17 +683,17 @@
           <div>
             <h2>Start the conversation.</h2>
             <p class="lede" style="margin-top: 22px">
-              One form for everything — a parent looking at a cohort, a school
-              leader looking at a partnership, or a question that fits neither.
+              One form for everything — a school leader looking at a partnership,
+              a parent looking at a cohort, or a question that fits neither.
               Tell us which programme you're asking about and it reaches the
               right person.
             </p>
             <div class="actions">
-              <a class="btn btn--primary" href="/contact/?for=parent"
-                >Enroll your child</a
-              >
-              <a class="btn btn--ghost" href="/contact/?for=school"
+              <a class="btn btn--primary" href="/contact/?for=school"
                 >Partner your school</a
+              >
+              <a class="btn btn--ghost" href="/contact/?for=parent"
+                >Enroll your child</a
               >
             </div>
           </div>
@@ -812,11 +721,12 @@
             <h4>Pages</h4>
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/programs/">Programmes</a></li>
+              <li><a href="/schools/">Vertura for Schools</a></li>
               <li><a href="/foundation/">Foundation Programme</a></li>
               <li><a href="/ai-labs/">Vertura AI Labs</a></li>
-              <li><a href="/schools/">Vertura for Schools</a></li>
               <li><a href="/corporate/">Corporate AI training</a></li>
+              <li><a href="/partnerships/">Partnerships</a></li>
+              <li><a href="/gallery/">Gallery</a></li>
               <li><a href="/founder/">Founder</a></li>
               <li><a href="/contact/">Get in touch</a></li>
             </ul>
@@ -850,6 +760,7 @@
       </div>
     </footer>
 
+    <script src="/nav.js" defer></script>
     <script src="/vertura.js" defer></script>
     <!-- GoatCounter — free, cookie-free visitor analytics. Dashboard: vertura.goatcounter.com -->
     <script

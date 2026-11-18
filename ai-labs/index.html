@@ -1486,67 +1486,8 @@
           white-space: nowrap;
         }
       }
-
-      .navtoggle {
-        background: none;
-        border: 1px solid rgba(150, 185, 235, 0.3);
-        padding: 9px 15px;
-        border-radius: 2px;
-        cursor: pointer;
-        font-family: "Archivo", sans-serif;
-        font-weight: 700;
-        font-size: 12px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--text);
-      }
-      .nav {
-        display: none;
-      }
-      .nav a {
-        font-family: "Archivo", sans-serif;
-        font-weight: 700;
-        font-size: 12.5px;
-        letter-spacing: 0.13em;
-        text-transform: uppercase;
-        text-decoration: none;
-        color: #becbe0;
-        padding: 8px 0;
-        border-bottom: 1px solid transparent;
-      }
-      .nav a:hover,
-      .nav a[aria-current] {
-        color: var(--gold);
-        border-bottom-color: var(--gold);
-      }
-      .nav.is-open {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 100%;
-        background: var(--navy);
-        border-bottom: 1px solid var(--line);
-        padding: 16px calc((100vw - var(--shell)) / 2) 22px;
-      }
-      .nav.is-open a {
-        padding: 12px 0;
-        font-size: 15px;
-        border-bottom: 1px solid var(--line);
-      }
-      @media (min-width: 900px) {
-        .navtoggle {
-          display: none;
-        }
-        .nav {
-          display: flex;
-          gap: 28px;
-          align-items: center;
-        }
-      }
     </style>
+    <link rel="stylesheet" href="/nav.css" />
   </head>
   <body>
     <div class="topstack">
@@ -1565,10 +1506,13 @@
             Menu
           </button>
           <nav class="nav" id="nav" aria-label="Main">
-            <a href="/">Home</a>
-            <a href="/programs/">Programmes</a>
+            <a class="nav__home" href="/">Home</a>
+            <a class="nav__feature" href="/schools/">For Schools</a>
+            <a href="/foundation/">Foundation</a>
             <a href="/ai-labs/" aria-current="page">AI Labs</a>
             <a href="/corporate/">For Business</a>
+            <a href="/partnerships/">Partnerships</a>
+            <a href="/gallery/">Gallery</a>
             <a href="/founder/">Founder</a>
             <a href="/contact/">Get in touch</a>
           </nav>
@@ -2456,27 +2400,8 @@
       </div>
     </div>
 
+    <script src="/nav.js" defer></script>
     <script>
-      /* ---------- mobile navigation (matches every other page) ---------- */
-      (function () {
-        const btn = document.getElementById("navtoggle");
-        const nav = document.getElementById("nav");
-        if (!btn || !nav) return;
-        btn.addEventListener("click", function () {
-          const open = nav.classList.toggle("is-open");
-          btn.setAttribute("aria-expanded", String(open));
-          btn.textContent = open ? "Close" : "Menu";
-        });
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "Escape" && nav.classList.contains("is-open")) {
-            nav.classList.remove("is-open");
-            btn.setAttribute("aria-expanded", "false");
-            btn.textContent = "Menu";
-            btn.focus();
-          }
-        });
-      })();
-
       /* ============================================================
    CONFIGURE THIS BEFORE GOING LIVE — see the setup notes
    ============================================================ */

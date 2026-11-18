@@ -1,0 +1,4 @@
+{
+  "_how_to": "One object per event in 'events'. Put the photos in assets/gallery/<slug>/ and run: node tools/build-gallery.mjs  (it fills 'photos'). Then edit here: title, category (becomes a filter button), date and optional endDate as YYYY-MM-DD, location, summary, and timeline: [{\"time\":\"9:00 AM\",\"what\":\"What happened\",\"where\":\"Where\"}]. Photos of children need a parent's consent.",
+  "events": []
+}

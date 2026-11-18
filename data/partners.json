@@ -1,0 +1,4 @@
+{
+  "_how_to": "Add one object per partner school to 'schools'. Fields: name (required), city, state, logo (e.g. /assets/partners/school.png), website (https://…), since, grades, verticals (list), note, gallery (an event slug from events.json, adds a 'See the photos' link). Leave out any field you don't want shown. Example: {\"name\":\"Example School\",\"city\":\"Pune\",\"state\":\"Maharashtra\",\"logo\":\"/assets/partners/example.png\",\"since\":\"2026\",\"grades\":\"Grades 6–9\",\"verticals\":[\"Communication\",\"Leadership\"],\"note\":\"One line about the partnership.\",\"gallery\":\"example-event\"}",
+  "schools": []
+}

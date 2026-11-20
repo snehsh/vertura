@@ -1,4 +1,114 @@
 {
   "_how_to": "One object per event in 'events'. Put the photos in assets/gallery/<slug>/ and run: node tools/build-gallery.mjs  (it fills 'photos'). Then edit here: title, category (becomes a filter button), date and optional endDate as YYYY-MM-DD, location, summary, and timeline: [{\"time\":\"9:00 AM\",\"what\":\"What happened\",\"where\":\"Where\"}]. Photos of children need a parent's consent.",
-  "events": []
+  "events": [
+    {
+      "slug": "vibrant_waves_lunawada",
+      "title": "Vibrant Waves 2026 - Collaboration",
+      "date": "2026-09-11",
+      "location": "Lunawada, Gujarat",
+      "category": "Vertura for Schools",
+      "photos": [
+        {
+          "src": "/assets/gallery/vibrant_waves_lunawada/DSC_8695.JPEG",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/vibrant_waves_lunawada/DSC_8820.JPEG",
+          "alt": "",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "slug": "aman_day_school",
+      "title": "Aman Day School 2026 - Collaboration",
+      "date": "2026-09-10",
+      "location": "Godhra, Gujarat",
+      "category": "Vertura for Schools",
+      "photos": [
+        {
+          "src": "/assets/gallery/aman_day_school/IMG_8125.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/IMG_8135.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/IMG_8154.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/IMG_8155.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/IMG_8161.jpg",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/DSC_8688.JPEG",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/a345f1cb-2e0e-44c0-a2a5-923778c8660d.JPG",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/aman_day_school/ac8d7bd0-308b-4467-bd97-019f073f7c1d.jpg",
+          "alt": "",
+          "caption": ""
+        }
+      ]
+    },
+    {
+      "slug": "vertura_launch",
+      "title": "The Vertura Academy Launch 2026",
+      "category": "Launch",
+      "date": "2026-08-09",
+      "location": "Pune, Maharashtra",
+      "summary": "",
+      "timeline": [],
+      "photos": []
+    },
+    {
+      "slug": "guest_speaker_shrinathji_education_school",
+      "title": "Our founder invited as a guest speaker at Shrinathji Education School",
+      "category": "Guest Speaker",
+      "date": "2026-10-15",
+      "location": "Adadra, Gujarat",
+      "summary": "",
+      "timeline": [],
+      "photos": [
+        {
+          "src": "/assets/gallery/guest_speaker_shrinathji_education_school/03674581-c236-46f2-8a2a-b086e91db571.JPG",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/guest_speaker_shrinathji_education_school/17a0c1e0-9240-48e6-9329-46ca45ea1773.JPG",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/guest_speaker_shrinathji_education_school/1f3699f7-8965-45da-b579-d4954a8ce7d4.JPG",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "src": "/assets/gallery/guest_speaker_shrinathji_education_school/e8134516-c485-4e49-a360-42408cba0933.JPG",
+          "alt": "",
+          "caption": ""
+        }
+      ]
+    }
+  ]
 }

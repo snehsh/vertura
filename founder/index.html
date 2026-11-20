@@ -26,15 +26,16 @@
     <meta property="og:url" content="https://www.vertura.in/founder/" />
     <meta
       property="og:image"
-      content="https://raw.githubusercontent.com/snehsh/vertura/main/logo.png"
+      content="https://www.vertura.in/og/founder.jpg"
     />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#04070F" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" href="/logo-mark.png" />
-    <link
-      rel="apple-touch-icon"
-      href="https://raw.githubusercontent.com/snehsh/vertura/main/logo.png"
-    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -68,13 +69,24 @@
           <nav class="nav" id="nav" aria-label="Main">
             <a class="nav__home" href="/">Home</a>
             <a class="nav__feature" href="/schools/">For Schools</a>
-            <a href="/foundation/">Foundation</a>
-            <a href="/ai-labs/">AI Labs</a>
-            <a href="/corporate/">For Business</a>
-            <a href="/partnerships/">Partnerships</a>
-            <a href="/gallery/">Gallery</a>
+            <div class="nav__group">
+              <button class="nav__drop" type="button" aria-expanded="false" aria-controls="nav-programmes">Programmes</button>
+              <div class="nav__menu" id="nav-programmes">
+                <a href="/foundation/">Foundation Programme</a>
+                <a href="/ai-labs/">AI Labs</a>
+                <a href="/corporate/">For Business</a>
+              </div>
+            </div>
+            <div class="nav__group">
+              <button class="nav__drop" type="button" aria-expanded="false" aria-controls="nav-work">Our work</button>
+              <div class="nav__menu" id="nav-work">
+                <a href="/partnerships/">Partner schools</a>
+                <a href="/gallery/">Gallery</a>
+                <a href="/growth-index/">Sample Growth Index</a>
+              </div>
+            </div>
             <a href="/founder/" aria-current="page">Founder</a>
-            <a href="/contact/">Get in touch</a>
+            <a class="nav__cta" href="/contact/">Get in touch</a>
           </nav>
         </div>
       </header>
@@ -134,8 +146,8 @@
               <dd>
                 Three internships, in data science, AI and data science, and business analysis.
               </dd>
-              <dt>Based in</dt>
-              <dd>Pune, Maharashtra</dd>
+                            <dt>Based in</dt>
+              <dd>Pune, Maharashtra, working with schools in Gujarat</dd>
             </dl>
           </aside>
         </div>
@@ -198,6 +210,27 @@
           </aside>
         </div>
       </section>
+
+      <section data-talks hidden>
+        <div class="shell ed">
+          <div>
+            <h2>Talks and recognition.</h2>
+            <p class="lede" style="margin-top: 20px">
+              Schools and organisations that have invited Sneh to speak.
+            </p>
+            <ul class="talks" data-talk-list></ul>
+          </div>
+          <aside class="rail">
+            <dl>
+              <dt>Invite Sneh to speak</dt>
+              <dd>
+                For a school assembly, a parents' session or a staff workshop,
+                <a href="/contact/">send us a message</a>.
+              </dd>
+            </dl>
+          </aside>
+        </div>
+      </section>
     </main>
 
     <footer class="footer">
@@ -219,6 +252,7 @@
               <li><a href="/corporate/">Corporate AI training</a></li>
               <li><a href="/partnerships/">Partnerships</a></li>
               <li><a href="/gallery/">Gallery</a></li>
+              <li><a href="/growth-index/">Sample Growth Index</a></li>
               <li><a href="/founder/">Founder</a></li>
               <li><a href="/contact/">Get in touch</a></li>
             </ul>
@@ -246,7 +280,7 @@
           </div>
         </div>
         <div class="footer__mark">
-          <span>&copy; 2026 The Vertura Academy, Pune.</span>
+          <span>&copy; 2026 The Vertura Academy, Pune and Gujarat.</span>
           <span>Built for the top 1%</span>
         </div>
       </div>
@@ -254,6 +288,7 @@
 
     <script src="/nav.js" defer></script>
     <script src="/vertura.js" defer></script>
+    <script src="/proof.js" defer></script>
     <!-- GoatCounter: free, cookie-free visitor analytics. Dashboard: vertura.goatcounter.com -->
     <script
       data-goatcounter="https://vertura.goatcounter.com/count"

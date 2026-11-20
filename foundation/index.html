@@ -28,15 +28,16 @@
     <meta property="og:url" content="https://www.vertura.in/foundation/" />
     <meta
       property="og:image"
-      content="https://raw.githubusercontent.com/snehsh/vertura/main/logo.png"
+      content="https://www.vertura.in/og/foundation.jpg"
     />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#04070F" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" href="/logo-mark.png" />
-    <link
-      rel="apple-touch-icon"
-      href="https://raw.githubusercontent.com/snehsh/vertura/main/logo.png"
-    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -66,13 +67,24 @@
           <nav class="nav" id="nav" aria-label="Main">
             <a class="nav__home" href="/">Home</a>
             <a class="nav__feature" href="/schools/">For Schools</a>
-            <a href="/foundation/" aria-current="page">Foundation</a>
-            <a href="/ai-labs/">AI Labs</a>
-            <a href="/corporate/">For Business</a>
-            <a href="/partnerships/">Partnerships</a>
-            <a href="/gallery/">Gallery</a>
+            <div class="nav__group is-current">
+              <button class="nav__drop" type="button" aria-expanded="false" aria-controls="nav-programmes">Programmes</button>
+              <div class="nav__menu" id="nav-programmes">
+                <a href="/foundation/" aria-current="page">Foundation Programme</a>
+                <a href="/ai-labs/">AI Labs</a>
+                <a href="/corporate/">For Business</a>
+              </div>
+            </div>
+            <div class="nav__group">
+              <button class="nav__drop" type="button" aria-expanded="false" aria-controls="nav-work">Our work</button>
+              <div class="nav__menu" id="nav-work">
+                <a href="/partnerships/">Partner schools</a>
+                <a href="/gallery/">Gallery</a>
+                <a href="/growth-index/">Sample Growth Index</a>
+              </div>
+            </div>
             <a href="/founder/">Founder</a>
-            <a href="/contact/">Get in touch</a>
+            <a class="nav__cta" href="/contact/">Get in touch</a>
           </nav>
         </div>
       </header>
@@ -314,6 +326,7 @@
               <li><a href="/corporate/">Corporate AI training</a></li>
               <li><a href="/partnerships/">Partnerships</a></li>
               <li><a href="/gallery/">Gallery</a></li>
+              <li><a href="/growth-index/">Sample Growth Index</a></li>
               <li><a href="/founder/">Founder</a></li>
               <li><a href="/contact/">Get in touch</a></li>
             </ul>
@@ -341,7 +354,7 @@
           </div>
         </div>
         <div class="footer__mark">
-          <span>&copy; 2026 The Vertura Academy, Pune.</span>
+          <span>&copy; 2026 The Vertura Academy, Pune and Gujarat.</span>
           <span>Built for the top 1%</span>
         </div>
       </div>

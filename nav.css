@@ -22,6 +22,16 @@
 .nav a.nav__feature[aria-current]{background:linear-gradient(180deg,#FBE7A6,#E7B23C 60%,#F7D97F);
   color:#241703;border-color:transparent}
 
+/* "Programmes" and "Our work" group related pages */
+.nav__drop{font-family:"Archivo",sans-serif;font-weight:700;font-size:12px;letter-spacing:.11em;text-transform:uppercase;
+  color:#BECBE0;background:none;border:0;padding:8px 0;cursor:pointer;white-space:nowrap}
+.nav__group.is-current>.nav__drop{color:var(--gold,#E7B23C)}
+.nav__menu a{text-transform:none;letter-spacing:.01em;font-family:"Manrope",system-ui,sans-serif;font-weight:600}
+
+/* "Get in touch" is the action, so it is boxed */
+.nav a.nav__cta{border:1px solid rgba(150,185,235,.4);padding:9px 14px;border-radius:2px;color:#DCE6F7}
+.nav a.nav__cta:hover,.nav a.nav__cta[aria-current]{border-color:var(--gold,#E7B23C);color:var(--gold,#E7B23C)}
+
 /* ----- small screens: the menu opens as a full-width panel ----- */
 .nav.is-open{display:flex;flex-direction:column;gap:4px;position:absolute;left:0;right:0;top:100%;
   background:var(--navy,#070D1C);border-bottom:1px solid var(--line,rgba(140,170,220,.16));
@@ -30,6 +40,10 @@
 .nav.is-open a{padding:12px 0;font-size:15px;border-bottom:1px solid var(--line,rgba(140,170,220,.16));
   width:100%;text-align:left}
 .nav.is-open a.nav__feature{padding:13px 14px;margin:4px 0}
+.nav.is-open .nav__group{width:100%;margin-top:10px}
+.nav.is-open .nav__drop{cursor:default;font-size:11.5px;letter-spacing:.16em;color:var(--muted-2,#7386A3);padding:8px 0 2px}
+.nav.is-open .nav__menu a{display:block;padding:12px 0 12px 14px;font-size:16px}
+.nav.is-open a.nav__cta{margin-top:14px;text-align:center;padding:13px 14px}
 
 /* ----- floating WhatsApp button (added by nav.js) ----- */
 .wa-float{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:70;
@@ -47,8 +61,19 @@
 .has-wa footer{padding-bottom:110px}
 
 /* ----- desktop: a single row ----- */
-@media(min-width:1240px){
+@media(min-width:1000px){
   .navtoggle{display:none}
-  .nav{display:flex;gap:18px;align-items:center}
+  .nav{display:flex;gap:24px;align-items:center}
   .nav__home{display:none}
+  .nav__group{position:relative}
+  .nav__drop::after{content:"";display:inline-block;width:6px;height:6px;margin-left:8px;vertical-align:2px;
+    border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);transition:transform .2s}
+  .nav__group.is-open>.nav__drop::after{transform:rotate(-135deg);vertical-align:-1px}
+  .nav__drop:hover{color:var(--gold,#E7B23C)}
+  .nav__menu{display:none;position:absolute;top:100%;left:-16px;min-width:230px;padding:8px 0;margin-top:10px;
+    background:var(--navy,#070D1C);border:1px solid var(--line,rgba(140,170,220,.16));box-shadow:0 18px 40px -12px rgba(0,0,0,.7)}
+  .nav__menu::before{content:"";position:absolute;left:0;right:0;top:-12px;height:12px}   /* keeps hover alive across the gap */
+  .nav__group:hover>.nav__menu,.nav__group.is-open>.nav__menu{display:block}
+  .nav__menu a{display:block;padding:11px 18px;font-size:14.5px;border:0;color:#CBD8EC}
+  .nav__menu a:hover,.nav__menu a[aria-current]{color:var(--gold,#E7B23C);background:rgba(231,178,60,.07);border:0}
 }

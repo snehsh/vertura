@@ -11,7 +11,10 @@
        "grades": "Grades 5 to 10",
        "students": "300+",               optional: shown as "300+ students taking part"
        "verticals": ["Communication", "Leadership"],
-       "note": "One line about the partnership.",
+              "note": "One line about the partnership.",
+       "outcome": "What changed, in two or three lines.",   optional: case study
+       "quote": "A line from the principal.",                optional: also shown on
+       "quoteBy": "Name, Principal",                          the homepage and Schools page
        "gallery": "event-slug"           optional: links to that event on /gallery/
    } ] }                                                                      */
 (function () {
@@ -72,7 +75,9 @@
         meta ? h("p", { class: "pt__meta", text: meta }) : null,
         s.students ? h("p", { class: "pt__stat" }, [h("b", { text: String(s.students) }), " students taking part"]) : null,
         tags.length ? h("ul", { class: "pt__tags", "aria-label": "Verticals running" }, tags.map(function (t) { return h("li", { text: t }); })) : null,
-        s.note ? h("p", { class: "pt__note", text: s.note }) : null,
+                s.note ? h("p", { class: "pt__note", text: s.note }) : null,
+        s.outcome ? h("div", { class: "pt__case" }, [h("p", { class: "pt__case-h", text: "What changed" }), h("p", { text: s.outcome })]) : null,
+        s.quote && s.quoteBy ? h("blockquote", { class: "pt__quote" }, [h("p", { text: s.quote }), h("cite", { text: s.quoteBy })]) : null,
         links.length ? h("div", { class: "pt__links" }, links) : null
       ])
     ]);

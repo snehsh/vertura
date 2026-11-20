@@ -28,15 +28,16 @@
     <meta property="og:url" content="https://www.vertura.in/schools/" />
     <meta
       property="og:image"
-      content="https://raw.githubusercontent.com/snehsh/vertura/main/logo.png"
+      content="https://www.vertura.in/og/schools.jpg"
     />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#04070F" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" href="/logo-mark.png" />
-    <link
-      rel="apple-touch-icon"
-      href="https://raw.githubusercontent.com/snehsh/vertura/main/logo.png"
-    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -66,13 +67,24 @@
           <nav class="nav" id="nav" aria-label="Main">
             <a class="nav__home" href="/">Home</a>
             <a class="nav__feature" href="/schools/" aria-current="page">For Schools</a>
-            <a href="/foundation/">Foundation</a>
-            <a href="/ai-labs/">AI Labs</a>
-            <a href="/corporate/">For Business</a>
-            <a href="/partnerships/">Partnerships</a>
-            <a href="/gallery/">Gallery</a>
+            <div class="nav__group">
+              <button class="nav__drop" type="button" aria-expanded="false" aria-controls="nav-programmes">Programmes</button>
+              <div class="nav__menu" id="nav-programmes">
+                <a href="/foundation/">Foundation Programme</a>
+                <a href="/ai-labs/">AI Labs</a>
+                <a href="/corporate/">For Business</a>
+              </div>
+            </div>
+            <div class="nav__group">
+              <button class="nav__drop" type="button" aria-expanded="false" aria-controls="nav-work">Our work</button>
+              <div class="nav__menu" id="nav-work">
+                <a href="/partnerships/">Partner schools</a>
+                <a href="/gallery/">Gallery</a>
+                <a href="/growth-index/">Sample Growth Index</a>
+              </div>
+            </div>
             <a href="/founder/">Founder</a>
-            <a href="/contact/">Get in touch</a>
+            <a class="nav__cta" href="/contact/">Get in touch</a>
           </nav>
         </div>
       </header>
@@ -110,6 +122,58 @@
               <dd>You choose which verticals run for which grade.</dd>
             </dl>
           </aside>
+        </div>
+      </section>
+
+      <section class="proof" aria-label="Our work with schools">
+        <div class="shell">
+          <div class="proof__stats" data-proof-stats hidden></div>
+
+          <div class="proof__logos" data-proof-logos hidden>
+            <p class="proof__h">Our partner schools</p>
+            <ul></ul>
+          </div>
+
+          <div class="proof__photos">
+            <figure>
+              <img
+                src="/assets/proof/vibrant-waves-hands-up.jpg"
+                alt="A hall full of students at Vibrant Waves International Academy with their hands up during a Vertura activity"
+                width="800"
+                height="600"
+                loading="lazy"
+              />
+              <figcaption>Vibrant Waves International Academy, Lunawada</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="/assets/proof/aman-day-school-group.jpg"
+                alt="Students of Aman Day School posing for a group photo with the Vertura team on the school grounds"
+                width="800"
+                height="600"
+                loading="lazy"
+              />
+              <figcaption>Aman Day School, Godhra</figcaption>
+            </figure>
+            <figure>
+              <img
+                src="/assets/proof/vibrant-waves-activity.jpg"
+                alt="Students standing at the front of the class while a Vertura facilitator guides an activity"
+                width="800"
+                height="600"
+                loading="lazy"
+              />
+              <figcaption>A Vertura session in progress</figcaption>
+            </figure>
+          </div>
+          <p class="proof__more">
+            <a href="/gallery/">See photos from every event in the gallery</a>
+          </p>
+
+          <div class="proof__quotes" data-leader-quotes hidden>
+            <h2>What school leaders say.</h2>
+            <div class="quotes" data-quote-list></div>
+          </div>
         </div>
       </section>
 
@@ -232,26 +296,197 @@
                 Subject teaching. We don't cover the syllabus or prepare students for exams, and academic periods stay exactly as they are.
               </dd>
               <dt>Who delivers it</dt>
-              <dd>Vertura, inside your building, to your timetable.</dd>
+              <dd>Vertura faculty, inside your building, to your timetable.</dd>
+              <dt>Class size</dt>
+              <dd>Your existing sections, each led by a Vertura faculty member.</dd>
             </dl>
           </aside>
         </div>
       </section>
 
       <section class="navy">
+        <div class="shell ed">
+          <div>
+            <h2>What the school gets to show.</h2>
+            <p class="lede" style="margin-top: 20px">
+              The Vertura Growth Index scores six measured dimensions per student: cognitive growth, discipline consistency, communication development, leadership behaviour, project quality, and the mentor's own observations.
+            </p>
+            <p class="note">
+              It goes to the school each quarter, and it shows parents real, specific progress in a way a participation certificate can't.
+            </p>
+            <div class="actions">
+              <a class="btn btn--primary" href="/growth-index/#report">See the full sample report</a>
+            </div>
+          </div>
+          <aside class="rail">
+            <dl>
+              <dt>How it is scored</dt>
+              <dd>An overall score out of 100, and six competencies each scored from 1 to 5 against the student's own Week 1 baseline.</dd>
+              <dt>What it is based on</dt>
+              <dd>60 behavioural indicators, observed in worksheets, recordings, projects and the facilitator's notes.</dd>
+            </dl>
+          </aside>
+        </div>
         <div class="shell">
-          <h2>What the school gets to show.</h2>
-          <p class="lede" style="margin-top: 20px; max-width: 62ch">
-            The Vertura Growth Index scores six measured dimensions per student: cognitive growth, discipline consistency, communication development, leadership behaviour, project quality, and the mentor's own observations.
-          </p>
-          <p class="note" style="max-width: 66ch">
-            It goes to the school each quarter, and it shows parents real, specific progress in a way a participation certificate can't.
-          </p>
+          <article class="rp rp--preview" aria-labelledby="rp-preview-title">
+            <header class="rp__band">
+              <span class="rp__flag">Sample</span>
+              <p class="rp__org">The Vertura Academy</p>
+              <p class="rp__tag">Built For The Top 1%</p>
+              <h2 class="rp__title" id="rp-preview-title">Student Progress Report</h2>
+              <p class="rp__sub">Level 1: Cognitive Foundations | Vertura Growth Index (VGI)</p>
+            </header>
+            <div class="rp__body">
+              <div class="rp__tiles">
+                <div><p class="rp__tl">VGI score</p><p class="rp__tv">83 / 100</p></div>
+                <div><p class="rp__tl">Band</p><p class="rp__tv rp__tv--gold">Top 1%</p></div>
+                <div><p class="rp__tl">Growth since joining</p><p class="rp__tv rp__tv--up">+49 pts (+144%)</p></div>
+              </div>
+              <h3 class="rp__h">Competency Snapshot</h3>
+              <div class="rp__scroll"><table class="rp__snap">
+                <caption class="sr-only">Score out of 5 for each competency, with growth since Week 1 and the trend across Weeks 1, 6 and 12</caption>
+                <thead><tr><th scope="col" class="rp__id">ID</th><th scope="col">Competency</th><th scope="col">Score /5</th><th scope="col">Growth</th><th scope="col"><span class="rp__long">Level </span>band</th><th scope="col" class="rp__trend">Trend (Week 1, 6, 12)</th></tr></thead>
+                <tbody><tr><th scope="row" class="rp__id">C1</th><td>Analytical Deconstruction</td><td class="n">4.1</td><td class="n up">+2.2</td><td><span class="rp__pill rp__pill--mastery">Mastery</span></td><td class="n rp__trend">1.9 → 3.0 → 4.1</td></tr><tr><th scope="row" class="rp__id">C2</th><td>Systems &amp; Consequential Thinking</td><td class="n">4.2</td><td class="n up">+3.1</td><td><span class="rp__pill rp__pill--mastery">Mastery</span></td><td class="n rp__trend">1.1 → 2.6 → 4.2</td></tr><tr><th scope="row" class="rp__id">C3</th><td>Probabilistic &amp; Strategic Reasoning</td><td class="n">3.8</td><td class="n up">+2.3</td><td><span class="rp__pill rp__pill--proficient">Proficient</span></td><td class="n rp__trend">1.5 → 2.6 → 3.8</td></tr><tr><th scope="row" class="rp__id">C4</th><td>Reflective Self-Awareness</td><td class="n">4.2</td><td class="n up">+2.3</td><td><span class="rp__pill rp__pill--mastery">Mastery</span></td><td class="n rp__trend">1.9 → 3.0 → 4.2</td></tr><tr><th scope="row" class="rp__id">C5</th><td>Structured Communication</td><td class="n">4.0</td><td class="n up">+2.1</td><td><span class="rp__pill rp__pill--proficient">Proficient</span></td><td class="n rp__trend">1.9 → 3.0 → 4.0</td></tr><tr><th scope="row" class="rp__id">C6</th><td>Growth Mindset &amp; Intellectual Resilience</td><td class="n">4.5</td><td class="n up">+2.5</td><td><span class="rp__pill rp__pill--mastery">Mastery</span></td><td class="n rp__trend">2.0 → 3.3 → 4.5</td></tr></tbody></table></div>
+              <p class="rp__foot">Sample report with the student's name removed. <a href="/growth-index/#report">See the full sample report</a>.</p>
+            </div>
+          </article>
           <div class="band">
             <b class="gold"
               >Whole grades. Inside the week. Measured every quarter.</b
             >
           </div>
+        </div>
+      </section>
+
+      <section id="principals-faq">
+        <div class="shell ed">
+          <div>
+            <h2>Questions principals ask first.</h2>
+            <div class="faq">
+              <details>
+                <summary>Does Vertura take time away from subject teaching?</summary>
+                <div class="answer">
+                  <p>
+                    No. It runs in one timetabled period a week that the school
+                    sets aside, and it covers no syllabus. Academic periods stay
+                    exactly as they are.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Who teaches the sessions?</summary>
+                <div class="answer">
+                  <p>
+                    Vertura's own faculty, inside your school and on your
+                    timetable. Each section is led by a Vertura faculty member,
+                    so your teachers don't need to prepare or deliver anything.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Which grades and verticals can we choose?</summary>
+                <div class="answer">
+                  <p>
+                    Any of the six verticals, for any grade from 5 to 10. Most
+                    schools choose two verticals per grade, and we recommend a
+                    mix based on what your parents are already asking for.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How does it fit around exams and holidays?</summary>
+                <div class="answer">
+                  <p>
+                    We plan the calendar with you before the term starts.
+                    Sessions pause during exam weeks and major holidays, so
+                    students are never pulled away from exam preparation.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How are students assessed, and what does the school receive?</summary>
+                <div class="answer">
+                  <p>
+                    Every quarter, the school receives a Vertura Growth Index
+                    report for each student, scored across six capabilities and
+                    based on the work they produced in sessions.
+                    <a href="/growth-index/#report">See a sample report</a>.
+                  </p>
+                </div>
+              </details>
+              <!-- EDIT: confirm what the school needs to provide (for example, whether a projector is needed) -->
+              <details>
+                <summary>What does the school need to provide?</summary>
+                <div class="answer">
+                  <p>
+                    A weekly period in the timetable and a classroom for each
+                    section. We bring the session plans, worksheets and
+                    everything else needed to run the session.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How is it priced?</summary>
+                <div class="answer">
+                  <p>
+                    Pricing is per student per year and depends on the grades
+                    and verticals you choose. We share a written proposal after
+                    our first conversation.
+                  </p>
+                </div>
+              </details>
+              <!-- EDIT: confirm you want the trial term mentioned publicly -->
+              <details>
+                <summary>How do we get started?</summary>
+                <div class="answer">
+                  <p>
+                    It starts with a short conversation with you. Most schools
+                    then begin with an eight-week trial term before moving to a
+                    yearly partnership.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+          <aside class="rail">
+            <dl>
+              <dt>Still have a question?</dt>
+              <dd>
+                Ask it directly in the enquiry form, or message us on
+                WhatsApp. It comes to us, not to a call centre.
+              </dd>
+            </dl>
+          </aside>
+        </div>
+      </section>
+
+      <section class="navy">
+        <div class="shell ed">
+          <div>
+            <h2>Start the conversation.</h2>
+            <p class="lede" style="margin-top: 22px">
+              Tell us which grades you are thinking about and what your parents
+              are asking for. We will come back with a plan for your school.
+            </p>
+            <div class="actions">
+              <a class="btn btn--primary" href="/contact/?for=school"
+                >Partner your school</a
+              >
+              <a class="btn btn--ghost" href="/partnerships/"
+                >See our partner schools</a
+              >
+            </div>
+          </div>
+          <aside class="rail">
+            <dl>
+              <dt>Email</dt>
+              <dd><a href="mailto:info@vertura.in">info@vertura.in</a></dd>
+              <dt>WhatsApp</dt>
+              <dd><a href="https://wa.me/919022317329">+91 90223 17329</a></dd>
+              <dt>Where we work</dt>
+              <dd>Pune in Maharashtra, and Godhra and Lunawada in Gujarat</dd>
+            </dl>
+          </aside>
         </div>
       </section>
     </main>
@@ -275,6 +510,7 @@
               <li><a href="/corporate/">Corporate AI training</a></li>
               <li><a href="/partnerships/">Partnerships</a></li>
               <li><a href="/gallery/">Gallery</a></li>
+              <li><a href="/growth-index/">Sample Growth Index</a></li>
               <li><a href="/founder/">Founder</a></li>
               <li><a href="/contact/">Get in touch</a></li>
             </ul>
@@ -302,7 +538,7 @@
           </div>
         </div>
         <div class="footer__mark">
-          <span>&copy; 2026 The Vertura Academy, Pune.</span>
+          <span>&copy; 2026 The Vertura Academy, Pune and Gujarat.</span>
           <span>Built for the top 1%</span>
         </div>
       </div>
@@ -310,6 +546,7 @@
 
     <script src="/nav.js" defer></script>
     <script src="/vertura.js" defer></script>
+    <script src="/proof.js" defer></script>
     <!-- GoatCounter: free, cookie-free visitor analytics. Dashboard: vertura.goatcounter.com -->
     <script
       data-goatcounter="https://vertura.goatcounter.com/count"

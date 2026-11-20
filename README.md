@@ -12,6 +12,7 @@ Static site, served from the repo root (GitHub Pages). No build step.
 | For Business | `/corporate/` |
 | Partnerships | `/partnerships/` |
 | Gallery | `/gallery/` |
+| Sample Growth Index | `/growth-index/` |
 | Founder | `/founder/` |
 | Get in touch | `/contact/` |
 
@@ -40,6 +41,8 @@ Add one object per school to `schools`. Only `name` is required; leave out anyth
 ```
 
 - Put logos in `assets/partners/`. A school with no logo gets a tile with its initials.
+- `outcome` is optional: two or three lines on what changed at the school. It shows on the card as "What changed".
+- `quote` and `quoteBy` are optional: a line from the principal and who said it (e.g. `"Name, Principal"`). The quote shows on the card and in "What school leaders say" on the homepage and Schools page. That block stays hidden until at least one school has a quote.
 - `students` is optional: give it a number such as `"300+"` and the card shows "300+ students taking part".
 - `gallery` is optional: give it an event's `slug` (below) and the card gets a "See the photos" link to that event.
 - The "Partner schools" count in the page header appears by itself once there is at least one school.
@@ -69,9 +72,25 @@ One block per event, newest first, each showing its date, place, a timeline of w
 }
 ```
 
+Events with the category `Guest Speaker`, `Talk`, `Press`, `Award` or `Recognition` are also listed under "Talks and recognition" on the Founder page, newest first.
+
 Run the tool again whenever you add or delete photos. Titles, timelines, captions and photo order you have edited are kept. An event is shown at `/gallery/#ev-<slug>`. `date` and `endDate` use the form `YYYY-MM-DD`; an event without a date is listed last.
 
 Only publish photos of children with a parent's consent.
+
+## Proof blocks: `proof.js`
+
+The homepage and the Schools page show a numbers row, a partner logo strip and three photos straight after the hero. The numbers and logos are worked out from `data/partners.json` and `data/events.json`, so they update by themselves when you add a school or an event. The three photos are fixed files in `assets/proof/`.
+
+"What school leaders say" appears under the photos as soon as any school in `partners.json` has a `quote` and `quoteBy`.
+
+## Sample Growth Index: `/growth-index/`
+
+A sample quarterly report with illustrative scores. "Download as PDF" prints only the report, on white. Look for the `<!-- EDIT: ... -->` notes in `growth-index/index.html` and `schools/index.html` for wording to confirm.
+
+## Share images and icons
+
+Each page has its own 1200 by 630 share image in `og/`. Icons: `favicon.ico`, `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` and `site.webmanifest`.
 
 ## Enquiry form
 

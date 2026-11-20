@@ -65,6 +65,11 @@ const FALLBACK_EMAIL = "info@vertura.in";
   });
 })();
 
+/* ---------- "Download as PDF" buttons print the page (print styles keep only the report) ---------- */
+document.querySelectorAll("[data-print]").forEach(function (b) {
+  b.addEventListener("click", function () { window.print(); });
+});
+
 /* ---------- spine lights up as you read it ---------- */
 if ("IntersectionObserver" in window) {
   const io = new IntersectionObserver(function (entries) {

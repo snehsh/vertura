@@ -7,7 +7,26 @@
   var nav = document.getElementById("nav");
   if (!btn || !nav) return;
 
-  var wide = window.matchMedia("(min-width: 1240px)");
+    var wide = window.matchMedia("(min-width: 1000px)");
+  var groups = Array.prototype.slice.call(nav.querySelectorAll(".nav__group"));
+
+  /* ---------- "Programmes" and "Our work" dropdowns (desktop) ----------
+     On phones the groups are always shown open inside the menu panel. */
+  function setGroup(g, open) {
+    g.classList.toggle("is-open", open);
+    g.querySelector(".nav__drop").setAttribute("aria-expanded", String(open || !wide.matches));
+  }
+  function closeGroups(except) { groups.forEach(function (g) { if (g !== except) setGroup(g, false); }); }
+  groups.forEach(function (g) {
+    var b = g.querySelector(".nav__drop");
+    b.addEventListener("click", function () {
+      if (!wide.matches) return;
+      var open = !g.classList.contains("is-open");
+      closeGroups(g);
+      setGroup(g, open);
+    });
+  });
+  closeGroups();
 
   function setMenu(open) {
     nav.classList.toggle("is-open", open);
@@ -17,16 +36,26 @@
 
   btn.addEventListener("click", function () { setMenu(!nav.classList.contains("is-open")); });
 
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape" && nav.classList.contains("is-open")) {
+    document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    var openGroup = nav.querySelector(".nav__group.is-open");
+    if (openGroup) {
+      setGroup(openGroup, false);
+      openGroup.querySelector(".nav__drop").focus();
+    } else if (nav.classList.contains("is-open")) {
       setMenu(false);
       btn.focus();
     }
   });
 
   /* a tap outside the open menu closes it */
-  document.addEventListener("click", function (e) {
+    document.addEventListener("click", function (e) {
     if (nav.classList.contains("is-open") && !nav.contains(e.target) && !btn.contains(e.target)) setMenu(false);
+    if (!e.target.closest || !e.target.closest(".nav__group")) closeGroups();
+  });
+  /* a dropdown also closes when keyboard focus moves out of it */
+  nav.addEventListener("focusout", function (e) {
+    groups.forEach(function (g) { if (g.classList.contains("is-open") && !g.contains(e.relatedTarget)) setGroup(g, false); });
   });
 
     /* ---------- floating WhatsApp button ---------- */
@@ -48,7 +77,7 @@
   document.body.classList.add("has-wa");
 
   /* resizing across the breakpoint should never leave a stale open menu */
-  var onChange = function () { setMenu(false); };
+    var onChange = function () { setMenu(false); closeGroups(); };
   if (wide.addEventListener) wide.addEventListener("change", onChange);
   else if (wide.addListener) wide.addListener(onChange);
 })();

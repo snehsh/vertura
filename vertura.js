@@ -1,4 +1,4 @@
-/* The Vertura Academy — vertura.js
+/* The Vertura Academy: vertura.js
    ---------------------------------------------------------------
    Keys carried over from your previous site.js. Web3Forms emails every
    enquiry; SheetDB writes a row. If the key is blank the form falls back
@@ -55,7 +55,14 @@ const FALLBACK_EMAIL = "info@vertura.in";
     if (!reduce) raf = requestAnimationFrame(draw);
   }
   size(); draw();
-  addEventListener("resize", () => { cancelAnimationFrame(raf); size(); draw(); });
+  /* phones fire "resize" when the address bar hides on scroll; only rebuild
+     the network when the width really changes, so it doesn't jump */
+  let lastW = innerWidth;
+  addEventListener("resize", () => {
+    if (innerWidth === lastW) return;
+    lastW = innerWidth;
+    cancelAnimationFrame(raf); size(); draw();
+  });
 })();
 
 /* ---------- spine lights up as you read it ---------- */
@@ -82,17 +89,17 @@ if ("IntersectionObserver" in window) {
 
   const OPTIONS = {
     parent: [
-      ["foundation", "The Vertura Foundation Programme — ages 10\u201314, Pune"],
-      ["ai-labs", "Vertura AI Labs — ages 13\u201316, online"],
-      ["unsure", "Not sure yet \u2014 help me choose"]
+      ["foundation", "The Vertura Foundation Programme (ages 10 to 14, Pune)"],
+      ["ai-labs", "Vertura AI Labs (ages 13 to 16, online)"],
+      ["unsure", "Not sure yet, help me choose"]
     ],
     school: [
-      ["schools", "Vertura for Schools — six verticals, Grades 5\u201310"],
-      ["unsure", "Not sure yet \u2014 tell me how it works"]
+      ["schools", "Vertura for Schools (six verticals, Grades 5 to 10)"],
+      ["unsure", "Not sure yet, tell me how it works"]
     ],
     business: [
-      ["corporate", "Corporate AI training \u2014 non-technical teams"],
-      ["unsure", "Not sure yet \u2014 tell me how it works"]
+      ["corporate", "Corporate AI training (non-technical teams)"],
+      ["unsure", "Not sure yet, tell me how it works"]
     ],
     other: [
       ["foundation", "The Vertura Foundation Programme"],
@@ -118,7 +125,8 @@ if ("IntersectionObserver" in window) {
       o.value = pair[0]; o.textContent = pair[1];
       program.appendChild(o);
     });
-    if (preferred) program.value = preferred;
+    /* only pre-select a programme that exists in this list */
+    if (preferred && program.querySelector('option[value="' + preferred + '"]')) program.value = preferred;
     orgField.hidden = kind !== "school";
     if (org) org.required = kind === "school";
   }
@@ -158,7 +166,7 @@ if ("IntersectionObserver" in window) {
     if (!WEB3FORMS_KEY) {
       const body = Object.keys(payload).map(k => k + ": " + payload[k]).join("\n");
       location.href = "mailto:" + FALLBACK_EMAIL +
-        "?subject=" + encodeURIComponent("Vertura enquiry — " + payload.Name) +
+        "?subject=" + encodeURIComponent("Vertura enquiry from " + payload.Name) +
         "&body=" + encodeURIComponent(body);
       return;
     }
@@ -175,7 +183,7 @@ if ("IntersectionObserver" in window) {
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-          subject: "Vertura enquiry — " + payload["Programme of interest"] + " — " + payload.Name,
+          subject: "Vertura enquiry: " + payload["Programme of interest"] + ", from " + payload.Name,
           from_name: "vertura.in enquiry form",
           ...payload
         })
@@ -193,10 +201,10 @@ if ("IntersectionObserver" in window) {
       form.reset();
       fill(who.value);
       status.className = "formstatus ok";
-      status.textContent = "Thank you — that reached us. We reply from info@vertura.in, usually within two working days.";
+      status.textContent = "Thank you, that reached us. We reply from info@vertura.in, usually within two working days.";
     } catch (err) {
       status.className = "formstatus bad";
-      status.innerHTML = "That didn't send. Please email <a style=\"color:#E7B23C\" href=\"mailto:" +
+      status.innerHTML = "Sorry, that didn't send. Please email <a style=\"color:#E7B23C\" href=\"mailto:" +
         FALLBACK_EMAIL + "\">" + FALLBACK_EMAIL + "</a> or message us on WhatsApp and we'll pick it up.";
     } finally {
       submit.disabled = false;

@@ -7,19 +7,19 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <title>
-      Vertura AI Labs — A 4-week live AI experience for students aged 13–16
+      Vertura AI Labs | A 4-week live AI experience for students aged 13 to 16
     </title>
     <meta
       name="description"
-      content="Vertura AI Labs is a 4-week live online experience where students aged 13–16 think, research, create, build and solve with AI. Twice a week. Next cohort coming soon."
+      content="Vertura AI Labs is a 4-week live online experience where students aged 13 to 16 think, research, create, build and solve with AI. Twice a week. Next cohort coming soon."
     />
     <meta
       property="og:title"
-      content="Vertura AI Labs — a 4-week live AI experience for ages 13–16"
+      content="Vertura AI Labs | A 4-week live AI experience for ages 13 to 16"
     />
     <meta
       property="og:description"
-      content="Students don't just learn about AI — they think, research, create, build and solve with it. Twice a week, live online. Next cohort coming soon."
+      content="Students don't just learn about AI. They think, research, create, build and solve with it. Twice a week, live online. Next cohort coming soon."
     />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="The Vertura Academy" />
@@ -49,7 +49,7 @@
         "@context": "https://schema.org",
         "@type": "Course",
         "name": "Vertura AI Labs",
-        "description": "A 4-week live online AI experience for students aged 13-16. Students think, research, create, build and solve with AI, ending in a final showcase.",
+        "description": "A 4-week live online AI experience for students aged 13 to 16. Students think, research, create, build and solve with AI, ending in a final showcase.",
         "provider": {
           "@type": "Organization",
           "name": "The Vertura Academy",
@@ -65,7 +65,7 @@
     </script>
     <style>
       /* ============================================================
-   VERTURA AI LABS — campaign landing page
+   VERTURA AI LABS: campaign landing page
    Palette and type inherit the AI Labs poster:
    midnight navy ground, electric blue network, gold highlights.
    ============================================================ */
@@ -324,7 +324,7 @@
         letter-spacing: 0.3em;
         text-transform: uppercase;
         color: #b9c8df;
-        margin: 0 0 14px;
+        margin: 0 auto 14px;
       }
       .wordmark {
         font-size: clamp(43px, 13.4vw, 124px);
@@ -382,7 +382,7 @@
         width: 100%;
       }
       .scrollhint {
-        margin-top: 38px;
+        margin: 38px auto 0;
         font-size: 12px;
         letter-spacing: 0.22em;
         text-transform: uppercase;
@@ -964,7 +964,7 @@
       .bopt:hover em {
         opacity: 1;
       }
-      /* closed batches — visible but not selectable */
+      /* closed batches: visible but not selectable */
       .bopt[disabled] {
         cursor: not-allowed;
         opacity: 0.45;
@@ -1468,7 +1468,7 @@
         text-transform: uppercase;
         color: var(--text);
       }
-      /* ---------- enrolment closed — CTA slots show a status, not a button ---------- */
+      /* ---------- enrolment closed: CTA slots show a status, not a button ---------- */
       .btn-soon,
       .btn-soon:hover {
         background: rgba(231, 178, 60, 0.08);
@@ -1478,6 +1478,51 @@
         transform: none;
         cursor: default;
         line-height: 1.25;
+      }
+            /* ---------- waitlist form (in the price box while enrolment is closed) ---------- */
+      .waitlist {
+        text-align: left;
+        margin-top: 26px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+      }
+      .waitlist-h {
+        font-family: "Archivo", sans-serif;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-size: 19px;
+        color: #eaf0fa;
+        margin: 0 0 6px;
+        text-align: center;
+      }
+      .waitlist-s {
+        font-size: 15px;
+        color: var(--muted);
+        margin: 0 auto 20px;
+        text-align: center;
+      }
+      .waitlist .pay-note {
+        text-align: center;
+      }
+      .waitlist-done {
+        color: var(--gold-lite);
+        font-size: 16px;
+        text-align: center;
+        margin: 8px auto 0;
+      }
+      .hp {
+        position: absolute;
+        left: -9999px;
+      }
+      /* ---------- page links in the footer ---------- */
+      .foot-pages {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        margin-top: 28px;
+        padding-top: 22px;
+        border-top: 1px solid var(--line);
       }
       @media (min-width: 860px) {
         .hero-cta .btn-soon {
@@ -1535,28 +1580,19 @@
         <p class="presents rise d1">The Vertura Academy presents</p>
         <h1 class="wordmark chrome rise d2">Vertura AI Labs</h1>
         <p class="statement rise d3">
-          Don't just use AI.
-          <span class="gold">Think. Create. Build.</span> with it.
+                    Don't just use AI.
+          <span class="gold">Think, create and build</span> with it.
         </p>
         <p class="hero-copy rise d4">
-          A 4-week live online AI experience where students aged 13–16 don't
-          just learn about AI — they actively explore, create, build and solve
-          with it.
+          A 4-week live online AI experience where students aged 13 to 16 don't just learn about AI. They actively explore, create, build and solve with it.
         </p>
         <ul class="facts rise d5">
           <li>4-week live online experience</li>
-          <li>For students aged 13–16</li>
+          <li>For students aged 13 to 16</li>
           <li>Next cohort coming soon</li>
         </ul>
         <div class="hero-cta rise d6">
-          <button
-            class="btn btn-soon"
-            data-open-form
-            disabled
-            aria-disabled="true"
-          >
-            Next cohort coming soon
-          </button>
+                    <a class="btn btn-gold" href="#waitlist">Join the waitlist</a>
           <a class="btn btn-ghost" href="#outcomes">Explore AI Labs</a>
           <a class="btn btn-ghost" href="#" data-wa="hero">💬 Talk to us</a>
         </div>
@@ -1589,8 +1625,7 @@
             <div class="o-body">
               <div class="o-inner">
                 <p>
-                  Students learn to think critically <em>with</em> AI — treating
-                  it as a thinking partner instead of an answer machine.
+                  Students learn to think critically <em>with</em> AI, treating it as a thinking partner instead of an answer machine.
                 </p>
                 <ul>
                   <li>Asking better questions</li>
@@ -1720,15 +1755,8 @@
         <div class="band">
           <b class="gold">Minimum theory. Maximum hands-on.</b>
         </div>
-        <div class="band-cta">
-          <button
-            class="btn btn-soon"
-            data-open-form
-            disabled
-            aria-disabled="true"
-          >
-            Next cohort coming soon
-          </button>
+                <div class="band-cta">
+          <a class="btn btn-gold" href="#waitlist">Join the waitlist</a>
         </div>
       </div>
     </section>
@@ -1746,7 +1774,7 @@
             <span class="dot"><i></i></span>
             <div>
               <h3>Learn</h3>
-              <p>A short, sharp idea — then straight into the work.</p>
+              <p>A short, sharp idea, then straight into the work.</p>
             </div>
           </li>
           <li class="step">
@@ -1796,9 +1824,7 @@
           <span class="gold">showcase</span>.
         </h2>
         <p class="lede" style="margin-top: 24px; max-width: 48ch">
-          At the end of the four weeks, every student gets the chance to present
-          what they explored, created and built — and to explain how they got
-          there.
+          At the end of the four weeks, every student gets the chance to present what they explored, created and built, and to explain how they got there.
         </p>
         <p class="muted" style="max-width: 46ch; margin-inline: auto">
           For most students, it's the first time they've stood up and defended
@@ -1883,14 +1909,12 @@
               it.
             </p>
             <p>
-              The Vertura Academy builds programs that sit alongside academics —
-              not against them — and give students room to work on the things a
-              report card has never measured.
+              The Vertura Academy builds programmes that sit alongside academics, not against them, and give students room to work on the things a report card has never measured.
             </p>
           </div>
           <div>
             <p style="margin-bottom: 14px; color: #c6d3e6">
-              Every Vertura program is designed to help students:
+              Every Vertura programme is designed to help students:
             </p>
             <div class="pill-row">
               <span>Think differently</span><span>Explore ideas</span
@@ -1926,20 +1950,16 @@
             <p class="founder-name">Sneh Shah</p>
             <p class="founder-role">Founder, The Vertura Academy</p>
             <p>
-              Vertura was created with a simple belief — young people deserve
-              opportunities to explore the world beyond textbooks.
+              Vertura was created with a simple belief: young people deserve opportunities to explore the world beyond textbooks.
             </p>
             <p>
               AI Labs isn't designed to turn students into AI experts overnight.
               It's designed to help them understand, question and create with
-              one of the most transformative technologies shaping their
-              generation — while they're still young enough to be curious about
-              it rather than intimidated by it.
+              one of the most transformative technologies shaping their generation, while they're still young enough to be curious about it rather than intimidated by it.
             </p>
             <p class="muted" style="font-size: 15.5px">
               If you'd like to speak to someone before enrolling your child,
-              message us on WhatsApp — we'd rather have the conversation than
-              have you guess.
+              message us on WhatsApp. We'd be happy to talk it through and answer your questions.
             </p>
             <div class="sig">
               <a
@@ -1969,7 +1989,7 @@
         <dl class="spec">
           <div>
             <dt>Age group</dt>
-            <dd>13–16 years</dd>
+            <dd>13 to 16 years</dd>
           </div>
           <div>
             <dt>Format</dt>
@@ -2017,8 +2037,8 @@
         </p>
         <div class="bgrid">
           <div class="bcard bcard--closed">
-            <span class="bage">Age 13–14</span>
-            <p class="btime">4:00 PM – 5:00 PM IST</p>
+            <span class="bage">Age 13 to 14</span>
+            <p class="btime">4:00 PM to 5:00 PM IST</p>
             <p class="bhint closed">Next cohort coming soon</p>
             <div class="bopts">
               <button
@@ -2051,8 +2071,8 @@
             </div>
           </div>
           <div class="bcard bcard--closed">
-            <span class="bage">Age 15–16</span>
-            <p class="btime">5:30 PM – 6:30 PM IST</p>
+            <span class="bage">Age 15 to 16</span>
+            <p class="btime">5:30 PM to 6:30 PM IST</p>
             <p class="bhint closed">Next cohort coming soon</p>
             <div class="bopts">
               <button
@@ -2128,8 +2148,7 @@
               <p>
                 Every session is recorded. If your child misses one, the
                 recording is shared with enrolled parents so they can catch up
-                before the next session. Because the program is hands-on, we'll
-                also flag anything they need to complete to stay with the group.
+                before the next session. Because the programme is hands-on, we'll also let you know about anything they need to complete to keep up with the group.
               </p>
             </div>
           </details>
@@ -2137,8 +2156,7 @@
             <summary>Will students receive a certificate?</summary>
             <div class="a">
               <p>
-                Yes. Students who complete the program receive a Certificate of
-                Completion from The Vertura Academy.
+                Yes. Students who complete the programme receive a Certificate of Completion from The Vertura Academy.
               </p>
             </div>
           </details>
@@ -2157,7 +2175,7 @@
             <div class="a">
               <p>
                 Two sessions a week, for four weeks. Each session is one hour,
-                on the two days you choose at enrollment.
+                on the two days you choose at enrolment.
               </p>
             </div>
           </details>
@@ -2198,18 +2216,48 @@
         <div class="pricebox">
           <p class="price-old">₹1,999 <span class="off">50% off</span></p>
           <p class="price-now gold">₹999</p>
-          <p class="price-note">Complete 4-week program</p>
-          <div class="final-cta">
-            <button
-              class="btn btn-soon"
-              data-open-form
-              disabled
-              aria-disabled="true"
-            >
-              Next cohort coming soon
+                    <p class="price-note">Complete 4-week programme</p>
+          <form class="waitlist" id="waitlist" novalidate>
+            <p class="waitlist-h">Join the waitlist</p>
+            <p class="waitlist-s">
+              Leave your details and we'll message you on WhatsApp as soon as
+              the next cohort opens.
+            </p>
+            <input
+              type="text"
+              name="botcheck"
+              class="hp"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+            <label for="wname">Parent's name</label>
+            <input id="wname" autocomplete="name" placeholder="Full name" />
+            <label for="wphone">WhatsApp number</label>
+            <input
+              id="wphone"
+              type="tel"
+              inputmode="numeric"
+              autocomplete="tel"
+              placeholder="10-digit mobile number"
+            />
+            <label for="wage">Child's age</label>
+            <select id="wage">
+              <option value="">Select age</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+            </select>
+            <p class="err" id="werr">
+              Please add your name, a valid WhatsApp number and your child's
+              age.
+            </p>
+            <button class="btn btn-gold btn-wide" type="submit" id="wsubmit">
+              Join the waitlist
             </button>
-          </div>
-          <p class="pay-note">Next cohort coming soon.</p>
+            <p class="pay-note">We only use your number to tell you when enrolment opens.</p>
+          </form>
         </div>
         <div class="final-cta">
           <a class="btn btn-ghost" href="#" data-wa="final"
@@ -2247,17 +2295,26 @@
             target="_blank"
             rel="noopener"
             >LinkedIn</a
-          >
+                    >
         </div>
       </div>
+      <nav class="shell foot-pages" aria-label="Site pages">
+        <a href="/">Home</a>
+        <a href="/schools/">Vertura for Schools</a>
+        <a href="/foundation/">Foundation Programme</a>
+        <a href="/ai-labs/">Vertura AI Labs</a>
+        <a href="/corporate/">Corporate AI training</a>
+        <a href="/partnerships/">Partnerships</a>
+        <a href="/gallery/">Gallery</a>
+        <a href="/founder/">Founder</a>
+        <a href="/contact/">Get in touch</a>
+      </nav>
     </footer>
 
     <!-- sticky mobile CTA -->
     <div class="sticky" id="sticky">
       <a class="btn btn-ghost" href="#" data-wa="sticky">💬 Ask us</a>
-      <button class="btn btn-soon" data-open-form disabled aria-disabled="true">
-        Next cohort coming soon
-      </button>
+            <a class="btn btn-gold" href="#waitlist">Join the waitlist</a>
     </div>
 
     <!-- ============ REGISTRATION ============ -->
@@ -2270,7 +2327,7 @@
     >
       <div class="sheet">
         <div class="sheet-top">
-          <b id="mtitle">Enroll in Vertura AI Labs</b>
+          <b id="mtitle">Enrol in Vertura AI Labs</b>
           <button class="x" id="close" aria-label="Close">×</button>
         </div>
         <div class="prog" id="prog">
@@ -2288,8 +2345,8 @@
             <option value="">Select age</option>
             <option value="13">13</option>
             <option value="14">14</option>
-            <option value="15" disabled>15 — not open this cohort</option>
-            <option value="16" disabled>16 — not open this cohort</option>
+            <option value="15" disabled>15 (not open this cohort)</option>
+            <option value="16" disabled>16 (not open this cohort)</option>
           </select>
           <p class="err" id="e1">Add the student's name and age to continue.</p>
           <button class="btn btn-blue btn-wide" data-next>Continue</button>
@@ -2315,7 +2372,7 @@
             placeholder="you@email.com"
           />
           <p class="err" id="e2">
-            Check the details above — we need a valid WhatsApp number and email.
+            Please check the details above. We need a valid WhatsApp number and email address.
           </p>
           <button class="btn btn-blue btn-wide" data-next>Continue</button>
           <button class="back" data-back>Back</button>
@@ -2378,11 +2435,11 @@
         <!-- success -->
         <div class="pane done" data-step="5" hidden>
           <h3 class="gold">🎉 Welcome to Vertura AI Labs.</h3>
-          <p class="muted">Your child's enrollment is confirmed.</p>
+          <p class="muted">Your child's enrolment is confirmed.</p>
           <ul>
             <li><b>✓</b> Batch confirmation</li>
             <li><b>✓</b> Joining instructions</li>
-            <li><b>✓</b> Program onboarding details</li>
+            <li><b>✓</b> Programme onboarding details</li>
             <li><b>✓</b> Parent communication updates</li>
           </ul>
           <p class="muted" style="font-size: 15px">
@@ -2403,7 +2460,7 @@
     <script src="/nav.js" defer></script>
     <script>
       /* ============================================================
-   CONFIGURE THIS BEFORE GOING LIVE — see the setup notes
+   CONFIGURE THIS BEFORE GOING LIVE: see the setup notes
    ============================================================ */
       const VERTURA = {
         whatsapp: "919022317329", // full number with country code
@@ -2414,13 +2471,14 @@
         razorpayKey: "rzp_live_TX868AtqTqjKyr", // Razorpay key_id
         checkoutConfigId: "config_TX7qxCo5LL76hG", // optional: saved payment configuration id (config_...)
         orderEndpoint: "", // optional: server URL returning {id} for a Razorpay order
-        communityLink: "", // WhatsApp parent-community invite link
+                communityLink: "", // WhatsApp parent-community invite link
+        waitlistEmailKey: "51329b09-c18c-45fe-b5be-4c16c6a902df", // Web3Forms key that emails you each waitlist sign-up (same key as the main site)
         amount: 999,
       };
 
       /* ---------- WhatsApp links ---------- */
       const WA_MSG = {
-        hero: "Hi! I'm interested in Vertura AI Labs for my child and would like to understand the program better.",
+        hero: "Hi! I'm interested in Vertura AI Labs for my child and would like to understand the programme better.",
         founder:
           "Hi Sneh! I'd like to understand Vertura AI Labs better before enrolling my child.",
         final:
@@ -2497,9 +2555,14 @@
           }
           if (!reduce) raf = requestAnimationFrame(draw);
         }
-        size();
+                size();
         draw();
+        /* phones fire "resize" when the address bar hides on scroll; only
+           rebuild the network when the width really changes */
+        let lastW = innerWidth;
         addEventListener("resize", () => {
+          if (innerWidth === lastW) return;
+          lastW = innerWidth;
           cancelAnimationFrame(raf);
           size();
           draw();
@@ -2566,16 +2629,20 @@
       const data = { batch: "" };
 
       /* ---------- enrolment switch ----------
-         No batch is open, so the form cannot be opened from anywhere —
+         No batch is open, so the form cannot be opened from anywhere : 
          not the buttons, not old ?enroll=1 links from other pages.
+                  While it is closed, parents can join the waitlist (#waitlist).
          TO REOPEN:
            1. List the open schedules in OPEN_BATCHES, e.g.
               { "13-14": ["Monday & Wednesday"] }
            2. Set COHORT_START to the new start date.
            3. In the HTML, remove `disabled aria-disabled="true"` from those
               batch buttons (section 12 and the form's #pick list), and turn
-              the four "Next cohort coming soon" buttons back into
-              <button class="btn btn-gold" data-open-form>🚀 Enroll now</button>. */
+              the three "Join the waitlist" links (hero, outcomes, sticky bar)
+              back into
+              <button class="btn btn-gold" data-open-form>🚀 Enrol now</button>.
+           4. In the price box, swap the waitlist form for
+              <div class="final-cta"><button class="btn btn-gold" data-open-form>🚀 Enrol now</button></div>. */
       const OPEN_BATCHES = {};
       const COHORT_START = "Next cohort coming soon";
       const ENROLMENT_OPEN = Object.keys(OPEN_BATCHES).some(
@@ -2629,8 +2696,8 @@
       });
 
       const timings = {
-        "13-14": "4:00 PM – 5:00 PM IST",
-        "15-16": "5:30 PM – 6:30 PM IST",
+                "13-14": "4:00 PM to 5:00 PM IST",
+        "15-16": "5:30 PM to 6:30 PM IST",
       };
       function ageBand(age) {
         return +age <= 14 ? "13-14" : "15-16";
@@ -2698,7 +2765,7 @@
               row("Timing", timings[data.band]) +
               row("Starts", COHORT_START) +
               row(
-                "Program fee",
+                                "Programme fee",
                 '<s style="color:#7386A3">₹1,999</s> &nbsp; ₹999',
                 true,
               );
@@ -2753,7 +2820,7 @@
           location.hash === "#enroll-now";
         if (!wantsForm) return;
 
-        /* age — accepts 13-14, 15-16, or a plain 13/14/15/16.
+        /* age: accepts 13-14, 15-16, or a plain 13/14/15/16.
            Bands with no open batch are ignored, so an older link that says
            age=15-16 simply opens the form on step 1 instead of dead-ending. */
         const ageParam = (q.get("age") || "").trim();
@@ -2774,7 +2841,7 @@
           }
         }
 
-        /* batch — accepts mon-wed, tue-fri, thu-sat.
+        /* batch: accepts mon-wed, tue-fri, thu-sat.
            Closed schedules are ignored for the same reason. */
         const batchMap = {
           "mon-wed": "Monday & Wednesday",
@@ -2802,9 +2869,11 @@
       /* ============================================================
    EVERY RECORD GOES TO TWO PLACES: your inbox and your sheet.
    status tells you what happened:
-     Started checkout  — details filled, payment not attempted yet
-     PAID              — payment succeeded
-     PAYMENT FAILED    — gateway error / payment declined / closed
+          WAITLIST           : joined the waitlist while enrolment was closed
+     Started checkout   : details filled, payment not attempted yet
+     PAID               : payment succeeded
+     PAYMENT FAILED     : gateway error or payment declined
+     PAYMENT CANCELLED  : parent closed the payment window before paying
    ============================================================ */
       function pushRecord(status, note) {
         const rec = {
@@ -2828,10 +2897,10 @@
           at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
         };
 
-        /* Email you ONLY for outcomes that need action — PAID and PAYMENT FAILED.
+                /* Email you ONLY for outcomes that need action: PAID, PAYMENT FAILED and PAYMENT CANCELLED.
      The in-between statuses go to the sheet only, so the Web3Forms free tier
      (250 submissions a month) covers ~250 parents instead of ~65. */
-        const EMAIL_ME_FOR = ["PAID", "PAYMENT FAILED"];
+                const EMAIL_ME_FOR = ["PAID", "PAYMENT FAILED", "PAYMENT CANCELLED"];
         if (VERTURA.web3formsKey && EMAIL_ME_FOR.indexOf(status) !== -1) {
           fetch("https://api.web3forms.com/submit", {
             method: "POST",
@@ -2842,9 +2911,9 @@
             body: JSON.stringify({
               access_key: VERTURA.web3formsKey,
               subject:
-                "AI Labs — " +
+                                "AI Labs: " +
                 status +
-                " — " +
+                ", " +
                 (rec.student || "unknown student"),
               from_name: "Vertura AI Labs website",
               ...rec,
@@ -2880,7 +2949,7 @@
           VERTURA.whatsapp +
           "?text=" +
           encodeURIComponent(
-            "Hi! I tried to enroll " +
+                        "Hi! I tried to enrol " +
               (data.student || "my child") +
               " in Vertura AI Labs but the payment didn't go through. Ref " +
               data.ref,
@@ -2892,13 +2961,32 @@
         pushRecord("PAYMENT FAILED", reason);
       }
 
+            /* shown when the parent closes the payment window without paying */
+      function payCancelled() {
+        const box = document.getElementById("payerr");
+        box.hidden = false;
+        box.innerHTML =
+          "<b>Payment not completed.</b> The payment window was closed before the payment went through. Your details are saved, so you can try again whenever you're ready, or " +
+          '<a href="https://wa.me/' +
+          VERTURA.whatsapp +
+          "?text=" +
+          encodeURIComponent(
+            "Hi! I started enrolling " +
+              (data.student || "my child") +
+              " in Vertura AI Labs and have a question before paying. Ref " +
+              data.ref,
+          ) +
+          '" target="_blank" rel="noopener">message us on WhatsApp</a> if you have any questions.';
+        pushRecord("PAYMENT CANCELLED", "Parent closed the payment window before paying");
+      }
+
       /* ---------- payment ---------- */
       let payAttempted = false;
       document.getElementById("pay").addEventListener("click", async () => {
         const btn = document.getElementById("pay");
         document.getElementById("payerr").hidden = true;
 
-        /* Save the record the moment they commit to paying — before anything can go wrong. */
+                /* Save the record the moment they commit to paying, before anything can go wrong. */
         pushRecord("Payment started", "Clicked proceed to payment");
 
         /* Gateway not configured, or the Razorpay script never loaded. */
@@ -2936,7 +3024,7 @@
             amount: VERTURA.amount * 100,
             currency: "INR",
             name: "The Vertura Academy",
-            description: "Vertura AI Labs — 4-week live online experience",
+                        description: "Vertura AI Labs, 4-week live online experience",
             order_id: order.id,
             checkout_config_id: VERTURA.checkoutConfigId || undefined,
             prefill: {
@@ -2961,8 +3049,7 @@
               ondismiss: function () {
                 btn.disabled = false;
                 btn.textContent = "Proceed to payment";
-                if (!payAttempted)
-                  payFailed("Parent closed the payment window before paying");
+                                if (!payAttempted) payCancelled();
               },
             },
           });
@@ -2994,8 +3081,72 @@
           }
           this.href = VERTURA.communityLink;
         });
+    
+      /* ---------- waitlist (while enrolment is closed) ----------
+         Each sign-up goes to your Google Sheet with status WAITLIST, and is
+         emailed to you through Web3Forms. */
+      (function () {
+        const form = document.getElementById("waitlist");
+        if (!form) return;
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (form.botcheck && form.botcheck.value) return;
+          const name = document.getElementById("wname").value.trim();
+          const phone = document.getElementById("wphone").value.replace(/\D/g, "");
+          const age = document.getElementById("wage").value;
+          const ok = name.length >= 2 && phone.length >= 10 && phone.length <= 12 && !!age;
+          err("werr", !ok);
+          if (!ok) return;
+
+          const rec = {
+            ref: "VAL-W-" + Date.now().toString(36).toUpperCase().slice(-6),
+            status: "WAITLIST",
+            note: "Joined the waitlist",
+            program: "Vertura AI Labs",
+            student: "",
+            age: age,
+            parent: name,
+            phone: phone,
+            email: "",
+            batch: "",
+            timing: "",
+            source:
+              data.src ||
+              (document.referrer
+                ? document.referrer.replace(/^https?:\/\//, "").split("?")[0]
+                : "direct"),
+            amount: "",
+            at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+          };
+          if (VERTURA.googleScriptUrl) {
+            fetch(VERTURA.googleScriptUrl, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(rec),
+            }).catch(() => {});
+          }
+          if (VERTURA.waitlistEmailKey) {
+            fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify({
+                access_key: VERTURA.waitlistEmailKey,
+                subject: "AI Labs waitlist: " + name + " (child aged " + age + ")",
+                from_name: "Vertura AI Labs website",
+                ...rec,
+              }),
+            }).catch(() => {});
+          }
+          form.innerHTML =
+            '<p class="waitlist-h">You\'re on the list</p>' +
+            '<p class="waitlist-done">Thank you, ' +
+            name.replace(/[<>&"]/g, "") +
+            ". We'll message you on WhatsApp as soon as enrolment for the next cohort opens.</p>";
+        });
+      })();
     </script>
-    <!-- Razorpay checkout — keep this after the config above -->
+    <!-- Razorpay checkout: keep this after the config above -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
     <script

@@ -1,4 +1,4 @@
-/* The Vertura Academy — gallery.js
+/* The Vertura Academy: gallery.js
    Renders /gallery/ from /data/events.json: one block per event, newest
    first, each with its date, place, what happened when, and its photos.
 
@@ -45,7 +45,7 @@
   function dateLabel(e) {
     var a = parse(e.date), b = parse(e.endDate);
     if (!a) return "Date to be added";
-    return b && b > a ? fmt(a) + " – " + fmt(b) : fmt(a);
+    return b && b > a ? fmt(a) + " to " + fmt(b) : fmt(a);
   }
 
   /* ---------- lightbox (one per page, reused for every event) ---------- */

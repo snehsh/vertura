@@ -1,4 +1,4 @@
-/* The Vertura Academy — partners.js
+/* The Vertura Academy: partners.js
    Renders the partner-school cards on /partnerships/ from /data/partners.json.
    Edit that file to add a school; this file does not need to change.
 
@@ -8,7 +8,8 @@
        "logo": "/assets/partners/school.png",
        "website": "https://school.example",
        "since": "2026",                  year or "Sept 2026"
-       "grades": "Grades 5–10",
+       "grades": "Grades 5 to 10",
+       "students": "300+",               optional: shown as "300+ students taking part"
        "verticals": ["Communication", "Leadership"],
        "note": "One line about the partnership.",
        "gallery": "event-slug"           optional: links to that event on /gallery/
@@ -69,6 +70,7 @@
       h("div", { class: "pt__body" }, [
         h("h3", { class: "pt__name", text: s.name }),
         meta ? h("p", { class: "pt__meta", text: meta }) : null,
+        s.students ? h("p", { class: "pt__stat" }, [h("b", { text: String(s.students) }), " students taking part"]) : null,
         tags.length ? h("ul", { class: "pt__tags", "aria-label": "Verticals running" }, tags.map(function (t) { return h("li", { text: t }); })) : null,
         s.note ? h("p", { class: "pt__note", text: s.note }) : null,
         links.length ? h("div", { class: "pt__links" }, links) : null

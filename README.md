@@ -1,4 +1,4 @@
-# The Vertura Academy — vertura.in
+# The Vertura Academy: vertura.in
 
 Static site, served from the repo root (GitHub Pages). No build step.
 
@@ -19,7 +19,7 @@ Static site, served from the repo root (GitHub Pages). No build step.
 
 Shared files: `vertura.css` (site), `nav.css` + `nav.js` (menu; used by every page including AI Labs), `vertura.js` (hero animation + enquiry form), `partners.js` (Partnerships page), `gallery.js` (Gallery page).
 
-## Partnerships — `data/partners.json`
+## Partnerships: `data/partners.json`
 
 Add one object per school to `schools`. Only `name` is required; leave out anything you don't want shown.
 
@@ -31,7 +31,8 @@ Add one object per school to `schools`. Only `name` is required; leave out anyth
   "logo": "/assets/partners/example.png",
   "website": "https://example.com",
   "since": "2026",
-  "grades": "Grades 5–10",
+  "grades": "Grades 5 to 10",
+  "students": "300+",
   "verticals": ["Communication", "Leadership"],
   "note": "One line about the partnership.",
   "gallery": "example-event"
@@ -39,10 +40,11 @@ Add one object per school to `schools`. Only `name` is required; leave out anyth
 ```
 
 - Put logos in `assets/partners/`. A school with no logo gets a tile with its initials.
+- `students` is optional: give it a number such as `"300+"` and the card shows "300+ students taking part".
 - `gallery` is optional: give it an event's `slug` (below) and the card gets a "See the photos" link to that event.
 - The "Partner schools" count in the page header appears by itself once there is at least one school.
 
-## Gallery — `data/events.json`
+## Gallery: `data/events.json`
 
 One block per event, newest first, each showing its date, place, a timeline of what happened when and where, and its photos. Visitors can filter by `category` and flip the order.
 

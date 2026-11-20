@@ -7,7 +7,7 @@
  * Run from the repo root:   node tools/build-gallery.mjs
  *
  *  - One folder per event; the folder name is the event's "slug" in events.json.
- *  - A folder with no matching event gets a starter entry (no date yet) — open
+ *  - A folder with no matching event gets a starter entry (no date yet): open
  *    data/events.json and fill in the title, date, location, summary and timeline.
  *  - Everything you typed (titles, timelines, photo captions and alt text) is kept.
  *    Only the list of photos is refreshed: new files are added at the end, files
@@ -24,7 +24,7 @@ const OK = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"]);
 const titleCase = (s) =>
   s.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ").trim().replace(/\b\w/g, (c) => c.toUpperCase());
 
-if (!existsSync(DIR)) { console.error(`No ${DIR} folder — run this from the repo root.`); process.exit(1); }
+if (!existsSync(DIR)) { console.error(`No ${DIR} folder: run this from the repo root.`); process.exit(1); }
 
 const data = existsSync(OUT) ? JSON.parse(readFileSync(OUT, "utf8")) : {};
 const events = data.events ?? [];

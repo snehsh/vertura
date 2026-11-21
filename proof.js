@@ -1,10 +1,10 @@
 /* The Vertura Academy: proof.js
-   Fills the proof blocks from the same data files the Partnerships and
+   Fills the proof blocks from the same data files the Collaborations and
    Gallery pages use, so they stay up to date on their own:
 
-     [data-proof-stats]     numbers row (partner schools, students, events, places)
-     [data-proof-logos]     "Our partner schools" logo strip
-     [data-leader-quotes]   quotes from school leaders (partners.json "quote")
+     [data-proof-stats]     numbers row (collaborating schools, students, events, places)
+     [data-proof-logos]     "Schools we collaborate with" logo strip
+     [data-leader-quotes]   quotes from school leaders (collaborations.json "quote")
      [data-talks]           talks and recognition (events.json, see TALK_CATEGORIES)
 
    Every block stays hidden until it has something real to show. */
@@ -38,12 +38,12 @@
     return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
   }
 
-  var needsPartners = document.querySelector("[data-proof-stats],[data-proof-logos],[data-leader-quotes]");
+  var needsSchools = document.querySelector("[data-proof-stats],[data-proof-logos],[data-leader-quotes]");
   var needsEvents = document.querySelector("[data-proof-stats],[data-talks]");
-  if (!needsPartners && !needsEvents) return;
+  if (!needsSchools && !needsEvents) return;
 
   Promise.all([
-    needsPartners ? getJSON("/data/partners.json").catch(function () { return {}; }) : {},
+    needsSchools ? getJSON("/data/collaborations.json").catch(function () { return {}; }) : {},
     needsEvents ? getJSON("/data/events.json").catch(function () { return {}; }) : {}
   ]).then(function (res) {
     var schools = ((res[0] && res[0].schools) || []).filter(function (s) { return s && s.name; });
@@ -71,8 +71,8 @@
       var nPlaces = Object.keys(places).length;
 
       var items = [
-        [schools.length, schools.length === 1 ? "partner school" : "partner schools"],
-        [students ? students.toLocaleString("en-IN") + (plus ? "+" : "") : 0, "students in partner schools"],
+        [schools.length, schools.length === 1 ? "collaborating school" : "collaborating schools"],
+        [students ? students.toLocaleString("en-IN") + (plus ? "+" : "") : 0, "students in collaborating schools"],
         [events.length, events.length === 1 ? "event and school visit" : "events and school visits"],
         [nPlaces, nPlaces === 1 ? "town or city" : "towns and cities"]
       ].filter(function (it) { return it[0]; });
@@ -99,7 +99,7 @@
       withLogo.forEach(function (s) {
         var place = [s.city, s.state].filter(Boolean).join(", ");
         list.appendChild(h("li", {}, [
-          h("a", { href: "/partnerships/", class: "proof__logo", title: s.name + (place ? ", " + place : "") }, [
+          h("a", { href: "/collaborations/", class: "proof__logo", title: s.name + (place ? ", " + place : "") }, [
             h("img", { src: localOrHttps(s.logo), alt: s.name, loading: "lazy", width: "120", height: "64" })
           ]),
           h("span", { class: "proof__school", text: s.name })

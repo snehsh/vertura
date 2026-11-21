@@ -10,17 +10,17 @@ Static site, served from the repo root (GitHub Pages). No build step.
 | Foundation | `/foundation/` |
 | AI Labs | `/ai-labs/` |
 | For Business | `/corporate/` |
-| Partnerships | `/partnerships/` |
+| Collaborations | `/collaborations/` |
 | Gallery | `/gallery/` |
 | Sample Growth Index | `/growth-index/` |
 | Founder | `/founder/` |
 | Get in touch | `/contact/` |
 
-`/programs/` and `/programs.html` are forwarding stubs to `/schools/` so old links keep working.
+`/programs/` and `/programs.html` are forwarding stubs to `/schools/`, and `/partnerships/` forwards to `/collaborations/`, so old links keep working.
 
-Shared files: `vertura.css` (site), `nav.css` + `nav.js` (menu; used by every page including AI Labs), `vertura.js` (hero animation + enquiry form), `partners.js` (Partnerships page), `gallery.js` (Gallery page).
+Shared files: `vertura.css` (site), `nav.css` + `nav.js` (menu; used by every page including AI Labs), `vertura.js` (hero animation + enquiry form), `collaborations.js` (Collaborations page), `gallery.js` (Gallery page).
 
-## Partnerships: `data/partners.json`
+## Collaborations: `data/collaborations.json`
 
 Add one object per school to `schools`. Only `name` is required; leave out anything you don't want shown.
 
@@ -29,23 +29,23 @@ Add one object per school to `schools`. Only `name` is required; leave out anyth
   "name": "Example International School",
   "city": "Pune",
   "state": "Maharashtra",
-  "logo": "/assets/partners/example.png",
+  "logo": "/assets/collaborations/example.png",
   "website": "https://example.com",
   "since": "2026",
   "grades": "Grades 5 to 10",
   "students": "300+",
   "verticals": ["Communication", "Leadership"],
-  "note": "One line about the partnership.",
+  "note": "One line about the collaboration.",
   "gallery": "example-event"
 }
 ```
 
-- Put logos in `assets/partners/`. A school with no logo gets a tile with its initials.
+- Put logos in `assets/collaborations/`. A school with no logo gets a tile with its initials.
 - `outcome` is optional: two or three lines on what changed at the school. It shows on the card as "What changed".
 - `quote` and `quoteBy` are optional: a line from the principal and who said it (e.g. `"Name, Principal"`). The quote shows on the card and in "What school leaders say" on the homepage and Schools page. That block stays hidden until at least one school has a quote.
 - `students` is optional: give it a number such as `"300+"` and the card shows "300+ students taking part".
 - `gallery` is optional: give it an event's `slug` (below) and the card gets a "See the photos" link to that event.
-- The "Partner schools" count in the page header appears by itself once there is at least one school.
+- The "Collaborating schools" count in the page header appears by itself once there is at least one school.
 
 ## Gallery: `data/events.json`
 
@@ -80,9 +80,9 @@ Only publish photos of children with a parent's consent.
 
 ## Proof blocks: `proof.js`
 
-The homepage and the Schools page show a numbers row, a partner logo strip and three photos straight after the hero. The numbers and logos are worked out from `data/partners.json` and `data/events.json`, so they update by themselves when you add a school or an event. The three photos are fixed files in `assets/proof/`.
+The homepage and the Schools page show a numbers row, a school logo strip and three photos straight after the hero. The numbers and logos are worked out from `data/collaborations.json` and `data/events.json`, so they update by themselves when you add a school or an event. The three photos are fixed files in `assets/proof/`.
 
-"What school leaders say" appears under the photos as soon as any school in `partners.json` has a `quote` and `quoteBy`.
+"What school leaders say" appears under the photos as soon as any school in `collaborations.json` has a `quote` and `quoteBy`.
 
 ## Sample Growth Index: `/growth-index/`
 
@@ -94,4 +94,4 @@ Each page has its own 1200 by 630 share image in `og/`. Icons: `favicon.ico`, `a
 
 ## Enquiry form
 
-`vertura.js` holds the Web3Forms and SheetDB keys. The form opens on **A school partnership** by default. Links with `?for=parent` or `?program=foundation` / `?program=ai-labs` open it on the parent options. To go back to parent-first, change `let kind = "school";` in `vertura.js` and reorder the `<option>`s in `contact/index.html`.
+`vertura.js` holds the Web3Forms and SheetDB keys. The form opens on **A school collaboration** by default. Links with `?for=parent` or `?program=foundation` / `?program=ai-labs` open it on the parent options. To go back to parent-first, change `let kind = "school";` in `vertura.js` and reorder the `<option>`s in `contact/index.html`.

@@ -1,17 +1,17 @@
-/* The Vertura Academy: partners.js
-   Renders the partner-school cards on /partnerships/ from /data/partners.json.
+/* The Vertura Academy: collaborations.js
+   Renders the collaborating-school cards on /collaborations/ from /data/collaborations.json.
    Edit that file to add a school; this file does not need to change.
 
    { "schools": [ {
        "name": "School name",            required
        "city": "Pune", "state": "Maharashtra",
-       "logo": "/assets/partners/school.png",
+       "logo": "/assets/collaborations/school.png",
        "website": "https://school.example",
        "since": "2026",                  year or "Sept 2026"
        "grades": "Grades 5 to 10",
        "students": "300+",               optional: shown as "300+ students taking part"
        "verticals": ["Communication", "Leadership"],
-              "note": "One line about the partnership.",
+              "note": "One line about the collaboration.",
        "outcome": "What changed, in two or three lines.",   optional: case study
        "quote": "A line from the principal.",                optional: also shown on
        "quoteBy": "Name, Principal",                          the homepage and Schools page
@@ -19,7 +19,7 @@
    } ] }                                                                      */
 (function () {
   "use strict";
-  var root = document.querySelector("[data-partners]");
+  var root = document.querySelector("[data-collaborations]");
   if (!root) return;
 
   function h(tag, attrs, kids) {
@@ -46,10 +46,10 @@
   }
 
   function setCount(n) {
-    document.querySelectorAll("[data-partner-count]").forEach(function (el) {
+    document.querySelectorAll("[data-collab-count]").forEach(function (el) {
       el.textContent = String(n);
-      var stat = el.closest("[data-partner-stat]");
-      if (stat) stat.hidden = n === 0;   /* no "0 partner schools" before any are added */
+      var stat = el.closest("[data-collab-stat]");
+      if (stat) stat.hidden = n === 0;   /* no "0 collaborating schools" before any are added */
     });
   }
 
@@ -83,7 +83,7 @@
     ]);
   }
 
-  fetch("/data/partners.json", { cache: "no-cache" })
+  fetch("/data/collaborations.json", { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
     .then(function (data) {
       var schools = (data.schools || []).filter(function (s) { return s && s.name; });
@@ -91,9 +91,9 @@
       setCount(schools.length);
       if (!schools.length) {
         root.appendChild(h("div", { class: "empty" }, [
-          h("p", { class: "empty__t", text: "Our partner schools will be listed here." }),
+          h("p", { class: "empty__t", text: "Schools we collaborate with will be listed here." }),
           h("p", { class: "empty__b", text: "Want your school to be one of them?" }),
-          h("div", { class: "actions" }, [h("a", { class: "btn btn--primary", href: "/contact/?for=school", text: "Partner your school" })])
+          h("div", { class: "actions" }, [h("a", { class: "btn btn--primary", href: "/contact/?for=school", text: "Collaborate with us" })])
         ]));
         return;
       }
